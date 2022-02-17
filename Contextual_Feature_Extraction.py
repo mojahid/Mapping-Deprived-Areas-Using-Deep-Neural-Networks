@@ -16,7 +16,6 @@ from rasterio.plot import show, show_hist
 # This portion should include the code to generate 100 points for each coordinate from the training data
 
 # The following code can generate 100 points from a given point
-# should be generalized for all points in the "data" dataframe
 # "data" dataframe contains the coordinates from the training data
 data = pd.read_csv("coordinates.csv")
 # create a column and put coordinates in tuple
@@ -25,42 +24,48 @@ data["coords"] = [(x,y) for x, y in zip(data["long"], data["lat"])]
 print(data)
 
 # Coordinate tuple
-x= (3.343333335, 6.402500176)
-
+#x= (3.343333335, 6.402500176)
+coord_lst=[]
+coordinates=data["coords"].tolist()
 # step size ( distance between labels ( 10 pixels) )
-p=0.000833333
+for i in coordinates:
+    p=0.000833333
 
-long_lst=[]
-lat_lst=[]
-long=x[0]
-lat=x[1]
-long_lst.append(long+ (p/20))
-lat_lst.append(lat + (p/20))
+    long_lst=[]
+    lat_lst=[]
+    long=i[0]
+    lat=i[1]
+    long_lst.append(long+ (p/20))
+    lat_lst.append(lat + (p/20))
 
 # create long list
-for i in range(9):
-    new_long= long + p
-    long_lst.append(new_long)
-    long= new_long
+    for v in range(9):
+        new_long= long + p
+        long_lst.append(new_long)
+        long= new_long
 
-print(long_lst)
+#print(long_lst)
 
 # create lat list
-for i in range(9):
-    new_lat= lat + p
-    lat_lst.append(new_lat)
-    lat= new_lat
+    for w in range(9):
+        new_lat= lat + p
+        lat_lst.append(new_lat)
+        lat= new_lat
 
-print(lat_lst)
+#print(lat_lst)
 
 
-print(len(lat_lst))
-print(len(long_lst))
+#print(len(lat_lst))
+#print(len(long_lst))
 
 # generate coordinates
-z = [ (a,b) for a in long_lst for b in lat_lst ]
-print(z)
-print(len(z))
+    z = [ (a,b) for a in long_lst for b in lat_lst ]
+    coord_lst.append(z)
+#print(z)
+    print(len(z))
+
+print(len(coord_lst))
+print(coord_lst[0])
 
 #----------------------------------------------------------------------------------------------------------------
 
