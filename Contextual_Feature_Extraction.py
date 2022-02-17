@@ -19,12 +19,15 @@ from rasterio.plot import show, show_hist
 # should be generalized for all points in the "data" dataframe
 # "data" dataframe contains the coordinates from the training data
 data = pd.read_csv("coordinates.csv")
+# create a column and put coordinates in tuple
 data["coords"] = [(x,y) for x, y in zip(data["long"], data["lat"])]
 
 print(data)
 
+# Coordinate tuple
 x= (3.343333335, 6.402500176)
 
+# step size ( distance between labels ( 10 pixels) )
 p=0.000833333
 
 long_lst=[]
@@ -33,6 +36,8 @@ long=x[0]
 lat=x[1]
 long_lst.append(long+ (p/20))
 lat_lst.append(lat + (p/20))
+
+# create long list
 for i in range(9):
     new_long= long + p
     long_lst.append(new_long)
@@ -40,6 +45,7 @@ for i in range(9):
 
 print(long_lst)
 
+# create lat list
 for i in range(9):
     new_lat= lat + p
     lat_lst.append(new_lat)
@@ -51,6 +57,7 @@ print(lat_lst)
 print(len(lat_lst))
 print(len(long_lst))
 
+# generate coordinates
 z = [ (a,b) for a in long_lst for b in lat_lst ]
 print(z)
 print(len(z))
