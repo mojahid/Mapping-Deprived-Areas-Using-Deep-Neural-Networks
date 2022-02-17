@@ -15,6 +15,9 @@ from rasterio.plot import show, show_hist
 
 # This portion should include the code to generate 100 points for each coordinate from the training data
 
+# The following code can generate 100 points from a given point
+# should be generalized for all points in the "data" dataframe
+# "data" dataframe contains the coordinates from the training data
 data = pd.read_csv("coordinates.csv")
 data["coords"] = [(x,y) for x, y in zip(data["long"], data["lat"])]
 
