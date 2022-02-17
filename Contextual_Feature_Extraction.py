@@ -67,30 +67,34 @@ for i in coordinates:
 print("Number of points per row: ", len(coord_lst[0]))
 print("Total points: " ,len(coord_lst)*100)
 
+coord_final=[]
+for i in coord_lst:
+    for x in i:
+        coord_final.append(x)
 
+print(len(coord_final))
 
+# Dataframe containing all coordinates
+data_2= pd.DataFrame({"Coordinates": coord_final})
+print(data_2)
 #----------------------------------------------------------------------------------------------------------------
 
-# read file that included extracted coordinates , this can be replaced with any coordinates ( the ones generated in previous section)
 
-#data_2 = pd.read_csv("coordinates_fourier.csv") # file that had 65 million rows as an example
-
-# create new column that zips long and lat coordinates into tuples
-#data_2["coords"] = [(x,y) for x, y in zip(data_2["long"], data_2["lat"])]
-
-#print(data_2)
-
+# Example Fourie_sc31_mean
 
 # open tif file
-#src = rasterio.open('fourier_sc31_mean.tif')
+
+src = rasterio.open('fourier_sc31_mean.tif')
 
 
-# Sample the raster at every point location and store values in DataFrame
-#data_2['Raster Value'] = [x for x in src.sample(data_2["coords"])]
+# Sample the raster at every point location and store values in new column
+data_2['Raster Value'] = [x for x in src.sample(data_2["Coordinates"])]
+print(data_2)
 #data_2['Raster Value'] = data_2['Raster Value'].apply(lambda x: x['Raster Value'][0], axis=1)
 
 
 # write dataframe to csv
-#data_2.to_csv('coordinates_fourier_sc31_test3.csv' , index=False)
+data_2.to_csv('coordinates_fourier_sc31_test3.csv' , index=False)
+
 
 
