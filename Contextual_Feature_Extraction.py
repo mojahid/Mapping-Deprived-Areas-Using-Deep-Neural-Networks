@@ -48,7 +48,7 @@ for i in coordinates:
 
 # create lat list
     for w in range(9):
-        new_lat= lat + p
+        new_lat= lat - p
         lat_lst.append(new_lat)
         lat= new_lat
 
@@ -64,8 +64,10 @@ for i in coordinates:
 #print(z)
     print(len(z))
 
-print(len(coord_lst))
-print(coord_lst[0])
+print("Number of points per row: ", len(coord_lst[0]))
+print("Total points: " ,len(coord_lst)*100)
+
+
 
 #----------------------------------------------------------------------------------------------------------------
 
