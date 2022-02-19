@@ -80,21 +80,27 @@ print(data_2)
 #----------------------------------------------------------------------------------------------------------------
 
 
-# Example Fourie_sc31_mean
+directory_in_str= "/home/ubuntu/context/"
 
-# open tif file
+directory = os.fsencode(directory_in_str)
 
-src = rasterio.open('fourier_sc31_mean.tif')
+for file in os.listdir(directory):
+    filename = os.fsdecode(file)
+    if filename.endswith(".tif"):
+        # print(os.path.join(directory, filename))
+        # open tif file
+        src = rasterio.open(filename)
 
 
-# Sample the raster at every point location and store values in new column
-data_2['Raster Value'] = [x for x in src.sample(data_2["Coordinates"])]
-print(data_2)
+# Sample the raster at every point location and store values in DataFrame
+        data_2['Raster Value'] = [x for x in src.sample(data_2["Coordinates"])]
+#print(data_2)
 #data_2['Raster Value'] = data_2['Raster Value'].apply(lambda x: x['Raster Value'][0], axis=1)
 
 
 # write dataframe to csv
-data_2.to_csv('coordinates_fourier_sc31_test3.csv' , index=False)
+        data_2.to_csv('{}.csv' .format(filename), index=False)
+
 
 
 
