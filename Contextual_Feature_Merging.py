@@ -1,6 +1,7 @@
 import pandas as pd
 import os
-
+import warnings
+warnings.filterwarnings('ignore')
 # Read training file
 training_df= pd.read_csv("coordinates.csv")
 
