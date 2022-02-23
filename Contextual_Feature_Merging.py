@@ -37,7 +37,7 @@ directory = os.fsencode(directory_in_str)
 # Looping through directory ( file must be csv)
 for file in os.listdir(directory):
     filename = os.fsdecode(file)
-    if filename.endswith(".csv"):
+    if filename.endswith(".csv") and filename != "coordinates.csv":
 
         # Read contextual feature csv file
         context_df= pd.read_csv(filename)
