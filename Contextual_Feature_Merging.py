@@ -62,5 +62,5 @@ for file in os.listdir(directory):
 
 print(training_df)
 
-
+training_df.to_csv('Contextual_Features.csv' , index=False)
 
