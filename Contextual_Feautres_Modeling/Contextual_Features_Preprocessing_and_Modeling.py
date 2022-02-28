@@ -102,16 +102,16 @@ X_train, X_test, y_train, y_test = train_test_split(X_transformed, y, test_size=
 sc = StandardScaler()
 X_scaled = sc.fit_transform(X)
 sc.fit(X_train)
-X_train_scaled = sc.transform(X_train)
-X_test_scaled = sc.transform(X_test)
+X_train = sc.transform(X_train)
+X_test = sc.transform(X_test)
 
-# Decision Tree model
+# Logistic Regression model
 lr = LogisticRegression(C=1000.0, random_state=0)
-lr.fit(X_train_scaled, y_train)
+lr.fit(X_train, y_train)
 
 # --------------Logistic Regression Predictions-----------------
-lr_pred = lr.predict(X_test_scaled)
-lr_score = lr.predict_proba(X_test_scaled)
+lr_pred = lr.predict(X_test)
+lr_score = lr.predict_proba(X_test)
 
 # Logistic Regression Results
 print("\n")
@@ -123,11 +123,11 @@ print(classification_report(y_test, lr_pred))
 
 # ---------------Gradient Boosting model-------------------
 gb_clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.05)
-gb_clf.fit(X_train_scaled, y_train)
+gb_clf.fit(X_train, y_train)
 
 # Gradient Boosting Predictions
-gb_pred = gb_clf.predict(X_test_scaled)
-gb_score = gb_clf.predict_proba(X_test_scaled)
+gb_pred = gb_clf.predict(X_test)
+gb_score = gb_clf.predict_proba(X_test)
 
 # Gradient Boosting Results
 print("\n")
