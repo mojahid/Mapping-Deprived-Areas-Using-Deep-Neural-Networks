@@ -28,12 +28,12 @@ for index, row in res.iterrows():
     metaData['width'], metaData['height'] = IMAGE_SIZE, IMAGE_SIZE
     metaData['transform'] = rasterio.windows.transform(window, mapData.transform)
 
-    if(row['Label'] == 0):
+    if(row['Label'] == 3):
         newImage =  rasterio.open(BUILTUP_PATH.format(index), 'w', **metaData)
         newImage.write(clip)
     elif(row['Label'] == 1):
         newImage =  rasterio.open(DEPRIVED_PATH.format(index), 'w', **metaData)
         newImage.write(clip)
-    elif(row['Label'] == 2):
+    elif(row['Label'] == 4):
         newImage =  rasterio.open(NONBUILDUP_PATH.format(index), 'w', **metaData)
         newImage.write(clip)
