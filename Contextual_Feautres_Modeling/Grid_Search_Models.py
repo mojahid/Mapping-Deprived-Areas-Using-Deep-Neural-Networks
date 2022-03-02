@@ -1,4 +1,3 @@
-from sklearn.decomposition import TruncatedSVD
 import pandas as pd
 import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix
@@ -75,6 +74,14 @@ parameter_space = {
     'learning_rate': ['constant','adaptive', 'invscaling'],
 }
 
+parameter_space = {
+    'hidden_layer_sizes': [(60,100,60), (100,100,100), (50,100,50)],
+    'activation': ['identity', 'relu', 'logistic', 'tanh'],
+    'solver': ['adam'],
+    'alpha': [0.0001],
+    'learning_rate': ['invscaling'],
+}
+
 # Create network
 clf = MLPClassifier(max_iter=1000000)
 
@@ -102,10 +109,22 @@ parameter_space = {
     'criterion': ['friedman_mse', 'squared_error', 'mse', 'mae'],
     'n_estimators': [100, 200, 50],
     'subsample': [1.0, 0.8, 0.6],
-    "learning_rate": [0.01, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2],
+    "learning_rate": [0.01, 0.025, 0.05],
     "min_samples_split": np.linspace(0.1, 0.5, 12),
     "min_samples_leaf": np.linspace(0.1, 0.5, 12),
     "max_depth": [3, 5, 8],
+    "max_features": ["log2", "sqrt"],
+}
+
+parameter_space = {
+    'loss': ['deviance', 'exponential'],
+    'criterion': ['friedman_mse', 'squared_error', 'mse', 'mae'],
+    'n_estimators': [100],
+    'subsample': [1.0, 0.6],
+    "learning_rate": [0.01, 0.05],
+    "min_samples_split": np.linspace(0.1, 0.5, 3),
+    "min_samples_leaf": np.linspace(0.1, 0.5, 3),
+    "max_depth": [3, 8],
     "max_features": ["log2", "sqrt"],
 }
 
@@ -137,7 +156,7 @@ print('Best parameters found for Gradient Boosting:\n', clf.best_params_)
 parameter_space = {
     'penalty': ['l1', 'l2','elasticnet', 'none'],
     'dual': [True, False],
-    'C': [0.001, 0.01, 0.1, 1, 10, 100, 1000],
+    'C': [0.001, 0.01, 0.1, 1, 10],
     'class_weight': ['dict', 'balanced', None],
     'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']
 }
