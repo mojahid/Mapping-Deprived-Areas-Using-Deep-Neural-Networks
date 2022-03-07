@@ -113,6 +113,7 @@ model.fit(train_x, train_y, epochs=epochs)
 y_pred = model.predict(test_x)
 print(y_pred)
 
+'''
 # Test images
 image = load_img('../data/png_image/1/clipped_232.png', target_size=(10, 10))
 print(image)
@@ -124,3 +125,4 @@ image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
 
 yhat = model.predict(image)
 print(yhat)
+'''
