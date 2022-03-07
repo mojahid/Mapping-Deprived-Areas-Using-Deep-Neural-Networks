@@ -10,6 +10,8 @@ from keras.models import Sequential
 
 from keras.preprocessing.image import load_img
 
+from matplotlib import pyplot
+
 import keras
 import tensorflow as tf
 
@@ -107,11 +109,34 @@ print(model.summary())
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
+
 # train the model with 4 epochs
 model.fit(train_x, train_y, epochs=epochs)
 
+# fit model
+history = model.fit(train_x, train_y, validation_data=(test_x, test_y), epochs=epochs, verbose=0)
+
 y_pred = model.predict(test_x)
 print(y_pred)
+
+
+
+# plot loss during training
+pyplot.subplot(211)
+pyplot.title('Loss')
+pyplot.plot(history.history['loss'], label='train')
+pyplot.plot(history.history['val_loss'], label='test')
+pyplot.legend()
+# plot accuracy during training
+pyplot.subplot(212)
+pyplot.title('Accuracy')
+pyplot.plot(history.history['accuracy'], label='train')
+pyplot.plot(history.history['val_accuracy'], label='test')
+pyplot.legend()
+pyplot.show()
+
+
+
 
 '''
 # Test images
