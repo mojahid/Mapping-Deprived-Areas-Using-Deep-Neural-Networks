@@ -31,7 +31,7 @@ df.insert(0, target,  first_col)
 X = df.values[:, 1:]
 y = df.values[:, 0]
 
-'''
+
 # PCA feature selection
 pca = ['Label',
       'gabor_sc3_filter_13',
@@ -52,7 +52,70 @@ df_pca = df[pca]
 
 X = df_pca.values[:, 1:]
 y = df_pca.values[:, 0]
-'''
+
+# Logistic feature selection
+log = ['Label',
+       'lbpm_sc7_max',
+ 'hog_sc7_max',
+ 'lbpm_sc5_mean',
+ 'lbpm_sc7_mean',
+ 'fourier_sc71_mean',
+ 'pantex_sc7_min',
+ 'lbpm_sc3_kurtosis',
+ 'gabor_sc7_filter_13',
+ 'lbpm_sc7_kurtosis',
+ 'lsr_sc71_line_length',
+ 'sfs_sc31_min_line_length',
+ 'lbpm_sc3_variance',
+ 'lbpm_sc3_skew',
+ 'hog_sc3_skew',
+ 'orb_sc31_max',
+ 'lsr_sc31_line_contrast',
+ 'hog_sc3_kurtosis',
+ 'gabor_sc7_filter_14',
+ 'fourier_sc51_mean',
+ 'sfs_sc51_max_line_length',
+ 'sfs_sc71_mean',
+ 'lbpm_sc3_max',
+ 'hog_sc7_mean',
+ 'sfs_sc71_std',
+ 'hog_sc3_mean',
+ 'gabor_sc7_filter_11',
+ 'fourier_sc71_variance',
+ 'orb_sc71_mean',
+ 'orb_sc51_variance',
+ 'gabor_sc5_filter_13',
+ 'fourier_sc31_variance',
+ 'lbpm_sc7_skew',
+ 'sfs_sc51_w_mean',
+ 'gabor_sc5_filter_8',
+ 'gabor_sc7_filter_6',
+ 'gabor_sc7_filter_8',
+ 'lsr_sc51_line_contrast',
+ 'gabor_sc5_filter_11',
+ 'sfs_sc31_std',
+ 'lsr_sc31_line_length',
+ 'gabor_sc5_filter_6',
+ 'lbpm_sc5_variance',
+ 'gabor_sc3_filter_2',
+ 'sfs_sc51_mean']
+
+df_log = df[log]
+
+X = df_log.values[:, 1:]
+y = df_log.values[:, 0]
+
+# Random Forest feature selection
+rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\random_forest_values.csv')
+rf = ['Label']
+for row in range(50):
+    rf.append(rf_features.iloc[row,0])
+
+df_rf= df[rf]
+
+X = df_rf.values[:, 1:]
+y = df_rf.values[:, 0]
+
 
 # train test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -63,50 +126,12 @@ sc.fit(X_train)
 X_train = sc.transform(X_train)
 X_test = sc.transform(X_test)
 
-
-# -------------------------------------------------------------MLP-------------------------------------------------------------
-# Hyper-parameter space
-parameter_space = {
-    'hidden_layer_sizes': [(60,100,60), (100,100,100), (50,100,50)],
-    'activation': ['identity', 'relu', 'logistic', 'tanh'],
-    'solver': ['sgd', 'adam', 'lbfgs'],
-    'alpha': [0.0001, 0.00001, 0.000001],
-    'learning_rate': ['constant','adaptive', 'invscaling'],
-}
-
-parameter_space = {
-    'hidden_layer_sizes': [(60,100,60), (100,100,100), (50,100,50)],
-    'activation': ['identity', 'relu', 'logistic', 'tanh'],
-    'solver': ['adam'],
-    'alpha': [0.0001],
-    'learning_rate': ['invscaling'],
-}
-
-# Create network
-clf = MLPClassifier(max_iter=1000000)
-
-# Run Gridsearch
-clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
-
-clf.fit(X_train, y_train)
-clf_pred = clf.predict(X_test)
-print("Results Using MLP Best Params & All Features: \n")
-print("Classification Report: ")
-print(classification_report(y_test, clf_pred))
-
-sns.heatmap(confusion_matrix(y_test, clf_pred), annot=True, fmt='d')
-plt.title('MLP')
-plt.show()
-
-# Best parameter set
-print('Best parameters found for MLP:\n', clf.best_params_)
-
 # --------------------------------------------------------Gradient Boosting----------------------------------------------------
 
 # Hyper-parameter space
 parameter_space = {
-    'loss': ['deviance', 'exponential'],
-    'criterion': ['friedman_mse', 'squared_error', 'mse', 'mae'],
+    'loss': ['deviance'],
+    'criterion': ['friedman_mse', 'squared_error', 'mse'],
     'n_estimators': [100, 200, 50],
     'subsample': [1.0, 0.8, 0.6],
     "learning_rate": [0.01, 0.025, 0.05],
@@ -117,8 +142,8 @@ parameter_space = {
 }
 
 parameter_space = {
-    'loss': ['deviance', 'exponential'],
-    'criterion': ['friedman_mse', 'squared_error', 'mse', 'mae'],
+    'loss': ['deviance'],
+    'criterion': ['friedman_mse', 'mse'],
     'n_estimators': [100],
     'subsample': [1.0, 0.6],
     "learning_rate": [0.01, 0.05],
@@ -139,46 +164,12 @@ clf_pred = clf.predict(X_test)
 
 # Gradient Boosting Results
 print("\n")
-print("Results Using Gradient Boosting & All Features: \n")
+print("Results Using Gradient Boosting & RF(Top 50) Features: \n")
 print("Classification Report: ")
 print(classification_report(y_test, clf_pred))
 
 sns.heatmap(confusion_matrix(y_test, clf_pred), annot=True, fmt='d')
-plt.title('Gradient Boosting')
+plt.title('Gradient Boosting: RF(Top 50) Features')
 plt.show()
 
 print('Best parameters found for Gradient Boosting:\n', clf.best_params_)
-
-
-# --------------------------------------------------------Logistic Regression----------------------------------------------------
-
-# Hyper-parameter space
-parameter_space = {
-    'penalty': ['l1', 'l2','elasticnet', 'none'],
-    'dual': [True, False],
-    'C': [0.001, 0.01, 0.1, 1, 10],
-    'class_weight': ['dict', 'balanced', None],
-    'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']
-}
-
-clf = LogisticRegression()
-
-# Run Gridsearch
-clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
-
-# Logistic Regression Predictions
-clf.fit(X_train, y_train)
-clf_pred = clf.predict(X_test)
-
-# Logistic Regression Results
-print("\n")
-print("Results Using Logistic Regression & All Features: \n")
-print("Classification Report: ")
-print(classification_report(y_test, clf_pred))
-
-sns.heatmap(confusion_matrix(y_test, clf_pred), annot=True, fmt='d')
-plt.title('Logistic Regression')
-plt.show()
-
-print('Best parameters found for Logistic Regression:\n', clf.best_params_)
-
