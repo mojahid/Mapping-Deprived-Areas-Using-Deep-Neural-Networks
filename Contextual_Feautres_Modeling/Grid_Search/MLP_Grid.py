@@ -50,8 +50,8 @@ pca = ['Label',
 
 df_pca = df[pca]
 
-X = df_pca.values[:, 1:]
-y = df_pca.values[:, 0]
+#X = df_pca.values[:, 1:]
+#y = df_pca.values[:, 0]
 
 
 # Logistic feature selection
@@ -103,8 +103,8 @@ log = ['Label',
 
 df_log = df[log]
 
-X = df_log.values[:, 1:]
-y = df_log.values[:, 0]
+#X = df_log.values[:, 1:]
+#y = df_log.values[:, 0]
 
 # Random Forest feature selection
 rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\random_forest_values.csv')
@@ -114,18 +114,20 @@ for row in range(50):
 
 df_rf= df[rf]
 
-X = df_rf.values[:, 1:]
-y = df_rf.values[:, 0]
+#X = df_rf.values[:, 1:]
+#y = df_rf.values[:, 0]
 
 
 # train test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.25, random_state=42) # 0.25 x 0.8 = 0.2
 
 # Feature Scaling
 sc = StandardScaler()
 sc.fit(X_train)
 X_train = sc.transform(X_train)
 X_test = sc.transform(X_test)
+X_val = sc.transform(X_val)
 
 
 # -------------------------------------------------------------MLP-------------------------------------------------------------
@@ -154,13 +156,20 @@ clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
 
 clf.fit(X_train, y_train)
 clf_pred = clf.predict(X_test)
-print("Results Using MLP Best Params & RF(Top 50) Features: \n")
+print("Test Results Using MLP Best Params & RF(Top 50) Features: \n")
 print("Classification Report: ")
 print(classification_report(y_test, clf_pred))
 
-sns.heatmap(confusion_matrix(y_test, clf_pred), annot=True, fmt='d')
-plt.title('MLP: RF(Top 50) Features')
-plt.show()
-
 # Best parameter set
 print('Best parameters found for MLP:\n', clf.best_params_)
+
+# Save model
+filename = 'finalized_MLP_model.sav'
+pickle.dump(model, open(filename, 'wb'))
+
+# some time later...
+
+# load the model from disk
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.score(X_test, y_test)
+print(result)
