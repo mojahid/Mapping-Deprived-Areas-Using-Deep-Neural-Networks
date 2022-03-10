@@ -5,20 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73d73ea7-5aa6-4376-9470-0025d392c0dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/scrap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Contextual_Features_Modeling.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Contextual_Features_Modeling.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Contextual_Features_Modeling_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Contextual_Features_Modeling_update.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/MLP_Grid.py" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/MLP_Grid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/Decision_Tree_values.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/Decision_Tree_values.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/Feature _Selection_and_model_testing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/Feature _Selection_and_model_testing.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/best_pca_features.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/best_pca_features.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/best_svm_features.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/best_svm_features.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/random_forest_values.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/feature_selection/random_forest_values.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/Clipping_Images.py" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/Clipping_Images.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/First_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/First_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/mlp_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/mlp_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Data/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Data/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/finalized_MLP_model.sav" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/finalized_MLP_model.sav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,9 +95,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="scrap" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Data-Science-Capstone" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/scrap.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.MLP_Grid" />
+        <item itemvalue="Python.scrap" />
         <item itemvalue="Python.Grid_Search_Models" />
       </list>
     </recent_temporary>
@@ -125,7 +138,7 @@
       <workItem from="1646686091374" duration="274000" />
       <workItem from="1646686426480" duration="218000" />
       <workItem from="1646686652691" duration="4126000" />
-      <workItem from="1646863362070" duration="4624000" />
+      <workItem from="1646863362070" duration="6881000" />
     </task>
     <servers />
   </component>
@@ -145,7 +158,8 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$MLP_Grid.coverage" NAME="MLP_Grid Coverage Results" MODIFIED="1646880018067" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$scrap.coverage" NAME="scrap Coverage Results" MODIFIED="1646885245914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$MLP_Grid.coverage" NAME="MLP_Grid Coverage Results" MODIFIED="1646885395773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Deep_Learning_Models.coverage" NAME="Deep_Learning_Models Coverage Results" MODIFIED="1646085154074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling" />
   </component>
 </project>
