@@ -165,8 +165,12 @@ print(classification_report(y_test, clf_pred))
 # Best parameter set
 print('Best parameters found for MLP:\n', clf.best_params_)
 
-# Save Model
+# Store Model
 model = pickle.dumps(clf)
+
+# Save model
+filename = 'finalized_MLP_model.sav'
+pickle.dump(clf, open(filename, 'wb'))
 
 # Load Model
 loaded_model = pickle.loads(model)
@@ -178,18 +182,4 @@ print("Classification Report: ")
 print(classification_report(y_val, val_pred))
 
 
-
-'''
-# Save model
-filename = 'finalized_MLP_model.sav'
-pickle.dump(clf, open(filename, 'wb'))
-
-# some time later...
-
-# load the model from disk
-
-loaded_model = pickle.load(open(filename, 'rb'))
-result = loaded_model.score(X_val, y_val)
-print(result)
-'''
 
