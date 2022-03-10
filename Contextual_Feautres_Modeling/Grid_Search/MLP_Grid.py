@@ -9,11 +9,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pickle
 import warnings
 warnings.filterwarnings("ignore")
 
 # Read in dataframe and remove merged columns
-df = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Features_final.csv')
+df = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Grid_Search\Contextual_Features_final.csv')
 df = df.drop(columns= ['long_x','lat_x','Label_x','long_y','lat_y','Label_y'])
 cols_to_move = ['lat','long','Label','Point']
 df = df[ cols_to_move + [ col for col in df.columns if col not in cols_to_move ] ]
@@ -107,13 +108,14 @@ df_log = df[log]
 #y = df_log.values[:, 0]
 
 # Random Forest feature selection
-rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\random_forest_values.csv')
+# rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\random_forest_values.csv')
+'''
 rf = ['Label']
 for row in range(50):
     rf.append(rf_features.iloc[row,0])
 
 df_rf= df[rf]
-
+'''
 #X = df_rf.values[:, 1:]
 #y = df_rf.values[:, 0]
 
@@ -156,20 +158,38 @@ clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
 
 clf.fit(X_train, y_train)
 clf_pred = clf.predict(X_test)
-print("Test Results Using MLP Best Params & RF(Top 50) Features: \n")
+print("Test Results Using MLP Best Params & All Features: \n")
 print("Classification Report: ")
 print(classification_report(y_test, clf_pred))
 
 # Best parameter set
 print('Best parameters found for MLP:\n', clf.best_params_)
 
+# Save Model
+model = pickle.dumps(clf)
+
+# Load Model
+loaded_model = pickle.loads(model)
+
+# Predict on validation set
+val_pred = loaded_model.predict(X_val)
+print("Validation Results Using MLP Best Params & All Features: \n")
+print("Classification Report: ")
+print(classification_report(y_val, val_pred))
+
+
+
+'''
 # Save model
 filename = 'finalized_MLP_model.sav'
-pickle.dump(model, open(filename, 'wb'))
+pickle.dump(clf, open(filename, 'wb'))
 
 # some time later...
 
 # load the model from disk
+
 loaded_model = pickle.load(open(filename, 'rb'))
-result = loaded_model.score(X_test, y_test)
+result = loaded_model.score(X_val, y_val)
 print(result)
+'''
+
