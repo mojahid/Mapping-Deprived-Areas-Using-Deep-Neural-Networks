@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73d73ea7-5aa6-4376-9470-0025d392c0dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/scrap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/MLP_Grid.py" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/MLP_Grid.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/finalized_MLP_model.sav" beforeDir="false" afterPath="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/finalized_MLP_model.sav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +135,7 @@
       <workItem from="1646686091374" duration="274000" />
       <workItem from="1646686426480" duration="218000" />
       <workItem from="1646686652691" duration="4126000" />
-      <workItem from="1646863362070" duration="6881000" />
+      <workItem from="1646863362070" duration="7058000" />
     </task>
     <servers />
   </component>
