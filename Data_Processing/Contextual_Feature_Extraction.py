@@ -40,7 +40,7 @@ for i in coordinates:
 
 # create long list
     for v in range(9):
-        new_long= long + p
+        new_long= long + (p/10)
         long_lst.append(new_long)
         long= new_long
 
@@ -48,7 +48,7 @@ for i in coordinates:
 
 # create lat list
     for w in range(9):
-        new_lat= lat - p
+        new_lat= lat - (p/10)
         lat_lst.append(new_lat)
         lat= new_lat
 
