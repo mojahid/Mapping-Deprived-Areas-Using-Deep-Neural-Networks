@@ -151,7 +151,7 @@ parameter_space = {
     'alpha': [0.0001],
     'learning_rate': ['invscaling'],
 }
-
+'''
 # Create network
 clf = MLPClassifier(max_iter=1000000)
 
@@ -182,6 +182,13 @@ val_pred = loaded_model.predict(X_val)
 print("Validation Results Using MLP Best Params & All Features: \n")
 print("Classification Report: ")
 print(classification_report(y_val, val_pred))
+'''
+
+# load the model from disk
+filename = 'finalized_MLP_model.sav'
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.score(X_val, y_val)
+print(result)
 
 print('------------------------------Classes 0 & 1 Only------------------------------')
 
@@ -307,7 +314,7 @@ X_train = sc.transform(X_train)
 X_test = sc.transform(X_test)
 X_val = sc.transform(X_val)
 
-
+'''
 # -------------------------------------------------------------MLP-------------------------------------------------------------
 # Hyper-parameter space
 parameter_space = {
@@ -356,6 +363,14 @@ val_pred = loaded_model.predict(X_val)
 print("Validation Results Using MLP Best Params, All Features, Classes 0 & 1: \n")
 print("Classification Report: ")
 print(classification_report(y_val, val_pred))
+
+'''
+
+# load the model from disk
+filename = 'finalized_MLP_model.sav'
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.score(X_val, y_val)
+print(result)
 
 
 
