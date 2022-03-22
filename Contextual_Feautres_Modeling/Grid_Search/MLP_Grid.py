@@ -31,96 +31,47 @@ df.insert(0, target,  first_col)
 # define target and independent features
 
 # full dataset
-X = df.values[:, 1:]
-y = df.values[:, 0]
+# X = df.values[:, 1:]
+# y = df.values[:, 0]
 
 
 # PCA feature selection
-pca = ['Label',
-      'gabor_sc3_filter_13',
-      'sfs_sc71_max_line_length',
-      'hog_sc7_variance',
-      'orb_sc51_max',
-      'lbpm_sc7_variance',
-      'sfs_sc71_min_line_length',
-      'ndvi_sc3_variance',
-      'hog_sc7_kurtosis',
-      'lsr_sc31_line_length',
-      'sfs_sc31_w_mean',
-      'hog_sc7_kurtosis',
-      'orb_sc71_kurtosis',
-      'orb_sc31_kurtosis']
+# pca_features = pd.read_csv(r'C:\Users\brear\OneDrive\Documents\GitHub\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\best_pca_features.csv')
+'''
+pca = ['Label']
+for row in range(50):
+    pca.append(pca_features.iloc[row,0])
 
 df_pca = df[pca]
 
-#X = df_pca.values[:, 1:]
-#y = df_pca.values[:, 0]
-
+X = df_pca.values[:, 1:]
+y = df_pca.values[:, 0]
+'''
 
 # Logistic feature selection
-log = ['Label',
- 'lbpm_sc7_max',
- 'hog_sc7_max',
- 'lbpm_sc5_mean',
- 'lbpm_sc7_mean',
- 'fourier_sc71_mean',
- 'pantex_sc7_min',
- 'lbpm_sc3_kurtosis',
- 'gabor_sc7_filter_13',
- 'lbpm_sc7_kurtosis',
- 'lsr_sc71_line_length',
- 'sfs_sc31_min_line_length',
- 'lbpm_sc3_variance',
- 'lbpm_sc3_skew',
- 'hog_sc3_skew',
- 'orb_sc31_max',
- 'lsr_sc31_line_contrast',
- 'hog_sc3_kurtosis',
- 'gabor_sc7_filter_14',
- 'fourier_sc51_mean',
- 'sfs_sc51_max_line_length',
- 'sfs_sc71_mean',
- 'lbpm_sc3_max',
- 'hog_sc7_mean',
- 'sfs_sc71_std',
- 'hog_sc3_mean',
- 'gabor_sc7_filter_11',
- 'fourier_sc71_variance',
- 'orb_sc71_mean',
- 'orb_sc51_variance',
- 'gabor_sc5_filter_13',
- 'fourier_sc31_variance',
- 'lbpm_sc7_skew',
- 'sfs_sc51_w_mean',
- 'gabor_sc5_filter_8',
- 'gabor_sc7_filter_6',
- 'gabor_sc7_filter_8',
- 'lsr_sc51_line_contrast',
- 'gabor_sc5_filter_11',
- 'sfs_sc31_std',
- 'lsr_sc31_line_length',
- 'gabor_sc5_filter_6',
- 'lbpm_sc5_variance',
- 'gabor_sc3_filter_2',
- 'sfs_sc51_mean']
+log_features = pd.read_csv(r'C:\Users\brear\OneDrive\Documents\GitHub\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\logistic_feature_importance.csv')
 
-df_log = df[log]
+log = ['Label']
+for row in range(50):
+    log.append(log_features.iloc[row,0])
 
-#X = df_log.values[:, 1:]
-#y = df_log.values[:, 0]
+df_log= df[log]
+
+X = df_log.values[:, 1:]
+y = df_log.values[:, 0]
 
 # Random Forest feature selection
-# rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\random_forest_values.csv')
+# rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Documents\GitHub\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\random_forest_values.csv')
 '''
 rf = ['Label']
 for row in range(50):
     rf.append(rf_features.iloc[row,0])
 
 df_rf= df[rf]
-'''
-#X = df_rf.values[:, 1:]
-#y = df_rf.values[:, 0]
 
+X = df_rf.values[:, 1:]
+y = df_rf.values[:, 0]
+'''
 
 # train test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -159,36 +110,26 @@ clf = MLPClassifier(max_iter=1000000)
 clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
 
 clf.fit(X_train, y_train)
+
 clf_pred = clf.predict(X_test)
-print("Test Results Using MLP Best Params & All Features: \n")
+print("Test Results Using MLP Best Params & Top 50 Log Features: \n")
 print("Classification Report: ")
 print(classification_report(y_test, clf_pred))
 
 # Best parameter set
 print('Best parameters found for MLP:\n', clf.best_params_)
 
-# Store Model
-model = pickle.dumps(clf)
-
 # Save model
-filename = 'finalized_MLP_model.sav'
+filename = 'MLP_model_Top50_Log_Features_AllClasses.sav'
 pickle.dump(clf, open(filename, 'wb'))
-
-# Load Model
-loaded_model = pickle.loads(model)
-
-# Predict on validation set
+'''
+# load the model from disk
+filename = 'MLP_model_Top50_Log_Features_AllClasses.sav'
+loaded_model = pickle.load(open(filename, 'rb'))
 val_pred = loaded_model.predict(X_val)
-print("Validation Results Using MLP Best Params & All Features: \n")
+print("Validation Results Using MLP Best Params, Top 50 Log Features, All Classes: \n")
 print("Classification Report: ")
 print(classification_report(y_val, val_pred))
-'''
-
-# load the model from disk
-filename = 'finalized_MLP_model.sav'
-loaded_model = pickle.load(open(filename, 'rb'))
-result = loaded_model.score(X_val, y_val)
-print(result)
 
 print('------------------------------Classes 0 & 1 Only------------------------------')
 
@@ -212,95 +153,47 @@ df = df[df['Label'].isin([0,1])]
 # define target and independent features
 
 # full dataset
-X = df.values[:, 1:]
-y = df.values[:, 0]
+# X = df.values[:, 1:]
+# y = df.values[:, 0]
 
 
 # PCA feature selection
-pca = ['Label',
-      'gabor_sc3_filter_13',
-      'sfs_sc71_max_line_length',
-      'hog_sc7_variance',
-      'orb_sc51_max',
-      'lbpm_sc7_variance',
-      'sfs_sc71_min_line_length',
-      'ndvi_sc3_variance',
-      'hog_sc7_kurtosis',
-      'lsr_sc31_line_length',
-      'sfs_sc31_w_mean',
-      'hog_sc7_kurtosis',
-      'orb_sc71_kurtosis',
-      'orb_sc31_kurtosis']
+# pca_features = pd.read_csv(r'C:\Users\brear\OneDrive\Documents\GitHub\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\best_pca_features.csv')
+'''
+pca = ['Label']
+for row in range(50):
+    pca.append(pca_features.iloc[row,0])
 
 df_pca = df[pca]
 
-#X = df_pca.values[:, 1:]
-#y = df_pca.values[:, 0]
-
+X = df_pca.values[:, 1:]
+y = df_pca.values[:, 0]
+'''
 
 # Logistic feature selection
-log = ['Label',
- 'lbpm_sc7_max',
- 'hog_sc7_max',
- 'lbpm_sc5_mean',
- 'lbpm_sc7_mean',
- 'fourier_sc71_mean',
- 'pantex_sc7_min',
- 'lbpm_sc3_kurtosis',
- 'gabor_sc7_filter_13',
- 'lbpm_sc7_kurtosis',
- 'lsr_sc71_line_length',
- 'sfs_sc31_min_line_length',
- 'lbpm_sc3_variance',
- 'lbpm_sc3_skew',
- 'hog_sc3_skew',
- 'orb_sc31_max',
- 'lsr_sc31_line_contrast',
- 'hog_sc3_kurtosis',
- 'gabor_sc7_filter_14',
- 'fourier_sc51_mean',
- 'sfs_sc51_max_line_length',
- 'sfs_sc71_mean',
- 'lbpm_sc3_max',
- 'hog_sc7_mean',
- 'sfs_sc71_std',
- 'hog_sc3_mean',
- 'gabor_sc7_filter_11',
- 'fourier_sc71_variance',
- 'orb_sc71_mean',
- 'orb_sc51_variance',
- 'gabor_sc5_filter_13',
- 'fourier_sc31_variance',
- 'lbpm_sc7_skew',
- 'sfs_sc51_w_mean',
- 'gabor_sc5_filter_8',
- 'gabor_sc7_filter_6',
- 'gabor_sc7_filter_8',
- 'lsr_sc51_line_contrast',
- 'gabor_sc5_filter_11',
- 'sfs_sc31_std',
- 'lsr_sc31_line_length',
- 'gabor_sc5_filter_6',
- 'lbpm_sc5_variance',
- 'gabor_sc3_filter_2',
- 'sfs_sc51_mean']
+log_features = pd.read_csv(r'C:\Users\brear\OneDrive\Documents\GitHub\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\logistic_feature_importance.csv')
 
-df_log = df[log]
+log = ['Label']
+for row in range(50):
+    log.append(log_features.iloc[row,0])
 
-#X = df_log.values[:, 1:]
-#y = df_log.values[:, 0]
+df_log= df[log]
+
+X = df_log.values[:, 1:]
+y = df_log.values[:, 0]
 
 # Random Forest feature selection
-# rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\random_forest_values.csv')
+# rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Documents\GitHub\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\random_forest_values.csv')
 '''
 rf = ['Label']
 for row in range(50):
     rf.append(rf_features.iloc[row,0])
 
 df_rf= df[rf]
+
+X = df_rf.values[:, 1:]
+y = df_rf.values[:, 0]
 '''
-#X = df_rf.values[:, 1:]
-#y = df_rf.values[:, 0]
 
 
 # train test split
@@ -314,7 +207,7 @@ X_train = sc.transform(X_train)
 X_test = sc.transform(X_test)
 X_val = sc.transform(X_val)
 
-'''
+
 # -------------------------------------------------------------MLP-------------------------------------------------------------
 # Hyper-parameter space
 parameter_space = {
@@ -333,6 +226,7 @@ parameter_space = {
     'learning_rate': ['invscaling'],
 }
 
+'''
 # Create network
 clf = MLPClassifier(max_iter=1000000)
 
@@ -340,37 +234,28 @@ clf = MLPClassifier(max_iter=1000000)
 clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
 
 clf.fit(X_train, y_train)
+
 clf_pred = clf.predict(X_test)
-print("Test Results Using MLP Best Params, All Features, Classes 0 & 1: \n")
+print("Test Results Using MLP Best Params & Top 50 Log Features: \n")
 print("Classification Report: ")
 print(classification_report(y_test, clf_pred))
 
 # Best parameter set
 print('Best parameters found for MLP:\n', clf.best_params_)
 
-# Store Model
-model = pickle.dumps(clf)
-
 # Save model
-filename = 'finalized_MLP_model.sav'
+filename = 'MLP_model_Top50_Log_Features_Classes01.sav'
 pickle.dump(clf, open(filename, 'wb'))
-
-# Load Model
-loaded_model = pickle.loads(model)
-
-# Predict on validation set
-val_pred = loaded_model.predict(X_val)
-print("Validation Results Using MLP Best Params, All Features, Classes 0 & 1: \n")
-print("Classification Report: ")
-print(classification_report(y_val, val_pred))
-
 '''
 
 # load the model from disk
-filename = 'finalized_MLP_model.sav'
+filename = 'MLP_model_Top50_Log_Features_Classes01.sav'
 loaded_model = pickle.load(open(filename, 'rb'))
-result = loaded_model.score(X_val, y_val)
-print(result)
+val_pred = loaded_model.predict(X_val)
+print("Validation Results Using MLP Best Params, Top 50 Log Features, Classes 0 & 1: \n")
+print("Classification Report: ")
+print(classification_report(y_val, val_pred))
+
 
 
 
