@@ -14,20 +14,11 @@ from matplotlib import pyplot
 
 import keras
 import tensorflow as tf
-from keras.layers import Dense
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import f1_score
-from sklearn.metrics import cohen_kappa_score
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import confusion_matrix
-
 
 img_szie = 10
-epochs = 20
+epochs = 4
 
-directory = '../data/images'
+directory = '../data/png_image'
 class_types = os.listdir(directory)
 print(class_types)
 print('Classes found:', len(class_types))
@@ -108,8 +99,6 @@ print(test_y.shape)
 
 model = keras.Sequential([keras.layers.Flatten(input_shape=(10, 10, 3)),
                           keras.layers.Dense(256, activation=tf.nn.tanh),
-                          keras.layers.Dense(50, activation="relu"),
-                          keras.layers.Dropout(0.2),
                           keras.layers.Dense(3, activation=tf.nn.softmax)
                           ])
 
@@ -127,20 +116,12 @@ model.fit(train_x, train_y, epochs=epochs)
 # fit model
 history = model.fit(train_x, train_y, validation_data=(test_x, test_y), epochs=epochs, verbose=0)
 
-# evaluate the model
-print('***** evaluate the model*****')
-train_acc = model.evaluate(train_x, train_y, verbose=0)
-test_acc = model.evaluate(test_x, test_y, verbose=0)
-#print('Train: %.3f, Test: %.3f' % (train_acc, test_acc))
-print(train_acc, test_acc)
-
-# predict the model
-print('***** predict the model*****')
 y_pred = model.predict(test_x)
-print('Predict',y_pred)
+print(y_pred)
+
+
 
 # plot loss during training
-print('***** plot loss during training*****')
 pyplot.subplot(211)
 pyplot.title('Loss')
 pyplot.plot(history.history['loss'], label='train')
@@ -154,10 +135,6 @@ pyplot.plot(history.history['val_accuracy'], label='test')
 pyplot.legend()
 pyplot.show()
 
-# predict probabilities for test set
-yhat_probs = model.predict(test_x, verbose=0)
-# predict crisp classes for test set
-yhat_classes = np.argmax(yhat_probs,axis=1)
 
 
 
