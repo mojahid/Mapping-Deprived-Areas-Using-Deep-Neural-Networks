@@ -78,6 +78,7 @@ print(len(coord_final))
 # Dataframe containing all coordinates
 data_2= pd.DataFrame({"Coordinates": coord_final})
 print(data_2)
+data_2.to_csv('contextual_coordinates.csv' , index=False)
 #----------------------------------------------------------------------------------------------------------------
 
 
