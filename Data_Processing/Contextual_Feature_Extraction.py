@@ -39,6 +39,9 @@ for i in coordinates:
     long_lst.append(long+ (p/20))
     lat_lst.append(lat - (p/20))
 
+    long = long + (p / 20)
+    lat = lat - (p / 20)
+
 # create long list
     for v in range(9):
         new_long= long + (p/10)
