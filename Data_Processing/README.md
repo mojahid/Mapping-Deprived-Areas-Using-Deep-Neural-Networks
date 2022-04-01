@@ -1,27 +1,20 @@
-# Data-Science-Capstone
+# Data Processing
 
-Mapping Deprived Areas in Low and Middle Income Countries (LMIC)
+This folder contains python code used to extract, process of data used in this project
 
-*The goal of this project is to develop a methodology to map of deprived areas using a range of geospatial data at
-approximately 100m grid cells. 
+1) Contextual_Features_Processing:
+    
+       Contextual_Feature_Extraction.py: Python file to extarct all data from 144 tiff files. Each file contains one contextual feature data.
+    
+       Contextual_Feature_Merging.py: Python file to merge and aggregate the output of the extracted data.
+     
+2) Covariate_Features_Processing:
 
-Week (01/24 - 02/29):
-* Met with different stakeholders to acquire and understand data
+       Covariate_Feature_Extraction.py: Python file to extarct all data from one tiff files. The tiff file contains 61 covariate feature data.
 
-Week (01/31 - 02/04):
-* Generated code to extract coordinates and labels of areas of study from the training data
-* Generated code to extract images corresponding to the coordinates of the area of study 
 
-Week (02/07 - 02/11):
-* Working on code clip TIFF images using the Training map and Row map
+3) Raw_Images_Processing:
 
-Week (02/14 - 02/18):
-* Generated code to convert TIFF images into PNG format to be use for modeling
-
-Week (02/21 - 02/25):
-* Presidents’ Day
-
-Week (02/28 - 03/04):
-* Working on image augmentation to add more images to unbalanced class images
-* Have to first draft CNN model using the PNG images 
-* Having the first draft MLP model using the PNG images
+       Clipping_Images.py: Python file to clip labeled satellite images used in training and testing deep learning models 
+       
+       Image_Rolling.py:  Python file to perform image augmentation to handle class imbalance. 
