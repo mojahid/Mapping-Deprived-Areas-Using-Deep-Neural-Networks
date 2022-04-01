@@ -1,27 +1,13 @@
 import matplotlib.pyplot as plt
-#import numpy as np
-import os
-#import PIL
 import tensorflow as tf
-#import cv2
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
-import io
-import requests
-from PIL import Image
 
+data_dir = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos\Labeled_png"
 
-#for i in *.tif; do sips -s format png $i --out Convert/$i.png;done
-
-#data_dir = r'~/master/Data_Science_Capstone_DATS_6501_10/Capstone/data/png/'
-
-directory = r'../data/png/'
-
-train_dir = r'../data/png/'
-
-epochs = 2
-batch_size = 48
+epochs = 25
+batch_size = 32
 img_height = 10
 img_width = 10
 
@@ -44,9 +30,8 @@ def scheduler(epoch, lr):
 
 
 train_ds = tf.keras.utils.image_dataset_from_directory(
-  directory,
-  labels='inferred',
-  label_mode="int",
+  data_dir,
+  label_mode="categorical",
   validation_split=0.2,
   subset="training",
   seed=123,
@@ -54,32 +39,18 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
   batch_size=batch_size)
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
-  directory,
-  labels='inferred',
-  label_mode="int",
+  data_dir,
+  label_mode="categorical",
   validation_split=0.2,
   subset="validation",
   seed=123,
   image_size=(img_height, img_width),
   batch_size=batch_size)
-'''
-
-train_ds = tf.keras.preprocessing.image.ImageDataGenerator().flow_from_directory(
-train_dir,class_mode='categorical',color_mode='grayscale',target_size=(540,490),batch_size=batch_size)
-
-test_ds = tf.keras.preprocessing.image.ImageDataGenerator().flow_from_directory(
-train_dir,class_mode='categorical',color_mode='grayscale',target_size=(540,490),batch_size=batch_size)
-
-val_ds = tf.keras.preprocessing.image.ImageDataGenerator().flow_from_directory(
-train_dir,class_mode='categorical',color_mode='grayscale',target_size=(540,490),batch_size=batch_size)
-'''
-
 
 
 #class_names = train_ds.class_names
 #print(class_names)
 
-'''
 data_augmentation = keras.Sequential(
   [
     layers.RandomFlip("horizontal",
@@ -87,12 +58,12 @@ data_augmentation = keras.Sequential(
                                   img_width,
                                   3)),
     #layers.RandomRotation(0.01),
-    layers.RandomZoom(0.1),
+    #layers.RandomZoom(0.1),
   ])
-'''
+
 
 model = Sequential([
-  #data_augmentation,
+  data_augmentation,
   layers.Conv2D(60, 3, padding='same', activation='relu'),
   layers.BatchNormalization(),
   layers.Conv2D(120, 3, padding='same', activation='relu'),
@@ -109,16 +80,16 @@ model = Sequential([
   layers.Dense(128, activation='relu'),
   layers.Dropout(0.2),
   layers.Dense(128, activation='relu'),
-  layers.Dense(1, activation='sigmoid')
+  layers.Dense(3, activation='softmax')
 ])
 
 model.compile(optimizer='adagrad',
-              loss=tf.keras.losses.BinaryCrossentropy(),
+              loss=tf.keras.losses.categorical_crossentropy ,
               metrics=['accuracy'])
 
 callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
 early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=5)
-check_point = tf.keras.callbacks.ModelCheckpoint('model_{}.h5'.format('07'),
+check_point = tf.keras.callbacks.ModelCheckpoint('model_{}.h5'.format('02'),
                                                  monitor='accuracy',
                                                  save_best_only=True)
 
@@ -146,7 +117,3 @@ axs[1].set_ylabel('Accuracy')
 axs[1].legend(['Train', 'Val'])
 
 plt.show()
-
-
-#Had the same issue, after I uninstalled all tensorflows and keras-nightly, I reinstalled tensorflow with pip install tensorflow --upgrade --force-reinstall and it worked.
-#https://github.com/keras-team/keras/issues/14632
