@@ -1,17 +1,15 @@
-# Contextual Features Processing
+# Covariate Features Processing
 
-The contextual Features consists of 144 tiff files. Each file represent one contextual feature. Each pixel in a tiff file has a unique value. 
+The covariate Features consist of one tiff file. This tiff file includes 61 bands. Each band represnet one covariate feature
 
 
-## Contextual_Features_Extraction:
 
-This python file contains the code used to extract all contextual features. The training coordinates did not cover the 100 pixels within one label. Therefore, We first calculate the center coordinates of the 100 pixels for each label. Then, this is followed by using the rasterio library to extract the contextual feature value for the corresponding coordinates. This is conducted to all the contextual features tiff files. This file will output 144 csv files
+## Covariate_Features_Extraction:
 
+This python file contains the code used to extract and processing of all covariate features. Initally, all covariate features were extracted for each labeled data point. The extraction output in the form of one column. Each column contained 61 values in a string structure. Therefore, further processing was conducted to have an output ready for modeling. This file outputs one csv containing the labeled data and 61 covariate features columns. 
 
      
-## Contextual_Features_Merging:
 
-This python file contains the code used to merge and aggregate all processed contextual features. the output is then merged into one dataframe. Each 100 points correspond to one labeled data. Before merging with the labeled data file, We label each 100 points with the corresponding point number. The mean of the values for these point is then computed. Finally, We merge the contextual features dataframe with the labeled dataframe. The output of this code is one csv file containing the labeled training data and the corresponding 144 contextual features columns. 
 
 
 
