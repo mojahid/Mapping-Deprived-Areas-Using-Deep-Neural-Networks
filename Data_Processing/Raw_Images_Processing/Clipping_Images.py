@@ -1,7 +1,12 @@
 import rasterio
 import pandas as pd
 
-RAW_FILE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos\lagos_raw_image.tif"
+# This file uses the coordinates extracted
+
+BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos"
+
+
+RAW_FILE_PATH = BASE_PATH + r"\Maps\lagos_raw_image.tif"
 COORDINATE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos\Labeled\coordinates.csv"
 
 BUILTUP_PATH    = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos\Labeled\0\clipped_{}.tif"

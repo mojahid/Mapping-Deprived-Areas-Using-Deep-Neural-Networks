@@ -4,8 +4,16 @@ import pandas as pd
 from rasterio.plot import show, show_hist
 from pyproj import Proj, transform
 
+# This code runs after having training file which is a Geotiff file that contains
+# the labeled areas on 100m2 level using the survey framework arranged by Idea Maps Network (https://ideamapsnetwork.org/lagos-aos/)
 
-LABEL_PATH = r'C:/Users/minaf/Documents/GWU/Capstone/Data/lagos/lag_training_data/lag_training_2021.tif'
+# This file will then loop through all the meta data in the file and extract the coordinates
+# with its corresponding label in a csv
+
+
+BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos"
+
+LABEL_PATH = BASE_PATH + r'\lag_training_data\lag_training_2021.tif'
 
 # Basic exploration and meta data
 mapData = rasterio.open(LABEL_PATH)
