@@ -1,5 +1,7 @@
 # Data Processing
 
+All data was collected with joint efforts led by [Idea Maps Network](https://ideamapsnetwork.org/lagos-aos/)
+
 This folder contains python code used to extract, process of data used in this project
 
 1) Contextual_Features_Processing:
