@@ -45,13 +45,11 @@ At the end, we will have enough labels from the minority class to proceed with a
 
 # Working with the code:
 
-The code in this folder should be executed after completing the coordinates extraction in the Extract_Coordinates.py which will end up with a csv file with all the coordinates and the corresponding label from the training data. Here should be the flow:
+The code in this folder should be executed after completing the coordinates extraction in the Extract_Coordinates.py which will end up with a csv file with all the coordinates and the corresponding label from the training data. Here should be the flow:  
 
-1- 
-2- 
-3- 
-4- 
-
+1- Generate/download the map tiff file (in our case the map created from the code [here](https://github.com/arathinair11/Satellite-Imagery/tree/main/Lagos)  
+2- Place it under your base path /Maps/  
+3- Run Clipping Images file in both modes TEST and TRAIN  and use only two labels   
 
 
 
