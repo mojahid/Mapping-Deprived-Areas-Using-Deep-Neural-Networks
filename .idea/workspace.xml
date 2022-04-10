@@ -33,7 +33,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DATS6203-Final-Project/Code/Data_Preprocessing.py" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Data-Science-Capstone/Clipping_Images.py" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -49,7 +49,51 @@
       <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Grid_Search" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.MLP_Grid">
+  <component name="RunManager" selected="Python.Clipping_Images">
+    <configuration name="Clipping_Images" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Data-Science-Capstone" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Clipping_Images.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Extract_Coordinates" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Data-Science-Capstone" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Extract_Coordinates.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Grid_Search_Models" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Data-Science-Capstone" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -118,6 +162,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Clipping_Images" />
+        <item itemvalue="Python.Extract_Coordinates" />
         <item itemvalue="Python.MLP_Grid" />
         <item itemvalue="Python.scrap" />
         <item itemvalue="Python.Grid_Search_Models" />
@@ -138,7 +184,7 @@
       <workItem from="1646686426480" duration="218000" />
       <workItem from="1646686652691" duration="4126000" />
       <workItem from="1646863362070" duration="7058000" />
-      <workItem from="1649616139244" duration="4143000" />
+      <workItem from="1649616139244" duration="9226000" />
     </task>
     <servers />
   </component>
@@ -158,8 +204,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Extract_Coordinates.coverage" NAME="Extract_Coordinates Coverage Results" MODIFIED="1649623668208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$MLP_Grid.coverage" NAME="MLP_Grid Coverage Results" MODIFIED="1646885395773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Deep_Learning_Models.coverage" NAME="Deep_Learning_Models Coverage Results" MODIFIED="1646085154074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Clipping_Images.coverage" NAME="Clipping_Images Coverage Results" MODIFIED="1649627658140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$scrap.coverage" NAME="scrap Coverage Results" MODIFIED="1646885245914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
   </component>
 </project>

@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from rasterio.plot import show, show_hist
 from pyproj import Proj, transform
+from sklearn.model_selection import train_test_split
 
 # This code runs after having training file which is a Geotiff file that contains
 # the labeled areas on 100m2 level using the survey framework arranged by Idea Maps Network (https://ideamapsnetwork.org/lagos-aos/)
@@ -39,4 +40,12 @@ outProj = Proj(init='epsg:4326')
 res["new_long"],res["new_lat"] = transform(inProj,outProj,res["long"],res["lat"])
 
 # Save coordinates
-res.to_csv('coordinates.csv' , index=False)
+res.to_csv(BASE_PATH + r"\coordinates2.csv", index=False)
+
+res = pd.read_csv(BASE_PATH + r"\coordinates2.csv")
+
+# Split the data and reserve 20% as test that will never be used in the model training or validation
+# use stratify to main the distribution
+train, test = train_test_split(res, test_size = 0.2, stratify=res.Label, random_state=42)
+train.to_csv(BASE_PATH + r"\train421.csv")
+test.to_csv(BASE_PATH + r"\test421.csv")
