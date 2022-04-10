@@ -25,9 +25,6 @@ Due to the imbalanced data and the very few images of the deprived images (label
 
 Due to the limited number of labels in this minority class, only 30 adjacent images were found and this generated 270 extra images.
 
-# Working with the code:
-
-The code in this folder should be executed after completing the coordinates extraction in the Extract_Coordinates.py which will end up with a csv file with all the coordinates and the corresponding label from the training data.
 # Image Shifting
 The idea of image shifting is to take all images in the minority class (including the ones generated in the image rolling) and generate 8 new images by shifting the center of each image by 1 pixel in 4 directions and then 2 pixels in 4 directions as per the following image:  
   
@@ -44,7 +41,17 @@ Final step to have enough labels for minority class is to take all images (origi
  
 At the end, we will have enough labels from the minority class to proceed with a good training dataset to train different model in the next phase of the raw image processig and analysis:  
   
-<img src="https://user-images.githubusercontent.com/34656794/161366201-598b737f-8354-4d0b-95e6-897b252ce808.png" data-canonical-src="https://user-images.githubusercontent.com/34656794/161366201-598b737f-8354-4d0b-95e6-897b252ce808.png" width="750" height="300" />
+<img src="https://user-images.githubusercontent.com/34656794/161366201-598b737f-8354-4d0b-95e6-897b252ce808.png" data-canonical-src="https://user-images.githubusercontent.com/34656794/161366201-598b737f-8354-4d0b-95e6-897b252ce808.png" width="750" height="300" />  
+
+# Working with the code:
+
+The code in this folder should be executed after completing the coordinates extraction in the Extract_Coordinates.py which will end up with a csv file with all the coordinates and the corresponding label from the training data. Here should be the flow:
+
+1- 
+2- 
+3- 
+4- 
+
 
 
 
