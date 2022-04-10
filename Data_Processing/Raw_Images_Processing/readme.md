@@ -25,6 +25,9 @@ Due to the imbalanced data and the very few images of the deprived images (label
 
 Due to the limited number of labels in this minority class, only 30 adjacent images were found and this generated 270 extra images.
 
+# Working with the code:
+
+The code in this folder should be executed after completing the coordinates extraction in the Extract_Coordinates.py which will end up with a csv file with all the coordinates and the corresponding label from the training data.
 # Image Shifting
 The idea of image shifting is to take all images in the minority class (including the ones generated in the image rolling) and generate 8 new images by shifting the center of each image by 1 pixel in 4 directions and then 2 pixels in 4 directions as per the following image:  
   
