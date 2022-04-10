@@ -46,6 +46,6 @@ res = pd.read_csv(BASE_PATH + r"\coordinates2.csv")
 
 # Split the data and reserve 20% as test that will never be used in the model training or validation
 # use stratify to main the distribution
-train, test = train_test_split(res, test_size = 0.2, stratify=res.Label, random_state=42)
-train.to_csv(BASE_PATH + r"\train421.csv")
-test.to_csv(BASE_PATH + r"\test421.csv")
+train, test = train_test_split(res, test_size = 0.3, stratify=res.Label, random_state=42)
+train.to_csv(BASE_PATH + r"\train422.csv")
+test.to_csv(BASE_PATH + r"\test422.csv")
