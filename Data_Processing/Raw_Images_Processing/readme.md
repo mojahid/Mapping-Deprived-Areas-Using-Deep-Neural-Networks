@@ -49,7 +49,13 @@ The code in this folder should be executed after completing the coordinates extr
 
 1- Generate/download the map tiff file (in our case the map created from the code [here](https://github.com/arathinair11/Satellite-Imagery/tree/main/Lagos)  
 2- Place it under your base path /Maps/  
-3- Run Clipping Images file in both modes TEST and TRAIN  and use only two labels   
+3- **Run Clipping** Images file in both modes TEST and TRAIN  and use only two labels   
+4- Now we have tif images extracted for both TEST and TRAIN under two different folders (each label has its own folder under Train or Test)  
+5- Now we can **Image Rolling** which will scan the coordinates (mainly for the train csv) and detect adjacent images and generate new images by rolling through them  
+6- After Image Rolling, run the **Image Shifting** which will also generate new images by scanning the coordinates for the minority class and shift the center by 1 or 2 pixel and generate new images from the original image  
+7- Now run the **convet to PNG** To convert all images to png to prepare for training  
+
+
 
 
 
