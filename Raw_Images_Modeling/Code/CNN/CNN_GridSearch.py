@@ -18,6 +18,12 @@ from keras.preprocessing.image import array_to_img
 from PIL import Image
 from numpy import asarray
 import pandas as pd
+import itertools
+from sklearn.metrics import roc_auc_score,confusion_matrix, classification_report
+
+import seaborn as sns
+
+
 
 
 
@@ -27,6 +33,37 @@ import pandas as pd
 
 #ata_dir = r"/home/ubuntu/cnn_2/Raw_Images/Train/png/"N
 data_dir = r"/home/ubuntu/CNN_MODEL/png/"
+
+def plot_confusion_matrix(cm, classes,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.Blues):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=0)
+    plt.yticks(tick_marks, classes)
+
+
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, cm[i, j],
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+
+
+
+
+
 
 def scheduler(epoch, lr):
   lr_0 = lr
@@ -90,38 +127,38 @@ deprived_label=np.ones((len(deprived_input,)))
 for i in deprived_images_path_lst:
     builtup_images_path_lst.append(i)
 
-train_x= images(builtup_images_path_lst)
-
-train_y= np.append(builtup_label,deprived_label)
+x_train= images(builtup_images_path_lst)
+x_train=x_train/255
+y_train= np.append(builtup_label,deprived_label)
 #print(train_x.shape)
 #print(train_y.shape)
 
 # one hot encode label for categorical_crossentropy ([0,1], [1,0] labels)
 #ohe = OneHotEncoder()
-#train_y=train_y.reshape(-1,1)
+#train_y=y_train.reshape(-1,1)
 #train_y = ohe.fit_transform(train_y).toarray()
 #print(train_y)
 
-x_train, x_val, y_train, y_val = train_test_split(train_x, train_y, test_size=0.2, random_state=42)
+#x_train, x_val, y_train, y_val = train_test_split(train_x, train_y, test_size=0.2, random_state=42)
 
 
 train_ds = tf.data.Dataset.from_tensor_slices((x_train, y_train))
 
-val_ds = tf.data.Dataset.from_tensor_slices((x_val, y_val))
+#val_ds = tf.data.Dataset.from_tensor_slices((x_val, y_val))
 
 
 # The GridSearchCV with 5 folds and this hyper-parameters takes ...
-LR = [5e-4, 3e-4, 2e-4, 1e-4 ]
-N_NEURONS = [(50, 200, 200, 100, 100), (50, 300, 300, 200, 100)]
-N_EPOCHS = [30]
+LR = [5e-4,3e-4 ]
+N_NEURONS = [(50, 300, 300, 200, 100),(50, 300, 512, 512, 200) ]
+N_EPOCHS = [40]
 #BATCH_SIZE = [32, 64]
-DROPOUT = [0.1, 0.2, 0.3]
-ACTIVATION = ["tanh", "relu"]
+DROPOUT = [0.2]
+ACTIVATION = ["relu"]
 
 
 def build_clf(dropout=0.3,
                     activation='relu',
-                    n_neurons=(100, 200, 100, 100, 100),
+                    n_neurons=(50, 300, 300, 200, 100),
                     lr=1e-3):
     model = Sequential([
   layers.Conv2D(n_neurons[0], 3,input_shape= (10,10,3),  padding='same', activation=activation),
@@ -140,17 +177,18 @@ def build_clf(dropout=0.3,
   layers.Dense(128, activation=activation),
   layers.Dropout(dropout),
   layers.Dense(128, activation=activation),
+  layers.Dropout(dropout),
   layers.Dense(1, activation="sigmoid")
 ])
     model.compile(optimizer=keras.optimizers.Adagrad(learning_rate=lr), loss='binary_crossentropy',
                   metrics=['accuracy'])
     return model
 
-
+scoring="f1_macro"
 gs=GridSearchCV(estimator=tf.keras.wrappers.scikit_learn.KerasClassifier(
         build_fn= build_clf
     ),
-    scoring="f1_macro",
+    scoring= scoring,
     param_grid={
         'epochs': N_EPOCHS,  # The param grid must contain arguments of the usual Keras model.fit
         #"batch_size": BATCH_SIZE,  # and/or the arguments of the construct_model function
@@ -200,7 +238,7 @@ important_columns = ['rank_test_score',
 cv_results = cv_results[important_columns + sorted(list(set(cv_results.columns) - set(important_columns)))]
 
 # Write cv_results file
-cv_results.to_csv(path_or_buf='/home/ubuntu/CNN_MODEL/' +'CNN_GridSearchCV.csv', index=False)
+cv_results.to_csv(path_or_buf='/home/ubuntu/CNN_MODEL/' +'CNN_GridSearchCV_binary_3.csv', index=False)
 
 # Sort best_score_params_estimator_gs in descending order of the best_score_
 best_score_params_estimator_gs = sorted(best_score_params_estimator_gs, key=lambda x: x[0], reverse=True)
@@ -214,33 +252,69 @@ best = pd.DataFrame(best_score_params_estimator_gs, columns=['best_score', 'best
 
 best_model = grid_search_results.best_estimator_
 
-grid_search_results.best_estimator_.model.save("CNN_GridSearch_Best.hdf5")
+grid_search_results.best_estimator_.model.save("CNN_GridSearch_BESTMODEL.hdf5")
 
-callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
-early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=5)
-check_point = tf.keras.callbacks.ModelCheckpoint('model_{}.h5'.format("Best"),
-                                                 monitor='accuracy',
-                                                 save_best_only=True)
+#callback = tf.keras.callbacks.LearningRateScheduler(scheduler)
+#early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=5)
+#check_point = tf.keras.callbacks.ModelCheckpoint('model_{}.h5'.format("Best_categorical_2"),
+            #                                     monitor='accuracy',
+             #                                    save_best_only=True)
 
-history = best_model.fit(
-    train_ds,
-    validation_data = val_ds,
-    epochs = 100,
-    callbacks = [early_stop, check_point]
-)
+#history = best_model.fit(
+ #   (x_train, y_train),
+  #  validation_data = (x_val, y_val),
+   # epochs = 100,
+    #callbacks = [early_stop, check_point]
+#)
 
-fig, axs = plt.subplots(2, 1, figsize=(15, 15))
-axs[0].plot(history.history['loss'])
-axs[0].plot(history.history['val_loss'])
-axs[0].title.set_text('Training Loss vs Validation Loss')
-axs[0].set_xlabel('Epochs')
-axs[0].set_ylabel('Loss')
-axs[0].legend(['Train','Val'])
-axs[1].plot(history.history['accuracy'])
-axs[1].plot(history.history['val_accuracy'])
-axs[1].title.set_text('Training Accuracy vs Validation Accuracy')
-axs[1].set_xlabel('Epochs')
-axs[1].set_ylabel('Accuracy')
-axs[1].legend(['Train', 'Val'])
 
+test_path="/home/ubuntu/CNN_MODEL/testing/png/0/"
+test_builtup_images_path_lst= image_path(test_path)
+#print(builtup_images_path_lst)
+test_builtup_input= images(test_builtup_images_path_lst)
+test_builtup_label=np.zeros((len(test_builtup_input,)))
+
+test_path_2=r"/home/ubuntu/CNN_MODEL/testing/png/1/"
+test_deprived_images_path_lst= image_path(test_path_2)
+#print(deprived_images_path_lst)
+test_deprived_input= images(test_deprived_images_path_lst)
+test_deprived_label=np.ones((len(test_deprived_input,)))
+
+for i in test_deprived_images_path_lst:
+    test_builtup_images_path_lst.append(i)
+
+x_test= images(test_builtup_images_path_lst)
+x_test= x_test/255
+y_test= np.append(test_builtup_label,test_deprived_label)
+#print(train_x.shape)
+
+
+print(y_test)
+y_test_pred= best_model.predict(x_test)
+print(y_test_pred)
+print(len(y_test_pred))
+#y_test_pred=[]
+#for i in y_pred:
+ #   if i < 0.5:
+  #      y_test_pred.append(0)
+   # else:
+    #    y_test_pred.append(1)
+
+y_test_pred=np.array(y_test_pred)
+# Plotting confusion matrix obtained from the testing data predictions
+sns.set(style="white")
+cnf_matrix = confusion_matrix(y_test,y_test_pred)
+np.set_printoptions(precision=2)
+
+
+# Plot non-normalized confusion matrix
+class_names = ["Built-up","Deprived"]
+plt.figure()
+plot_confusion_matrix(cnf_matrix
+                      , classes=class_names
+                      , title='Confusion matrix')
 plt.show()
+
+print(classification_report(y_test, y_test_pred))
+
+
