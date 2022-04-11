@@ -4,9 +4,9 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 
-data_dir = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos\Labeled_png"
+data_dir = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos\Raw_Images\train\png"
 
-epochs = 25
+epochs = 50
 batch_size = 32
 img_height = 10
 img_width = 10

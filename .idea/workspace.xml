@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="73d73ea7-5aa6-4376-9470-0025d392c0dc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_Processing/Extract_Coordinates.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Extract_Coordinates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Clipping_Images.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Clipping_Images.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Rolling.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Rolling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Modeling_CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Modeling_CNN.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +50,8 @@
       <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Grid_Search" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Image_Shifting">
-    <configuration name="Clipping_Images" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.Modeling_CNN (1)">
+    <configuration name="ConvertToPNG" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Data-Science-Capstone" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -65,51 +64,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Clipping_Images.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Extract_Coordinates" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Data-Science-Capstone" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Extract_Coordinates.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Image_Rolling" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Data-Science-Capstone" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Rolling.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -140,7 +95,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="MLP_Grid" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Modeling_CNN (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Data-Science-Capstone" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -148,12 +103,56 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Data-Science-Capstone" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/Data-Science-Capstone/Modeling_CNN.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Modeling_CNN" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Data-Science-Capstone" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search/MLP_Grid.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Modeling_CNN.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Oversample" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Data-Science-Capstone" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -164,11 +163,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Modeling_CNN (1)" />
+        <item itemvalue="Python.Modeling_CNN" />
+        <item itemvalue="Python.Oversample" />
+        <item itemvalue="Python.ConvertToPNG" />
         <item itemvalue="Python.Image_Shifting" />
-        <item itemvalue="Python.Image_Rolling" />
-        <item itemvalue="Python.Clipping_Images" />
-        <item itemvalue="Python.Extract_Coordinates" />
-        <item itemvalue="Python.MLP_Grid" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +185,7 @@
       <workItem from="1646686426480" duration="218000" />
       <workItem from="1646686652691" duration="4126000" />
       <workItem from="1646863362070" duration="7058000" />
-      <workItem from="1649616139244" duration="13420000" />
+      <workItem from="1649616139244" duration="27389000" />
     </task>
     <servers />
   </component>
@@ -208,10 +207,14 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Extract_Coordinates.coverage" NAME="Extract_Coordinates Coverage Results" MODIFIED="1649628273379" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$MLP_Grid.coverage" NAME="MLP_Grid Coverage Results" MODIFIED="1646885395773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Oversample.coverage" NAME="Oversample Coverage Results" MODIFIED="1649658744101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN__1_.coverage" NAME="Modeling_CNN (1) Coverage Results" MODIFIED="1649660109429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Deep_Learning_Models.coverage" NAME="Deep_Learning_Models Coverage Results" MODIFIED="1646085154074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Rolling.coverage" NAME="Image_Rolling Coverage Results" MODIFIED="1649630506010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Clipping_Images.coverage" NAME="Clipping_Images Coverage Results" MODIFIED="1649629571734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Shifting.coverage" NAME="Image_Shifting Coverage Results" MODIFIED="1649631899759" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Shifting.coverage" NAME="Image_Shifting Coverage Results" MODIFIED="1649632080321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$scrap.coverage" NAME="scrap Coverage Results" MODIFIED="1646885245914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$ConvertToPNG.coverage" NAME="ConvertToPNG Coverage Results" MODIFIED="1649656910711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN.coverage" NAME="Modeling_CNN Coverage Results" MODIFIED="1649660003139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN" />
   </component>
 </project>
