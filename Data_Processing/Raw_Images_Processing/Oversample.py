@@ -2,7 +2,7 @@ from PIL import Image
 import os
 
 
-BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos"
+BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\Accra"
 # Mode is TEST or TRAIN which will either convert tiff images from the train or the test folders
 MODE = "TRAIN"
 

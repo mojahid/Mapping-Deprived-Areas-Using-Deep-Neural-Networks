@@ -12,9 +12,9 @@ from sklearn.model_selection import train_test_split
 # with its corresponding label in a csv
 
 
-BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos"
+BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\accra"
 
-LABEL_PATH = BASE_PATH + r'\lag_training_data\lag_training_2021.tif'
+LABEL_PATH = BASE_PATH + r'\training_data\acc_training_2021.tif'
 
 # Basic exploration and meta data
 mapData = rasterio.open(LABEL_PATH)
@@ -40,12 +40,12 @@ outProj = Proj(init='epsg:4326')
 res["new_long"],res["new_lat"] = transform(inProj,outProj,res["long"],res["lat"])
 
 # Save coordinates
-res.to_csv(BASE_PATH + r"\coordinates2.csv", index=False)
+res.to_csv(BASE_PATH + r"\coordinates_acc.csv", index=False)
 
-res = pd.read_csv(BASE_PATH + r"\coordinates2.csv")
+res = pd.read_csv(BASE_PATH + r"\coordinates_acc.csv")
 
 # Split the data and reserve 20% as test that will never be used in the model training or validation
 # use stratify to main the distribution
-train, test = train_test_split(res, test_size = 0.3, stratify=res.Label, random_state=42)
-train.to_csv(BASE_PATH + r"\train422.csv")
-test.to_csv(BASE_PATH + r"\test422.csv")
+train, test = train_test_split(res, test_size = 0.2, stratify=res.Label, random_state=42)
+train.to_csv(BASE_PATH + r"\train_ac42.csv")
+test.to_csv(BASE_PATH + r"\test_ac42.csv")
