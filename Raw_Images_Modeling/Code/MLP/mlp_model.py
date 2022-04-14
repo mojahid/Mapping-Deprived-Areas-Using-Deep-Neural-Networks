@@ -1,153 +1,87 @@
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 import os
-import cv2
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-from sklearn.utils import shuffle
-from sklearn.model_selection import train_test_split
-from keras.models import Sequential
-
-from keras.preprocessing.image import load_img
-
-from matplotlib import pyplot
-
-import keras
+import PIL
 import tensorflow as tf
 
-img_szie = 10
-epochs = 4
+epochs = 150
+batch_size = 32
+img_height = 10
+img_width = 10
+SEED= 42
+LR = 1e-3
+DROPOUT=0.1
 
-directory = '../data/png_image'
-class_types = os.listdir(directory)
-print(class_types)
-print('Classes found:', len(class_types))
+train_data = r'../data/train/png'
+test_data = r'../data/test/png'
 
-# List all images with correspondent labels.
+#Import Data
+train_ds = tf.keras.utils.image_dataset_from_directory(train_data,
+                                                       validation_split=0.2,
+                                                       subset="training",
+                                                       seed=123,
+                                                       image_size=(img_height, img_width),
+                                                       batch_size=batch_size)
 
-images = []
+val_ds = tf.keras.utils.image_dataset_from_directory(train_data,
+                                                     validation_split=0.2,
+                                                     subset="validation",
+                                                     seed=123,
+                                                     image_size=(img_height, img_width),
+                                                     batch_size=batch_size)
 
-for item in class_types:
-    # Get all the file names
-    all_images = os.listdir(directory + '/' + item)
-
-    # create a list of all imag lables
-    for image in all_images:
-        images.append((item, str(directory + '/' + item) + '/' + image))
-        # print(images[:1])
-
-# Build a DF
-images_df = pd.DataFrame(data=images, columns=['class', 'image'])
-print(images_df.head())
-# Count of all images
-print(len(images_df))
-# Count of images for each class
-print(images_df['class'].value_counts())
-
-imgs = []
-labels = []
-for i in class_types:
-    imgs_path = directory + '/' + str(i)
-    # print(i)
-    # print(imgs_path)
-    filenames = [i for i in os.listdir(imgs_path)]
-    # print(filenames)
-
-    for f in filenames:
-        # print(imgs_path + '/' + f)
-        # img = cv2.imread(imgs_path + '/' + f)  # reading image as array
-        img = cv2.imread(imgs_path + '/' + f)  # reading image as array
-        # print(img)
-        # print(img.shape)
-        img = cv2.resize(img, (img_szie, img_szie))
-        # img = cv2.resize(img, (10, 10), fx=0, fy=0, interpolation=cv2.INTER_CUBIC)
-        imgs.append(img)
-        # labels.append(i)
-
-# print(len(imgs))
-# print((imgs[0]))
-# print(((imgs[0]).shape))
-# transform the image arry to numpy array
-imgs = np.array(imgs)
-print('**************************')
-print(imgs.shape)
-
-# normlize the list
-imgs = imgs.astype('float32') / 255.0
-print(imgs.shape)
-
-print('*****forma the lables*****')
-# forma the lables
-y = images_df['class'].values
-print(y[:5])
-
-y_labelencoder = LabelEncoder()
-y = y_labelencoder.fit_transform(y)
-print(y)
-
-imgs, y = shuffle(imgs, y, random_state=123)
-train_x, test_x, train_y, test_y = train_test_split(imgs, y, test_size=0.05, random_state=123)
-
-print('#check the shape of the training and testing images')
-# check the shape of the training and testing images
-print(train_x.shape)
-print(train_y.shape)
-print(test_x.shape)
-print(test_y.shape)
+test_ds = tf.keras.utils.image_dataset_from_directory(test_data,
+                                                      shuffle=False,
+                                                      image_size=(img_height, img_width),
+                                                      batch_size=10)
 
 # Strat Images Classificatio
-
-model = keras.Sequential([keras.layers.Flatten(input_shape=(10, 10, 3)),
-                          keras.layers.Dense(256, activation=tf.nn.tanh),
-                          keras.layers.Dense(3, activation=tf.nn.softmax)
-                          ])
-
+model = tf.keras.Sequential()
+model.add(tf.keras.layers.Flatten(input_shape=(10, 10,3)))
+model.add(tf.keras.layers.Dense(512, activation='relu'))
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Dense(512, activation='relu'))
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Dense(256, activation='relu'))
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Dense(125, activation='relu'))
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Dense(32, activation='relu'))
+model.add(tf.keras.layers.Dropout(DROPOUT, seed=SEED))
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Dense(32, activation='relu'))
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Dense(25, activation='relu'))
+model.add(tf.keras.layers.Dropout(DROPOUT, seed=SEED))
+model.add(tf.keras.layers.BatchNormalization())
+model.add(tf.keras.layers.Dense(2, activation='softmax'))
 print(model.summary())
 
 # compute the model
-
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-
-# train the model with 4 epochs
-model.fit(train_x, train_y, epochs=epochs)
+model.compile(optimizer='adagrad',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
 
 # fit model
-history = model.fit(train_x, train_y, validation_data=(test_x, test_y), epochs=epochs, verbose=0)
-
-y_pred = model.predict(test_x)
-print(y_pred)
-
-
+early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=5)
+check_point = tf.keras.callbacks.ModelCheckpoint('model_{}.h5'.format('adagrad_1'), monitor='accuracy',save_best_only=True)
+history = model.fit(train_ds,validation_data=val_ds,epochs=epochs,callbacks=[early_stop, check_point],batch_size=38)
 
 # plot loss during training
-pyplot.subplot(211)
-pyplot.title('Loss')
-pyplot.plot(history.history['loss'], label='train')
-pyplot.plot(history.history['val_loss'], label='test')
-pyplot.legend()
+fig, axs = plt.subplots(2, 1, figsize=(15, 15))
+axs[0].plot(history.history['loss'])
+axs[0].plot(history.history['val_loss'])
+axs[0].title.set_text('Training Loss vs Validation Loss')
+axs[0].set_xlabel('Epochs')
+axs[0].set_ylabel('Loss')
+axs[0].legend(['Train','Val'])
 # plot accuracy during training
-pyplot.subplot(212)
-pyplot.title('Accuracy')
-pyplot.plot(history.history['accuracy'], label='train')
-pyplot.plot(history.history['val_accuracy'], label='test')
-pyplot.legend()
-pyplot.show()
+axs[1].plot(history.history['accuracy'])
+axs[1].plot(history.history['val_accuracy'])
+axs[1].title.set_text('Training Accuracy vs Validation Accuracy')
+axs[1].set_xlabel('Epochs')
+axs[1].set_ylabel('Accuracy')
+axs[1].legend(['Train', 'Val'])
+plt.show()
 
-
-
-
-'''
-# Test images
-image = load_img('../data/png_image/1/clipped_232.png', target_size=(10, 10))
-print(image)
-image = np.array(image)
-print(image.shape)
-# '../data/png_image/1/clipped_232.png' class 0
-
-image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
-
-yhat = model.predict(image)
-print(yhat)
-'''
+# predict probabilities for test set
+#yhat_probs = model.predict(test_data, verbose=0)
+#yhat_probs = yhat_probs[:, 0]
