@@ -50,7 +50,7 @@ builtup_label=np.zeros((len(builtup_input,)))
 #print(builtup_input.shape)
 #print(builtup_label.shape)
 
-path_2=r'../dog-cat/train/1'#cat
+path_2=r'../data/train/png/1'
 deprived_images_path_lst= image_path(path_2)
 #print(deprived_images_path_lst)
 deprived_input= images(deprived_images_path_lst)
@@ -62,13 +62,13 @@ x_train=x_train/255
 y_train= np.append(builtup_label,deprived_label)
 
 
-test_path=r'../dog-cat/test/0'#dog
+test_path=r'../data/test/png/0'
 test_builtup_images_path_lst= image_path(test_path)
 #print(builtup_images_path_lst)
 test_builtup_input= images(test_builtup_images_path_lst)
 test_builtup_label=np.zeros((len(test_builtup_input,)))
 
-test_path_2=r'../dog-cat/test/1'#cat
+test_path_2=r'../data/test/png/1'
 test_deprived_images_path_lst= image_path(test_path_2)
 #print(deprived_images_path_lst)
 test_deprived_input= images(test_deprived_images_path_lst)
@@ -87,11 +87,12 @@ print(x_test.shape)
 #Define the Autoencoder
 latent_dim = 10
 class Autoencoder(tf.keras.Model):
-  def __init__(self, latent_dim):
+  def __init__(self,input_dim,latent_dim):
     super(Autoencoder, self).__init__()
+    self.input_dim = input_dim
     self.latent_dim = latent_dim
     self.encoder = tf.keras.Sequential([
-         tf.keras.layers.Flatten(input_shape=(10, 10,3)),
+         tf.keras.layers.Flatten(input_shape=input_dim),
          tf.keras.layers.Dense(100, activation='relu'),
          tf.keras.layers.BatchNormalization(),
          tf.keras.layers.Dense(50, activation='relu'),
@@ -118,7 +119,7 @@ class Autoencoder(tf.keras.Model):
     decoded = self.decoder(encoded)
     return decoded
 
-autoencoder = Autoencoder(latent_dim)
+autoencoder = Autoencoder(input_dim,latent_dim)
 autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
 
 autoencoder.fit(x_train,x_train,epochs=10,shuffle=True,validation_data=(x_test, x_test))
