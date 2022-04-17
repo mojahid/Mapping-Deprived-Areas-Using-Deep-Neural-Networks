@@ -1,14 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-import PIL
 import tensorflow as tf
 import cv2
-from keras.preprocessing.image import ImageDataGenerator
 from keras import layers, losses
+from PIL import Image
 
 
-epochs =150
+epochs =100
 batch_size = 32
 img_height = 10
 img_width = 10
@@ -22,6 +21,8 @@ encoding_dim = 32  # 32 floats -> compression of factor 24.5, assuming the input
 
 #Import Data
 path = r'../data/train/png/0'
+save_model_path =r'../code/ae_models/'
+save_images_path = r'../data/ae_data/reconstructed/'
 
 def image_path(path):
 
@@ -42,13 +43,9 @@ def images(images_paths):
     return x
 
 builtup_images_path_lst= image_path(path)
-#print(builtup_images_path_lst)
 builtup_input= images(builtup_images_path_lst)
 builtup_label=np.zeros((len(builtup_input,)))
-#print(builtup_input[0:2])
-#print(builtup_label[0:10])
-#print(builtup_input.shape)
-#print(builtup_label.shape)
+
 
 path_2=r'../data/train/png/1'
 deprived_images_path_lst= image_path(path_2)
@@ -111,7 +108,7 @@ class Autoencoder(tf.keras.Model):
          tf.keras.layers.Dense(100, activation='relu'),
          tf.keras.layers.BatchNormalization(),
          tf.keras.layers.Dense(300, activation='linear'),
-         tf.keras.layers.Reshape((10,10,3))
+         tf.keras.layers.Reshape(input_dim)
     ])
 
   def call(self, x):
@@ -120,20 +117,32 @@ class Autoencoder(tf.keras.Model):
     return decoded
 
 autoencoder = Autoencoder(input_dim,latent_dim)
-autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
+autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError(),metrics=['accuracy'])
 
-autoencoder.fit(x_train,x_train,epochs=10,shuffle=True,validation_data=(x_test, x_test))
+#autoencoder.fit(x_train,x_train,epochs=epochs,shuffle=True,validation_data=(x_test, x_test))
+
+early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=20)
+checkpoint = tf.keras.callbacks.ModelCheckpoint(save_model_path+'weights{}.h5'.format('adam_latent_dim_10'), save_weights_only = True, verbose=0)
+history=autoencoder.fit(x_train,x_train,epochs=epochs,shuffle=True,validation_data=(x_test, x_test),callbacks=[early_stop,checkpoint],batch_size=38)
+
 
 encoded_imgs = autoencoder.encoder(x_test).numpy()
 decoded_imgs = autoencoder.decoder(encoded_imgs).numpy()
 
-n = 10
+# plot loss
+plt.plot(history.history['loss'], label='train')
+plt.plot(history.history['val_loss'], label='test')
+plt.legend()
+plt.show()
+
+
+n = 2
 plt.figure(figsize=(20, 4))
 for i in range(n):
   # display original
   ax = plt.subplot(2, n, i + 1)
   plt.imshow(x_test[i])
-  plt.title("original")
+  plt.title('original')
   plt.gray()
   ax.get_xaxis().set_visible(False)
   ax.get_yaxis().set_visible(False)
@@ -141,7 +150,11 @@ for i in range(n):
   # display reconstruction
   ax = plt.subplot(2, n, i + 1 + n)
   plt.imshow(decoded_imgs[i])
-  plt.title("reconstructed")
+  decoded_img=decoded_imgs[i]
+  #print(decoded_img)
+  PIL_image = Image.fromarray(decoded_img, 'RGB')
+  PIL_image.save(save_images_path+'{}.png'.format(i))
+  plt.title('reconstructed')
   plt.gray()
   ax.get_xaxis().set_visible(False)
   ax.get_yaxis().set_visible(False)
