@@ -6,24 +6,24 @@ import pandas as pd
 # generate more images by rolling across the two adjacent images
 
 # Base path setting
-BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos"
+BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\Accra"
 
 # Raw image path setting that will be used to clip new images
-RAW_FILE_PATH = BASE_PATH + r"\Maps\Cloud_free_lagos_img.tif"
+RAW_FILE_PATH = BASE_PATH + r"\Maps\Cloud_free_Accra_img.tif"
 
 # Coordinate file (mainly the training file) that will be checked for adjacent images
-COORDINATE_PATH_TRAIN = BASE_PATH + r"\train422.csv"
+COORDINATE_PATH_TRAIN = BASE_PATH + r"\train_ac42.csv"
 
 # Path where new images will be processed
-path = BASE_PATH + r'\Raw_Images30'
-DEPRIVED_PATH   = path + r"\train\tif\1\clipped_n{}{}{}.tif"
+path = BASE_PATH + r'\Raw_Images'
+DEPRIVED_PATH   = path + r"\train\tif\0\clipped_n{}{}{}.tif"
 
 IMAGE_SIZE = 10
 
 # read the coordinates csv file
 
 res = pd.read_csv(COORDINATE_PATH_TRAIN)
-res = res[res['Label'] == 1]
+res = res[res['Label'] == 0]
 mapData = rasterio.open(RAW_FILE_PATH)
 
 l =0

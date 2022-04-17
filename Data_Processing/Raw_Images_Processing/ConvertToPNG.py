@@ -39,11 +39,11 @@ def normalize(array,band):
         normalized array
     """
     #get min and max to normalize
-    #min = [352.5, 422, 504, 228]
-    #max = [5246, 4056, 3918, 3577]
+    min = [352.5, 422, 504, 228]
+    max = [5246, 4056, 3918, 3577]
 
-    min = [0, 0, 0, 0]
-    max = [0.2856778204, 0.3260027468, 0.3961989582, 0.4650869071]
+    #min = [0, 0, 0, 0]
+    #max = [0.2856778204, 0.3260027468, 0.3961989582, 0.4650869071]
     array_min, array_max = array.min(), array.max()
     return ((array - min[band-1])/(max[band-1] - min[band-1]))
 
@@ -66,10 +66,10 @@ def convert_to_PNG(path):
     # Normalize each band separately
     a_image2 = np.empty_like(im)
     a_image2 = im
-    #a_image2[:,:,0] = normalize(im[:,:,0],1)
-    #a_image2[:,:,1] = normalize(im[:,:,1],2)
-    #a_image2[:,:,2] = normalize(im[:,:,2],3)
-    #a_image2[:,:,3] = normalize(im[:,:,3],4)
+    a_image2[:,:,0] = normalize(im[:,:,0],1)
+    a_image2[:,:,1] = normalize(im[:,:,1],2)
+    a_image2[:,:,2] = normalize(im[:,:,2],3)
+    a_image2[:,:,3] = normalize(im[:,:,3],4)
     #print(a_image2)
 
     # get RGB relevant value by multiplying * 255
@@ -78,7 +78,7 @@ def convert_to_PNG(path):
     # remove any decimal point
     a_image4 = np.around(a_image3, decimals=0)
 
-    #a_image4[:,:,3] = 255
+    a_image4[:,:,3] = 255
     a_image4[:, :, 3]
     a_image5 = np.copy(a_image4)
     a_image4[:, :, 0] = a_image5[:, :, 0]
@@ -91,9 +91,9 @@ def convert_to_PNG(path):
 
 # This code loop through all tiff generated and convert them to PNG file for further processing in the ML pipeline
 
-BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos"
+BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\Accra"
 # Mode is TEST or TRAIN which will either convert tiff images from the train or the test folders
-MODE = "TRAIN"
+MODE = "TEST"
 
 # If PROCESS_NON_BUILDUP is set to false then only two labels will be created for 0 and 1 (deprived and buildup)
 # If PROCESS_NON_BUILDUP is set to true then three labels will be processed

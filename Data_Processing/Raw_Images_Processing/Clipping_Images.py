@@ -3,17 +3,17 @@ import pandas as pd
 import os
 
 # This code use the extracted coordinates and parse thru csv file anc clip images in the specified folder
-BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos"
-RAW_FILE_PATH = BASE_PATH + r"\Maps\Cloud_free_lagos_img.tif"
+BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\Accra"
+RAW_FILE_PATH = BASE_PATH + r"\Maps\Cloud_free_Accra_img.tif"
 # Mode is TEST or TRAIN which will either clip images extracted from the train csv file or the test csv file
-MODE = "TRAIN"
+MODE = "TEST"
 
 # If PROCESS_NON_BUILDUP is set to false then only two labels will be created for 0 and 1 (deprived and buildup)
 # If PROCESS_NON_BUILDUP is set to true then three labels will be processed
 PROCESS_NON_BUILTUP = False
 
 # Check and create folders
-path = BASE_PATH + r'\Raw_Images30'
+path = BASE_PATH + r'\Raw_Images'
 path_train = path + r"\train\tif"
 path_test = path + r"\test\tif"
 # Check whether the specified path exists or not
@@ -23,8 +23,8 @@ if not isExist:
     os.makedirs(path_test)
 
 # Set the coordinate path
-COORDINATE_PATH_TRAIN = BASE_PATH + r"\train422.csv"
-COORDINATE_PATH_Test  = BASE_PATH + r"\test422.csv"
+COORDINATE_PATH_TRAIN = BASE_PATH + r"\train_ac42.csv"
+COORDINATE_PATH_Test  = BASE_PATH + r"\test_ac42.csv"
 
 # Make and set paths for clipped images
 os.makedirs(path + r"\{}\tif\0".format(MODE))

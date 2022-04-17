@@ -80,7 +80,7 @@ model = Sequential([
   layers.Dense(128, activation='relu'),
   layers.Dropout(0.2),
   layers.Dense(128, activation='relu'),
-  layers.Dense(3, activation='softmax')
+  layers.Dense(2, activation='softmax')
 ])
 
 model.compile(optimizer='adagrad',
