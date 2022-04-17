@@ -19,12 +19,14 @@ from rasterio.plot import show, show_hist
 # "data" dataframe contains the coordinates from the training data
 data = pd.read_csv("coordinates.csv")
 # create a column and put coordinates in tuple
-data["coords"] = [(x,y) for x, y in zip(data["long"], data["lat"])]
+data["Long_new"]= data["long"] -  5*0.00008333
+data["Lat_new"]= data["lat"] +  5*0.00008333
+data["coords"] = [(x,y) for x, y in zip(data["Long_new"], data["Lat_new"])]
 
 print(data)
 
 # Coordinate tuple
-#x= (3.343333335, 6.402500176)
+#x= (long, lat)
 coord_lst=[]
 coordinates=data["coords"].tolist()
 # step size ( distance between labels ( 10 pixels) )
