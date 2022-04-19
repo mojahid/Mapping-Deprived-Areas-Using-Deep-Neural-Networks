@@ -1,8 +1,6 @@
 import pandas as pd
-import numpy as np
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, f1_score
 from sklearn.model_selection import train_test_split
-from sklearn.inspection import permutation_importance
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import GradientBoostingClassifier
@@ -13,24 +11,36 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
+import os
 import warnings
-import path
 warnings.filterwarnings("ignore")
 
-def run_model(model='', features='', feature_count=50, classes = '', pretrained=True):
+def run_model(dataset ='', model='', features='', feature_count=50, classes = ''):
 
+    if dataset == 'contextual': 
+        # Read in dataframe and remove merged columns
+        df = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search\Contextual_data.csv')
+        df = df.drop(columns=['long', 'lat', 'Point'])
+        cols_to_move = ['Label']
+        df = df[cols_to_move + [col for col in df.columns if col not in cols_to_move]]
 
-    # Read in dataframe and remove merged columns
-    df = pd.read_csv(
-        r'C:\Users\brear\OneDrive\Documents\GitHub\Data-Science-Capstone\Contextual_Feautures_Modeling\Grid_Search\Contextual_Features_final.csv')
-    df = df.drop(columns=['long', 'lat', 'Point'])
-    cols_to_move = ['Label']
-    df = df[cols_to_move + [col for col in df.columns if col not in cols_to_move]]
+        # Move Target to first column
+        target = 'Label'
+        first_col = df.pop(target)
+        df.insert(0, target, first_col)
 
-    # Move Target to first column
-    target = 'Label'
-    first_col = df.pop(target)
-    df.insert(0, target, first_col)
+    elif dataset == 'covariate':
+        # Read in dataframe and remove merged columns
+        df = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search\Covariates_w_names.csv')
+        df.drop(['long', 'lat'], axis=1, inplace=True)
+        df.dropna(inplace=True)
+        cols_to_move = ['Label']
+        df = df[cols_to_move + [col for col in df.columns if col not in cols_to_move]]
+
+        # Move Target to first column
+        target = 'Label'
+        first_col = df.pop(target)
+        df.insert(0, target, first_col)
 
     if classes == 'all_classes':
         df = df
@@ -41,12 +51,18 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
     # define target and independent features
     if features == 'All_Features': # full dataset, all features
 
+        feature_count = ''
         X = df.values[:, 1:]
         y = df.values[:, 0]
 
     elif features == 'PCA_Features': # PCA feature selection
 
-        pca_features = pd.read_csv(r'') # pca feature list csv
+        if dataset == 'contextual':
+            pca_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_best_pca_features.csv')
+        else:
+            pca_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search\Covariate_best_pca_features.csv')
+
+
         pca = ['Label']
         for row in range(feature_count):
             pca.append(pca_features.iloc[row, 0])
@@ -57,7 +73,10 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
 
     elif features == 'Random_Forest_Features':  # Random Forest feature selection
 
-        rf_features = pd.read_csv(r'') # random forest feature list csv
+        if dataset == 'contextual':
+            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_best_random_forest_features.csv')
+        else:
+            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search\Covariate_best_random_forest_features.csv')
 
         rf = ['Label']
         for row in range(feature_count):
@@ -67,21 +86,6 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
 
         X = df_rf.values[:, 1:]
         y = df_rf.values[:, 0]
-
-    elif features == 'Logistic_Regression_Features':  # logistic regression feature selection
-
-        log_features = pd.read_csv(r'')  # logistic regression feature list csv
-
-        log = ['Label']
-        for row in range(feature_count):
-            log.append(log_features.iloc[row, 0])
-
-        df_log = df[log]
-
-        X = df_log.values[:, 1:]
-        y = df_log.values[:, 0]
-
-
 
 
     # train test split
@@ -97,9 +101,15 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
     X_val = sc.transform(X_val)
 
 
+    # Model file saved and exists externally
 
-    if model == 'MLP':
-        if pretrained == False:
+    # directory path models are saved in
+    directory = r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search'
+    # model filename
+    filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
+
+    if not os.path.exists(directory + '\\' + filename):
+        if model == 'MLP':
             # Hyper-parameter space
             '''
             parameter_space = {
@@ -127,7 +137,7 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
 
             clf.fit(X_train, y_train)
             clf_pred = clf.predict(X_test)
-            print(f"Test Results Using {model} Best Params, {feature_count}{features}, and {classes}: \n")
+            print(f"Test Results Using {dataset} dataset {model} Best Params, {feature_count}{features}, and {classes}: \n")
             print("Classification Report: ")
             print(classification_report(y_test, clf_pred))
 
@@ -135,11 +145,10 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
             print(f'Best parameters found for {model}:\n', clf.best_params_)
 
             # Save model
-            filename = f'{model}_model_{features}_{classes}.sav'
+            filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
             pickle.dump(clf, open(filename, 'wb'))
 
-    elif model == "Gradient_Boosting":
-        if pretrained == False:
+        elif model == "Gradient_Boosting":
             # Hyper-parameter space
             '''
             parameter_space = {
@@ -153,7 +162,7 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
                 "max_depth": [3, 5, 8],
                 "max_features": ["log2", "sqrt"],
             }
-            '''
+            
 
             parameter_space = {
                 'loss': ['deviance'],
@@ -166,28 +175,27 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
                 "max_depth": [3, 8],
                 "max_features": ["log2", "sqrt"],
             }
-
+            '''
             clf = GradientBoostingClassifier()
 
             # Run Gridsearch
-            clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
+            # clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
 
             clf.fit(X_train, y_train)
             clf_pred = clf.predict(X_test)
-            print(f"Test Results Using {model} Best Params, {feature_count}{features}, and {classes}: \n")
+            print(f"Test Results Using {model}, {feature_count}{features}, and {classes}: \n")
             print("Classification Report: ")
             print(classification_report(y_test, clf_pred))
 
             # Best parameter set
-            print(f'Best parameters found for {model}:\n', clf.best_params_)
+            # print(f'Best parameters found for {model}:\n', clf.best_params_)
 
             # Save model
-            filename = f'{model}_model_{features}_{classes}.sav'
+            filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
             pickle.dump(clf, open(filename, 'wb'))
 
-    elif model == "Logistic_Regression":
-        if pretrained == False:
-            # Hyper-parameter space
+        elif model == "Logistic_Regression":
+            # Logistic Regression Hyper-parameter space
             parameter_space = {
                 'penalty': ['l1', 'l2','elasticnet', 'none'],
                 'dual': [True, False],
@@ -203,7 +211,7 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
 
             clf.fit(X_train, y_train)
             clf_pred = clf.predict(X_test)
-            print(f"Test Results Using {model} Best Params, {feature_count}{features}, and {classes}: \n")
+            print(f"Test Results Using {dataset} dataset {model} Best Params, {feature_count}{features}, and {classes}: \n")
             print("Classification Report: ")
             print(classification_report(y_test, clf_pred))
 
@@ -211,12 +219,12 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
             print(f'Best parameters found for {model}:\n', clf.best_params_)
 
             # Save model
-            filename = f'{model}_model_{features}_{classes}.sav'
+            filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
             pickle.dump(clf, open(filename, 'wb'))
 
-    elif model == "Random_Forest":
-        if pretrained == False:
+        elif model == "Random_Forest":
             # Hyper-parameter space
+            '''
             parameter_space = {
                 'criterion': ['gini', 'entropy'],
                 'n_estimators': [100, 200],
@@ -225,39 +233,70 @@ def run_model(model='', features='', feature_count=50, classes = '', pretrained=
                 "max_depth": [2, 10, 20],
                 "max_features": ["log2", "sqrt", 'auto'],
             }
-
+            '''
             clf = RandomForestClassifier()
 
             # Run Gridsearch
-            clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
+            # clf = GridSearchCV(clf, parameter_space, n_jobs=-1, cv=3)
 
             clf.fit(X_train, y_train)
             clf_pred = clf.predict(X_test)
-            print(f"Test Results Using {model} Best Params, {feature_count}{features}, and {classes}: \n")
+            print(f"Test Results Using {dataset} dataset {model}, {feature_count}{features}, and {classes}: \n")
             print("Classification Report: ")
             print(classification_report(y_test, clf_pred))
 
             # Best parameter set
-            print(f'Best parameters found for {model}:\n', clf.best_params_)
+            # print(f'Best parameters found for {model}:\n', clf.best_params_)
 
             # Save model
-            filename = f'{model}_model_{features}_{classes}.sav'
+            filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
             pickle.dump(clf, open(filename, 'wb'))
 
-    # Load Model
-    # data_folder = path(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search')
-    filename = f'{model}_model_{features}_{classes}.sav' # saved model path
-    loaded_model = pickle.load(open(filename, 'rb'))
+        # Load Model
+        filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
+        loaded_model = pickle.load(open(filename, 'rb'))
 
-    # Predict on validation set
-    val_pred = loaded_model.predict(X_val)
-    print(f"Validation Results Using {model} Best Params, {feature_count}{features}, {classes}: \n")
-    print("Classification Report: ")
-    print(classification_report(y_val, val_pred))
-    cf_matrix = confusion_matrix(y_val, val_pred)
-    sns.heatmap(cf_matrix, annot=True, fmt="d")
-    plt.title(f'{model} Confusion Matrix - {feature_count}{features}, {classes}')
-    plt.show()
+        # Predict on validation set
+        val_pred = loaded_model.predict(X_val)
+        print(f"Validation Results Using {dataset} dataset, {model}, {feature_count}{features}, and {classes}: \n")
+        print("Classification Report: ")
+        print(classification_report(y_val, val_pred))
+        cf_matrix = confusion_matrix(y_val, val_pred)
+        sns.heatmap(cf_matrix, annot=True, fmt="d")
+        plt.title(f'{model} Confusion Matrix - {feature_count}{features}, {classes}')
+        plt.show()
+
+        # f1 scores for comparison table output
+        f1_micro_class0 = f1_score(y_val, val_pred, average=None)[0]
+        f1_micro_class1 = f1_score(y_val, val_pred, average=None)[1]
+        f1_macro = f1_score(y_val, val_pred, average='macro')
+
+        return f1_micro_class0, f1_micro_class1, f1_macro
+
+
+    # Model already saved as external file
+    else:
+        # Load Model
+        filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
+        loaded_model = pickle.load(open(filename, 'rb'))
+
+        # Predict on validation set
+        val_pred = loaded_model.predict(X_val)
+        print(f"Validation Results Using {dataset} dataset, {model}, {feature_count}{features}, and {classes}: \n")
+        print("Classification Report: ")
+        print(classification_report(y_val, val_pred))
+        cf_matrix = confusion_matrix(y_val, val_pred)
+        sns.heatmap(cf_matrix, annot=True, fmt="d")
+        plt.title(f'{model} Confusion Matrix - {feature_count}{features}, {classes}')
+        plt.show()
+
+        # f1 scores for comparison table output
+        f1_micro_class0 = f1_score(y_val, val_pred, average=None)[0]
+        f1_micro_class1 = f1_score(y_val, val_pred, average=None)[1]
+        f1_macro = f1_score(y_val, val_pred, average='macro')
+
+        return f1_micro_class0, f1_micro_class1, f1_macro
+
 
 
 
