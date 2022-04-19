@@ -7,7 +7,7 @@ from keras import layers, losses
 from PIL import Image
 
 
-epochs =100
+epochs =200
 batch_size = 32
 img_height = 10
 img_width = 10
