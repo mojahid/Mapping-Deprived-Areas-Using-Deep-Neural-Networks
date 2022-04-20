@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="Add encoder model code">
-      <change beforePath="$PROJECT_DIR$/.idea/Data-Science-Capstone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Data-Science-Capstone.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="added autoencoder weights validation compare the weights of auoencoder and submodel encoder">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP/autoencoder_mlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP/autoencoder_mlp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP/encoder_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP/encoder_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +173,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="73d73ea7-5aa6-4376-9470-0025d392c0dc" name="Changes" comment="" />
+      <changelist id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="updated pretrained model code" />
       <created>1646081082029</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -189,6 +186,7 @@
       <workItem from="1646863362070" duration="7058000" />
       <workItem from="1649616139244" duration="56146000" />
       <workItem from="1649871943299" duration="3015000" />
+      <workItem from="1650425987350" duration="1231000" />
     </task>
     <task id="LOCAL-00001" summary="Add encoder model code">
       <created>1650255766642</created>
@@ -197,7 +195,35 @@
       <option name="project" value="LOCAL" />
       <updated>1650255766642</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add encoder model code">
+      <created>1650256571190</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1650256571190</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add pretrained model code">
+      <created>1650260498495</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1650260498495</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated pretrained model code">
+      <created>1650264990988</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1650264990988</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added autoencoder weights validation compare the weights of auoencoder and submodel encoder">
+      <created>1650432022836</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1650432022836</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,7 +243,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add encoder model code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add encoder model code" />
+    <MESSAGE value="Add pretrained model code" />
+    <MESSAGE value="updated pretrained model code" />
+    <MESSAGE value="added autoencoder weights validation compare the weights of auoencoder and submodel encoder" />
+    <option name="LAST_COMMIT_MESSAGE" value="added autoencoder weights validation compare the weights of auoencoder and submodel encoder" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN.coverage" NAME="Modeling_CNN Coverage Results" MODIFIED="1649696857211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
