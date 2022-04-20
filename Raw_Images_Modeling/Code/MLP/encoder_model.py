@@ -137,7 +137,9 @@ checkpoint = tf.keras.callbacks.ModelCheckpoint(save_model_path+'weights{}.h5'.f
 history=autoencoder.fit(x_train,x_train,epochs=epochs,shuffle=True,validation_data=(x_test, x_test),callbacks=[early_stop,checkpoint],batch_size=38)
 
 #save the encoder model
-encoder_model.save('encoder_model.h5')
+encoder_model.save('encoder_model_1.h5')
+# saving model weights - we can later compare it with autoencoder weights - script for validation (autoencoder_weight_validation.py)
+encoder_model.save_weights('encoder_model_weights.h5')
 
 #create a set od decoded images
 encoded_imgs = autoencoder.encoder(x_test).numpy()
