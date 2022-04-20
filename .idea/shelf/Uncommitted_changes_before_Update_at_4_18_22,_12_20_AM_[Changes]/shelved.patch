@@ -1,0 +1,509 @@
+Index: .idea/deployment.xml
+===================================================================
+diff --git a/.idea/deployment.xml b/.idea/deployment.xml
+deleted file mode 100644
+--- a/.idea/deployment.xml	(revision bbf71ed835cf62128c3a7e2cb71f716a2703463f)
++++ /dev/null	(revision bbf71ed835cf62128c3a7e2cb71f716a2703463f)
+@@ -1,28 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="PublishConfigData" remoteFilesAllowedToDisappearOnAutoupload="false">
+-    <serverData>
+-      <paths name="gpuServer">
+-        <serverdata>
+-          <mappings>
+-            <mapping local="$PROJECT_DIR$" web="/" />
+-          </mappings>
+-        </serverdata>
+-      </paths>
+-      <paths name="newServer">
+-        <serverdata>
+-          <mappings>
+-            <mapping local="$PROJECT_DIR$" web="/" />
+-          </mappings>
+-        </serverdata>
+-      </paths>
+-      <paths name="ubuntu@35.171.18.250:22 key">
+-        <serverdata>
+-          <mappings>
+-            <mapping local="$PROJECT_DIR$" web="/" />
+-          </mappings>
+-        </serverdata>
+-      </paths>
+-    </serverData>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.9\" project-jdk-type=\"Python SDK\" />\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision bbf71ed835cf62128c3a7e2cb71f716a2703463f)
++++ b/.idea/misc.xml	(date 1650167444160)
+@@ -1,4 +1,4 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8 (2)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: Raw_Images_Modeling/Code/MLP/encoder_model.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Raw_Images_Modeling/Code/MLP/encoder_model.py b/Raw_Images_Modeling/Code/MLP/encoder_model.py
+new file mode 100644
+--- /dev/null	(date 1650255499349)
++++ b/Raw_Images_Modeling/Code/MLP/encoder_model.py	(date 1650255499349)
+@@ -0,0 +1,176 @@
++import matplotlib.pyplot as plt
++import numpy as np
++import os
++import tensorflow as tf
++import cv2
++from keras import layers, losses
++from PIL import Image
++
++
++epochs =5
++batch_size = 32
++img_height = 10
++img_width = 10
++SEED= 42
++LR = 1e-3
++DROPOUT=0.1
++input_dim = (10,10,3) # Image dimension
++output_dim= 2
++encoding_dim = 32  # 32 floats -> compression of factor 24.5, assuming the input is 784 floats
++
++
++#Import Data
++path = r'../data/train/png/0'
++save_model_path =r'../code/ae_models/'
++save_images_path = r'../data/ae_data/reconstructed/'
++
++def image_path(path):
++
++    labels_paths = []
++
++    for file in os.listdir(path):
++        file_path = os.path.join(path, file)
++        if(file_path.endswith('png')):
++            labels_paths.append(file_path)
++    return labels_paths
++
++
++def images(images_paths):
++    x = []
++    for img in images_paths:
++        x.append(cv2.imread(img))
++    x = np.array(x)
++    return x
++
++builtup_images_path_lst= image_path(path)
++builtup_input= images(builtup_images_path_lst)
++builtup_label=np.zeros((len(builtup_input,)))
++
++
++path_2=r'../data/train/png/1'
++deprived_images_path_lst= image_path(path_2)
++#print(deprived_images_path_lst)
++deprived_input= images(deprived_images_path_lst)
++deprived_label=np.ones((len(deprived_input,)))
++for i in deprived_images_path_lst:
++    builtup_images_path_lst.append(i)
++x_train= images(builtup_images_path_lst)
++x_train=x_train/255
++y_train= np.append(builtup_label,deprived_label)
++
++
++test_path=r'../data/test/png/0'
++test_builtup_images_path_lst= image_path(test_path)
++#print(builtup_images_path_lst)
++test_builtup_input= images(test_builtup_images_path_lst)
++test_builtup_label=np.zeros((len(test_builtup_input,)))
++
++test_path_2=r'../data/test/png/1'
++test_deprived_images_path_lst= image_path(test_path_2)
++#print(deprived_images_path_lst)
++test_deprived_input= images(test_deprived_images_path_lst)
++test_deprived_label=np.ones((len(test_deprived_input,)))
++for i in test_deprived_images_path_lst:
++    test_builtup_images_path_lst.append(i)
++
++x_test= images(test_builtup_images_path_lst)
++x_test= x_test/255
++y_test= np.append(test_builtup_label,test_deprived_label)
++
++print(x_train.shape)
++print(x_test.shape)
++
++
++#Define the Autoencoder
++latent_dim = 10
++class Autoencoder(tf.keras.Model):
++  def __init__(self,input_dim,latent_dim):
++    super(Autoencoder, self).__init__()
++    self.input_dim = input_dim
++    self.latent_dim = latent_dim
++    self.encoder = tf.keras.Sequential([
++         tf.keras.layers.Flatten(input_shape=input_dim),
++         tf.keras.layers.Dense(100, activation='relu'),
++         tf.keras.layers.BatchNormalization(),
++         tf.keras.layers.Dense(50, activation='relu'),
++         tf.keras.layers.BatchNormalization(),
++         tf.keras.layers.Dense(25, activation='relu'),
++         tf.keras.layers.BatchNormalization(),
++         tf.keras.layers.Dense(latent_dim, activation='relu')
++    ])
++    self.decoder = tf.keras.Sequential([
++         tf.keras.layers.Dense(latent_dim, activation='relu'),
++         tf.keras.layers.BatchNormalization(),
++         tf.keras.layers.Dense(25, activation='relu'),
++         tf.keras.layers.BatchNormalization(),
++         tf.keras.layers.Dense(50, activation='relu'),
++         tf.keras.layers.BatchNormalization(),
++         tf.keras.layers.Dense(100, activation='relu'),
++         tf.keras.layers.BatchNormalization(),
++         tf.keras.layers.Dense(300, activation='linear'),
++         tf.keras.layers.Reshape(input_dim)
++    ])
++
++  def call(self, x):
++    encoded = self.encoder(x)
++    decoded = self.decoder(encoded)
++    return decoded
++
++autoencoder = Autoencoder(input_dim,latent_dim)
++autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError(),metrics=['accuracy'])
++
++autoencoder.build((None,10,10,3))
++autoencoder.summary()
++
++#define the enconder model
++encoder_model=autoencoder.encoder
++encoder_model.summary()
++
++#define the decoder model
++decoder_model=autoencoder.decoder
++decoder_model.summary()
++
++
++#fit the autoencoder model
++early_stop = tf.keras.callbacks.EarlyStopping(monitor='accuracy', patience=20)
++checkpoint = tf.keras.callbacks.ModelCheckpoint(save_model_path+'weights{}.h5'.format('adam_latent_dim_10'), save_weights_only = True, verbose=0)
++history=autoencoder.fit(x_train,x_train,epochs=epochs,shuffle=True,validation_data=(x_test, x_test),callbacks=[early_stop,checkpoint],batch_size=38)
++
++#save the encoder model
++encoder_model.save('encoder_model.h5')
++
++#create a set od decoded images
++encoded_imgs = autoencoder.encoder(x_test).numpy()
++decoded_imgs = autoencoder.decoder(encoded_imgs).numpy()
++
++# plot loss
++plt.plot(history.history['loss'], label='train')
++plt.plot(history.history['val_loss'], label='test')
++plt.legend()
++plt.show()
++
++
++n = 16
++plt.figure(figsize=(20, 4))
++for i in range(n):
++  # display original
++  ax = plt.subplot(2, n, i + 1)
++  plt.imshow(x_test[i])
++  plt.title('original')
++  plt.gray()
++  ax.get_xaxis().set_visible(False)
++  ax.get_yaxis().set_visible(False)
++
++  # display reconstruction
++  ax = plt.subplot(2, n, i + 1 + n)
++  plt.imshow(decoded_imgs[i])
++  decoded_img=decoded_imgs[i]*255
++  decoded_img=np.uint8(decoded_img)
++  #print(decoded_img)
++  PIL_image = Image.fromarray(decoded_img, 'RGB')
++  #PIL_image.save(save_images_path+'reconstructed_{}.png'.format(i))
++  plt.title('reconstructed')
++  plt.gray()
++  ax.get_xaxis().set_visible(False)
++  ax.get_yaxis().set_visible(False)
++plt.show()
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"73d73ea7-5aa6-4376-9470-0025d392c0dc\" name=\"Changes\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Open_Building_Testing.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Data_Processing/Extract_Coordinates.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Data_Processing/Extract_Coordinates.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Clipping_Images.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Clipping_Images.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Rolling.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Rolling.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Modeling_CNN.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Modeling_CNN.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectId\" id=\"25kpkObKZ9pxZKKPqSEY9ujQ1A4\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"true\" />\n    <property name=\"last_opened_file_path\" value=\"$USER_HOME$/Data-Science-Capstone/Clipping_Images.py\" />\n    <property name=\"node.js.detected.package.eslint\" value=\"true\" />\n    <property name=\"node.js.detected.package.tslint\" value=\"true\" />\n    <property name=\"node.js.path.for.package.eslint\" value=\"project\" />\n    <property name=\"node.js.path.for.package.tslint\" value=\"project\" />\n    <property name=\"node.js.selected.package.eslint\" value=\"(autodetect)\" />\n    <property name=\"node.js.selected.package.tslint\" value=\"(autodetect)\" />\n  </component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\brear\\OneDrive\\Desktop\\Grad School\\Data-Science-Capstone\\Contextual_Feautres_Modeling\\Grid_Search\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\brear\\OneDrive\\Desktop\\Grad School\\Data-Science-Capstone\\Contextual_Feautres_Modeling\\Grid_Search\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Python.ConvertToPNG\">\n    <configuration name=\"ConvertToPNG (1)\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Data-Science-Capstone\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$USER_HOME$/Data-Science-Capstone\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$USER_HOME$/Data-Science-Capstone/ConvertToPNG.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"ConvertToPNG\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Data-Science-Capstone\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Image_Shifting\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Data-Science-Capstone\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Oversample (1)\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Data-Science-Capstone\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$USER_HOME$/Data-Science-Capstone\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$USER_HOME$/Data-Science-Capstone/Oversample.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Oversample\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"Data-Science-Capstone\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Python.ConvertToPNG\" />\n        <item itemvalue=\"Python.Oversample (1)\" />\n        <item itemvalue=\"Python.ConvertToPNG (1)\" />\n        <item itemvalue=\"Python.Oversample\" />\n        <item itemvalue=\"Python.Image_Shifting\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"73d73ea7-5aa6-4376-9470-0025d392c0dc\" name=\"Changes\" comment=\"\" />\n      <created>1646081082029</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1646081082029</updated>\n      <workItem from=\"1646081093501\" duration=\"9130000\" />\n      <workItem from=\"1646256720903\" duration=\"27000\" />\n      <workItem from=\"1646686091374\" duration=\"274000\" />\n      <workItem from=\"1646686426480\" duration=\"218000\" />\n      <workItem from=\"1646686652691\" duration=\"4126000\" />\n      <workItem from=\"1646863362070\" duration=\"7058000\" />\n      <workItem from=\"1649616139244\" duration=\"56146000\" />\n      <workItem from=\"1649871943299\" duration=\"3015000\" />\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\n  </component>\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Load_Test_Model_2.coverage\" NAME=\"Load_Test_Model_2 Coverage Results\" MODIFIED=\"1649704674102\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$USER_HOME$/Data-Science-Capstone\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Extract_Coordinates.coverage\" NAME=\"Extract_Coordinates Coverage Results\" MODIFIED=\"1649795421334\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Data_Processing\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Oversample.coverage\" NAME=\"Oversample Coverage Results\" MODIFIED=\"1649802404625\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Modeling_CNN__1_.coverage\" NAME=\"Modeling_CNN (1) Coverage Results\" MODIFIED=\"1649660109429\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$USER_HOME$/Data-Science-Capstone\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Deep_Learning_Models.coverage\" NAME=\"Deep_Learning_Models Coverage Results\" MODIFIED=\"1646085154074\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Contextual_Feautres_Modeling\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Oversample__1_.coverage\" NAME=\"Oversample (1) Coverage Results\" MODIFIED=\"1649803049653\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$USER_HOME$/Data-Science-Capstone\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Image_Shifting.coverage\" NAME=\"Image_Shifting Coverage Results\" MODIFIED=\"1649797528270\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$scrap.coverage\" NAME=\"scrap Coverage Results\" MODIFIED=\"1646885245914\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$ConvertToPNG.coverage\" NAME=\"ConvertToPNG Coverage Results\" MODIFIED=\"1649803124422\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Modeling_CNN.coverage\" NAME=\"Modeling_CNN Coverage Results\" MODIFIED=\"1649696857211\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$USER_HOME$/Data-Science-Capstone\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$MLP_Grid.coverage\" NAME=\"MLP_Grid Coverage Results\" MODIFIED=\"1646885395773\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$ConvertToPNG__1_.coverage\" NAME=\"ConvertToPNG (1) Coverage Results\" MODIFIED=\"1649802709217\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$USER_HOME$/Data-Science-Capstone\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Image_Rolling.coverage\" NAME=\"Image_Rolling Coverage Results\" MODIFIED=\"1649796727686\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing\" />\n    <SUITE FILE_PATH=\"coverage/Data_Science_Capstone$Clipping_Images.coverage\" NAME=\"Clipping_Images Coverage Results\" MODIFIED=\"1649796373828\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"coverage.py\" COVERAGE_BY_TEST_ENABLED=\"true\" COVERAGE_TRACING_ENABLED=\"false\" WORKING_DIRECTORY=\"$PROJECT_DIR$/Data_Processing/Raw_Images_Processing\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision bbf71ed835cf62128c3a7e2cb71f716a2703463f)
++++ b/.idea/workspace.xml	(date 1650255499462)
+@@ -1,19 +1,12 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="AutoImportSettings">
+-    <option name="autoReloadType" value="SELECTIVE" />
+-  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="73d73ea7-5aa6-4376-9470-0025d392c0dc" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Open_Building_Testing.py" afterDir="false" />
++    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="update MLP autoencoder">
++      <change afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP/encoder_model.py" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/Data-Science-Capstone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Data-Science-Capstone.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Data_Processing/Extract_Coordinates.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Extract_Coordinates.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Clipping_Images.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Clipping_Images.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Rolling.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Rolling.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Modeling_CNN.py" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/CNN/Modeling_CNN.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -30,7 +23,8 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="ProjectId" id="25kpkObKZ9pxZKKPqSEY9ujQ1A4" />
++  <component name="ProjectId" id="27uQDJtELqHZ2Kzad3OYbrJjACd" />
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -39,68 +33,10 @@
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="true" />
+-    <property name="last_opened_file_path" value="$USER_HOME$/Data-Science-Capstone/Clipping_Images.py" />
+-    <property name="node.js.detected.package.eslint" value="true" />
+-    <property name="node.js.detected.package.tslint" value="true" />
+-    <property name="node.js.path.for.package.eslint" value="project" />
+-    <property name="node.js.path.for.package.tslint" value="project" />
+-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
++    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+   </component>
+-  <component name="RecentsManager">
+-    <key name="CopyFile.RECENT_KEYS">
+-      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Grid_Search" />
+-    </key>
+-    <key name="MoveFile.RECENT_KEYS">
+-      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Grid_Search" />
+-    </key>
+-  </component>
+-  <component name="RunManager" selected="Python.ConvertToPNG">
+-    <configuration name="ConvertToPNG (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+-      <module name="Data-Science-Capstone" />
+-      <option name="INTERPRETER_OPTIONS" value="" />
+-      <option name="PARENT_ENVS" value="true" />
+-      <envs>
+-        <env name="PYTHONUNBUFFERED" value="1" />
+-      </envs>
+-      <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Data-Science-Capstone" />
+-      <option name="IS_MODULE_SDK" value="false" />
+-      <option name="ADD_CONTENT_ROOTS" value="true" />
+-      <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$USER_HOME$/Data-Science-Capstone/ConvertToPNG.py" />
+-      <option name="PARAMETERS" value="" />
+-      <option name="SHOW_COMMAND_LINE" value="false" />
+-      <option name="EMULATE_TERMINAL" value="false" />
+-      <option name="MODULE_MODE" value="false" />
+-      <option name="REDIRECT_INPUT" value="false" />
+-      <option name="INPUT_FILE" value="" />
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="ConvertToPNG" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+-      <module name="Data-Science-Capstone" />
+-      <option name="INTERPRETER_OPTIONS" value="" />
+-      <option name="PARENT_ENVS" value="true" />
+-      <envs>
+-        <env name="PYTHONUNBUFFERED" value="1" />
+-      </envs>
+-      <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+-      <option name="IS_MODULE_SDK" value="true" />
+-      <option name="ADD_CONTENT_ROOTS" value="true" />
+-      <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py" />
+-      <option name="PARAMETERS" value="" />
+-      <option name="SHOW_COMMAND_LINE" value="false" />
+-      <option name="EMULATE_TERMINAL" value="false" />
+-      <option name="MODULE_MODE" value="false" />
+-      <option name="REDIRECT_INPUT" value="false" />
+-      <option name="INPUT_FILE" value="" />
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="Image_Shifting" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
++  <component name="RunManager">
++    <configuration name="autoencoder_mlp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="Data-Science-Capstone" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+       <option name="PARENT_ENVS" value="true" />
+@@ -108,56 +44,12 @@
+         <env name="PYTHONUNBUFFERED" value="1" />
+       </envs>
+       <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
++      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP" />
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py" />
+-      <option name="PARAMETERS" value="" />
+-      <option name="SHOW_COMMAND_LINE" value="false" />
+-      <option name="EMULATE_TERMINAL" value="false" />
+-      <option name="MODULE_MODE" value="false" />
+-      <option name="REDIRECT_INPUT" value="false" />
+-      <option name="INPUT_FILE" value="" />
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="Oversample (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+-      <module name="Data-Science-Capstone" />
+-      <option name="INTERPRETER_OPTIONS" value="" />
+-      <option name="PARENT_ENVS" value="true" />
+-      <envs>
+-        <env name="PYTHONUNBUFFERED" value="1" />
+-      </envs>
+-      <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Data-Science-Capstone" />
+-      <option name="IS_MODULE_SDK" value="false" />
+-      <option name="ADD_CONTENT_ROOTS" value="true" />
+-      <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$USER_HOME$/Data-Science-Capstone/Oversample.py" />
+-      <option name="PARAMETERS" value="" />
+-      <option name="SHOW_COMMAND_LINE" value="false" />
+-      <option name="EMULATE_TERMINAL" value="false" />
+-      <option name="MODULE_MODE" value="false" />
+-      <option name="REDIRECT_INPUT" value="false" />
+-      <option name="INPUT_FILE" value="" />
+-      <method v="2" />
+-    </configuration>
+-    <configuration name="Oversample" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+-      <module name="Data-Science-Capstone" />
+-      <option name="INTERPRETER_OPTIONS" value="" />
+-      <option name="PARENT_ENVS" value="true" />
+-      <envs>
+-        <env name="PYTHONUNBUFFERED" value="1" />
+-      </envs>
+-      <option name="SDK_HOME" value="" />
+-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+-      <option name="IS_MODULE_SDK" value="true" />
+-      <option name="ADD_CONTENT_ROOTS" value="true" />
+-      <option name="ADD_SOURCE_ROOTS" value="true" />
+-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py" />
++      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP/autoencoder_mlp.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+       <option name="EMULATE_TERMINAL" value="false" />
+@@ -168,31 +60,29 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Python.ConvertToPNG" />
+-        <item itemvalue="Python.Oversample (1)" />
+-        <item itemvalue="Python.ConvertToPNG (1)" />
+-        <item itemvalue="Python.Oversample" />
+-        <item itemvalue="Python.Image_Shifting" />
++        <item itemvalue="Python.autoencoder_mlp" />
+       </list>
+     </recent_temporary>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="73d73ea7-5aa6-4376-9470-0025d392c0dc" name="Changes" comment="" />
+-      <created>1646081082029</created>
++      <changelist id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="" />
++      <created>1650167372117</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+-      <updated>1646081082029</updated>
+-      <workItem from="1646081093501" duration="9130000" />
+-      <workItem from="1646256720903" duration="27000" />
+-      <workItem from="1646686091374" duration="274000" />
+-      <workItem from="1646686426480" duration="218000" />
+-      <workItem from="1646686652691" duration="4126000" />
+-      <workItem from="1646863362070" duration="7058000" />
+-      <workItem from="1649616139244" duration="56146000" />
+-      <workItem from="1649871943299" duration="3015000" />
++      <updated>1650167372117</updated>
++      <workItem from="1650167378497" duration="1420000" />
++      <workItem from="1650243254688" duration="672000" />
++    </task>
++    <task id="LOCAL-00001" summary="update MLP autoencoder">
++      <created>1650168777848</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1650168777848</updated>
+     </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -210,20 +100,11 @@
+     </option>
+     <option name="oldMeFiltersMigrated" value="true" />
+   </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="update MLP autoencoder" />
++    <option name="LAST_COMMIT_MESSAGE" value="update MLP autoencoder" />
++  </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Load_Test_Model_2.coverage" NAME="Load_Test_Model_2 Coverage Results" MODIFIED="1649704674102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Extract_Coordinates.coverage" NAME="Extract_Coordinates Coverage Results" MODIFIED="1649795421334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Oversample.coverage" NAME="Oversample Coverage Results" MODIFIED="1649802404625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN__1_.coverage" NAME="Modeling_CNN (1) Coverage Results" MODIFIED="1649660109429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Deep_Learning_Models.coverage" NAME="Deep_Learning_Models Coverage Results" MODIFIED="1646085154074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Oversample__1_.coverage" NAME="Oversample (1) Coverage Results" MODIFIED="1649803049653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Shifting.coverage" NAME="Image_Shifting Coverage Results" MODIFIED="1649797528270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$scrap.coverage" NAME="scrap Coverage Results" MODIFIED="1646885245914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$ConvertToPNG.coverage" NAME="ConvertToPNG Coverage Results" MODIFIED="1649803124422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN.coverage" NAME="Modeling_CNN Coverage Results" MODIFIED="1649696857211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$MLP_Grid.coverage" NAME="MLP_Grid Coverage Results" MODIFIED="1646885395773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$ConvertToPNG__1_.coverage" NAME="ConvertToPNG (1) Coverage Results" MODIFIED="1649802709217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Rolling.coverage" NAME="Image_Rolling Coverage Results" MODIFIED="1649796727686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Clipping_Images.coverage" NAME="Clipping_Images Coverage Results" MODIFIED="1649796373828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
++    <SUITE FILE_PATH="coverage/Data_Science_Capstone$autoencoder_mlp.coverage" NAME="autoencoder_mlp Coverage Results" MODIFIED="1650167563037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/Data-Science-Capstone.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module type=\"PYTHON_MODULE\" version=\"4\">\n  <component name=\"NewModuleRootManager\">\n    <content url=\"file://$MODULE_DIR$\" />\n    <orderEntry type=\"inheritedJdk\" />\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\n  </component>\n  <component name=\"PyDocumentationSettings\">\n    <option name=\"format\" value=\"GOOGLE\" />\n    <option name=\"myDocStringFormat\" value=\"Google\" />\n  </component>\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Data-Science-Capstone.iml b/.idea/Data-Science-Capstone.iml
+--- a/.idea/Data-Science-Capstone.iml	(revision bbf71ed835cf62128c3a7e2cb71f716a2703463f)
++++ b/.idea/Data-Science-Capstone.iml	(date 1650167444147)
+@@ -5,8 +5,4 @@
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+-  <component name="PyDocumentationSettings">
+-    <option name="format" value="GOOGLE" />
+-    <option name="myDocStringFormat" value="Google" />
+-  </component>
+ </module>
+\ No newline at end of file
