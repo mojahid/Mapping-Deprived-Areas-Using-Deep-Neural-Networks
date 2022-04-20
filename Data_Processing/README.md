@@ -22,6 +22,11 @@ For the raw image handing, the give data was two geoTiff files:
 ... Mojahid
 
 
+# Extracting coordinates
+The first step in all the data processing was to extract all the data from the labeled image and end up with a csv file that contains coordinates of the labeled box and the corresponding label.    
+![image](https://user-images.githubusercontent.com/34656794/161973643-d21d341c-2fff-44ff-ac90-ce7a516a6d19.png)  
+
+
 # Data Processing
 
 
@@ -47,7 +52,5 @@ Depending on the processing path, one of these folders can be selected:
   
 
 
-# Extracting coordinates
-The first step in all the data processing was to extract all the data from the labeled image and end up with a csv file that contains coordinates of the labeled box and the corresponding label.    
-![image](https://user-images.githubusercontent.com/34656794/161973643-d21d341c-2fff-44ff-ac90-ce7a516a6d19.png)
+
 
