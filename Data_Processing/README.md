@@ -1,8 +1,31 @@
+
+# The data
+All data was collected with joint efforts led by [Idea Maps Network](https://ideamapsnetwork.org/lagos-aos/).  
+IdeaMaps network mapped 100x100 m2 areas to against the following three labels (across multiple major cities in Africa):  
+1- Built-up areas with label 0  
+2- Deprived area with label 1  
+3 - Non-built-up area with label 2 
+
+
+For the raw image handing, the give data was two geoTiff files:  
+1- Map image extracted from Google earth engine using [this branch of the project](https://github.com/arathinair11/Satellite-Imagery)  
+2- Labeled image that is mapping three labels:  
+    2.1 - Built-up areas with label 0  
+    2.2 - Deprived area with label 1  
+    2.3 - Non-built-up area with label 2  
+
+![image](https://user-images.githubusercontent.com/34656794/161972674-fe31679d-8ca9-451b-b603-6cee83e8e759.png)
+![image](https://user-images.githubusercontent.com/34656794/161972686-3409fd16-40f3-4e58-8ee2-44bd0f458003.png)
+
+
+# Downloading the data
+... Mojahid
+
+
 # Data Processing
 
-All data was collected with joint efforts led by [Idea Maps Network](https://ideamapsnetwork.org/lagos-aos/)
 
-This folder contains python code used to extract, process of data used in this project
+Depending on the processing path, one of these folders can be selected:
 
 1) Contextual_Features_Processing:
     
@@ -19,18 +42,10 @@ This folder contains python code used to extract, process of data used in this p
 
        Clipping_Images.py: Python file to clip labeled satellite images used in training and testing deep learning models 
        
-       Image_Rolling.py:  Python file to perform image augmentation to handle class imbalance. 
+       Image_Rolling.py:  Python file to perform image augmentation to handle class imbalance and more files as per the instruction inside
 
   
-For the raw image handing, the give data was two geoTiff files:  
-1- Map image extracted from Google earth engine using [this branch of the project](https://github.com/arathinair11/Satellite-Imagery)  
-2- Labeled image that is mapping three labels:  
-    2.1 - Built-up areas with label 0  
-    2.2 - Deprived area with label 1  
-    2.3 - Non-built-up area with label 2  
 
-![image](https://user-images.githubusercontent.com/34656794/161972674-fe31679d-8ca9-451b-b603-6cee83e8e759.png)
-![image](https://user-images.githubusercontent.com/34656794/161972686-3409fd16-40f3-4e58-8ee2-44bd0f458003.png)
 
 # Extracting coordinates
 The first step in all the data processing was to extract all the data from the labeled image and end up with a csv file that contains coordinates of the labeled box and the corresponding label.    
