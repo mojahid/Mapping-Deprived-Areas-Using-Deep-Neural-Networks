@@ -1,0 +1,23 @@
+Index: Data/README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Download images from AWS\n\n* Clone the project repo to your local directory \n\n* Edit the lagos/download.py and update the:\n    host_name='AWS Hostname/IP'\n    user_name='ubuntu/user'\n    key_filename='World_Bank.pem' -- location of the pem\n\n* run download.py script\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Data/README.md b/Data/README.md
+--- a/Data/README.md	(revision e1d370047e486c6925ff05b99c310725d0e4b042)
++++ b/Data/README.md	(date 1650517091898)
+@@ -3,9 +3,9 @@
+ * Clone the project repo to your local directory 
+ 
+ * Edit the lagos/download.py and update the:
+-    host_name='AWS Hostname/IP'
+-    user_name='ubuntu/user'
+-    key_filename='World_Bank.pem' -- location of the pem
++    *host_name='AWS Hostname/IP'
++    *user_name='ubuntu/user'
++    *key_filename='World_Bank.pem' -- location of the pem
+ 
+ * run download.py script
+ 
