@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="Merge remote-tracking branch 'origin/main' into main">
-      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/Autoencoder/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/Autoencoder/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Data/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/download.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data/download.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +126,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Oversample" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="download (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Data-Science-Capstone" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -133,12 +134,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data/lagos" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Oversample.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data/lagos/download.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -172,10 +173,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.download" />
+        <item itemvalue="Python.download (1)" />
         <item itemvalue="Python.ConvertToPNG" />
         <item itemvalue="Python.Oversample (1)" />
         <item itemvalue="Python.ConvertToPNG (1)" />
-        <item itemvalue="Python.Oversample" />
       </list>
     </recent_temporary>
   </component>
@@ -195,21 +196,7 @@
       <workItem from="1646863362070" duration="7058000" />
       <workItem from="1649616139244" duration="56146000" />
       <workItem from="1649871943299" duration="3015000" />
-      <workItem from="1650425987350" duration="6778000" />
-    </task>
-    <task id="LOCAL-00001" summary="Add encoder model code">
-      <created>1650255766642</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1650255766642</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Add encoder model code">
-      <created>1650256571190</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1650256571190</updated>
+      <workItem from="1650425987350" duration="7929000" />
     </task>
     <task id="LOCAL-00003" summary="Add pretrained model code">
       <created>1650260498495</created>
@@ -484,7 +471,77 @@
       <option name="project" value="LOCAL" />
       <updated>1650518481041</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518559083</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518559083</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518563637</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518563637</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518570026</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518570026</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518579264</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518579264</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518596021</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518596021</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518681146</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518681146</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518700195</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518700195</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518712409</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518712409</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518740944</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518740945</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650519749221</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1650519749221</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -520,12 +577,13 @@
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$scrap.coverage" NAME="scrap Coverage Results" MODIFIED="1646885245914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Clipping_Images.coverage" NAME="Clipping_Images Coverage Results" MODIFIED="1649796373828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$autoencoder_mlp.coverage" NAME="autoencoder_mlp Coverage Results" MODIFIED="1650167563037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP" />
-    <SUITE FILE_PATH="coverage/Data_Science_Capstone$download.coverage" NAME="download Coverage Results" MODIFIED="1650516068863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$download.coverage" NAME="download Coverage Results" MODIFIED="1650519672395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Oversample.coverage" NAME="Oversample Coverage Results" MODIFIED="1649802404625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Extract_Coordinates.coverage" NAME="Extract_Coordinates Coverage Results" MODIFIED="1649795421334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$ConvertToPNG__1_.coverage" NAME="ConvertToPNG (1) Coverage Results" MODIFIED="1649802709217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Rolling.coverage" NAME="Image_Rolling Coverage Results" MODIFIED="1649796727686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Shifting.coverage" NAME="Image_Shifting Coverage Results" MODIFIED="1649797528270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$download__1_.coverage" NAME="download (1) Coverage Results" MODIFIED="1650518821920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data/lagos" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Load_Test_Model_2.coverage" NAME="Load_Test_Model_2 Coverage Results" MODIFIED="1649704674102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Oversample__1_.coverage" NAME="Oversample (1) Coverage Results" MODIFIED="1649803049653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Deep_Learning_Models.coverage" NAME="Deep_Learning_Models Coverage Results" MODIFIED="1646085154074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling" />

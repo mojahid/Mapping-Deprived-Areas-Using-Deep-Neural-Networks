@@ -4,14 +4,16 @@ from stat import S_ISDIR as isdir
 
 # get your local directory
 local_dir = os.getcwd()
+local_dir = os.path.join(local_dir,'lagos')
 #print(local_dir)
 
-#define your local paramter
+#define your parameters
 host_name='44.202.128.187'
 user_name='ubuntu'
 key_filename='/Users/dool/.ssh/World_Bank.pem'
+
+#this will not be changed
 remote_dir = '/home/ubuntu/Capstone/lagos'
-local_dir = local_dir
 
 def down_from_remote(sftp_obj, remote_dir_name, local_dir_name):
     #download files remotely
@@ -31,10 +33,11 @@ def down_from_remote(sftp_obj, remote_dir_name, local_dir_name):
         print('Start downloading file: '+ remote_dir_name)
         sftp.get(remote_dir_name, local_dir_name)
 
+#check if the folder is not exists then cretaed
 def check_local_dir(local_dir_name):
 
     if not os.path.exists(local_dir_name):
-        os.makedirs(local_dir_name)
+       os.makedirs(local_dir_name)
 
 
 if __name__ == "__main__":
