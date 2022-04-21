@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="Merge remote-tracking branch 'origin/main' into main" />
+    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="Merge remote-tracking branch 'origin/main' into main">
+      <change beforePath="$PROJECT_DIR$/Raw_Images_Modeling/Code/Autoencoder/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Raw_Images_Modeling/Code/Autoencoder/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -193,7 +195,7 @@
       <workItem from="1646863362070" duration="7058000" />
       <workItem from="1649616139244" duration="56146000" />
       <workItem from="1649871943299" duration="3015000" />
-      <workItem from="1650425987350" duration="6452000" />
+      <workItem from="1650425987350" duration="6778000" />
     </task>
     <task id="LOCAL-00001" summary="Add encoder model code">
       <created>1650255766642</created>
@@ -454,7 +456,35 @@
       <option name="project" value="LOCAL" />
       <updated>1650518111818</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Add autoencoder folder">
+      <created>1650518401885</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518401885</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518448534</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518448534</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518469052</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518469052</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Merge remote-tracking branch 'origin/main' into main">
+      <created>1650518481041</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1650518481041</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,6 +511,7 @@
     <MESSAGE value="Add data folder and download script to download images fom AWS" />
     <MESSAGE value="Add lagos folder and download script to download images fom AWS" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main' into main&#10;&#10;# Conflicts:&#10;#&#9;Data/README.md" />
+    <MESSAGE value="Add autoencoder folder" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main' into main" />
     <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/main' into main" />
   </component>
