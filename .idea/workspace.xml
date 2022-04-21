@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="Add data folder and download script to download images fom AWS">
-      <change afterPath="$PROJECT_DIR$/Data/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Data-Science-Capstone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Data-Science-Capstone.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/download.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data/lagos/download.py" afterDir="false" />
+    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="Add lagos folder and download script to download images fom AWS">
+      <change beforePath="$PROJECT_DIR$/Data/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Data/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +188,7 @@
       <workItem from="1646863362070" duration="7058000" />
       <workItem from="1649616139244" duration="56146000" />
       <workItem from="1649871943299" duration="3015000" />
-      <workItem from="1650425987350" duration="5163000" />
+      <workItem from="1650425987350" duration="5405000" />
     </task>
     <task id="LOCAL-00001" summary="Add encoder model code">
       <created>1650255766642</created>
@@ -270,7 +267,56 @@
       <option name="project" value="LOCAL" />
       <updated>1650516105820</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add lagos folder and download script to download images fom AWS">
+      <created>1650516969633</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1650516969633</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add lagos folder and download script to download images fom AWS">
+      <created>1650516976677</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1650516976677</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Add lagos folder and download script to download images fom AWS">
+      <created>1650517061669</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1650517061669</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add lagos folder and download script to download images fom AWS">
+      <created>1650517092043</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1650517092043</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add lagos folder and download script to download images fom AWS">
+      <created>1650517106325</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1650517106325</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Add lagos folder and download script to download images fom AWS">
+      <created>1650517112574</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1650517112574</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Add lagos folder and download script to download images fom AWS">
+      <created>1650517138045</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1650517138045</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +341,8 @@
     <MESSAGE value="added autoencoder weights validation compare the weights of auoencoder and submodel encoder" />
     <MESSAGE value="update the script to save the encoder model weights" />
     <MESSAGE value="Add data folder and download script to download images fom AWS" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add data folder and download script to download images fom AWS" />
+    <MESSAGE value="Add lagos folder and download script to download images fom AWS" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add lagos folder and download script to download images fom AWS" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN.coverage" NAME="Modeling_CNN Coverage Results" MODIFIED="1649696857211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
