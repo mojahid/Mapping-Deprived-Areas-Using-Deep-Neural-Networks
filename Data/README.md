@@ -1,4 +1,4 @@
-# Download images from AWS
+# Download data from AWS
 
 Clone the project repo to your local directory 
 
