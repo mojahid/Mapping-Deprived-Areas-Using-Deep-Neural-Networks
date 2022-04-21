@@ -2,15 +2,19 @@ import paramiko
 import os
 from stat import S_ISDIR as isdir
 
+# get your local directory
+local_dir = os.getcwd()
+#print(local_dir)
+
 #define your local paramter
-host_name='100.26.215.145'
+host_name='44.202.128.187'
 user_name='ubuntu'
-key_filename='/Users/dool/.ssh/VPC-MOJAHID-PRI.pem'
-remote_dir = '/home/ubuntu/Notebooks'
-local_dir = '/Users/dool/project/data'
+key_filename='/Users/dool/.ssh/World_Bank.pem'
+remote_dir = '/home/ubuntu/Capstone/lagos'
+local_dir = local_dir
 
 def down_from_remote(sftp_obj, remote_dir_name, local_dir_name):
-    "" "download files remotely" ""
+    #download files remotely
     remote_file = sftp_obj.stat(remote_dir_name)
     if isdir(remote_file.st_mode):
         #Folder, can't download directly, need to continue cycling

@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="update the script to save the encoder model weights">
+    <list default="true" id="fe7f3e40-8929-490f-9487-80771e7a1c25" name="Changes" comment="Add data folder and download script to download images fom AWS">
+      <change beforePath="$PROJECT_DIR$/.idea/Data-Science-Capstone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Data-Science-Capstone.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/download.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data/download.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +41,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -48,7 +51,7 @@
       <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Grid_Search" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.ConvertToPNG">
+  <component name="RunManager" selected="Python.download">
     <configuration name="ConvertToPNG (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Data-Science-Capstone" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -85,28 +88,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/ConvertToPNG.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Image_Shifting" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Data-Science-Capstone" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing/Image_Shifting.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -159,13 +140,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="download" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Data-Science-Capstone" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data/download.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.download" />
         <item itemvalue="Python.ConvertToPNG" />
         <item itemvalue="Python.Oversample (1)" />
         <item itemvalue="Python.ConvertToPNG (1)" />
         <item itemvalue="Python.Oversample" />
-        <item itemvalue="Python.Image_Shifting" />
       </list>
     </recent_temporary>
   </component>
@@ -185,7 +188,7 @@
       <workItem from="1646863362070" duration="7058000" />
       <workItem from="1649616139244" duration="56146000" />
       <workItem from="1649871943299" duration="3015000" />
-      <workItem from="1650425987350" duration="1593000" />
+      <workItem from="1650425987350" duration="4324000" />
     </task>
     <task id="LOCAL-00001" summary="Add encoder model code">
       <created>1650255766642</created>
@@ -243,7 +246,21 @@
       <option name="project" value="LOCAL" />
       <updated>1650432441779</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add data folder and download script to download images fom AWS">
+      <created>1650513149565</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1650513149565</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add data folder and download script to download images fom AWS">
+      <created>1650513277963</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1650513277963</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,13 +284,15 @@
     <MESSAGE value="updated pretrained model code" />
     <MESSAGE value="added autoencoder weights validation compare the weights of auoencoder and submodel encoder" />
     <MESSAGE value="update the script to save the encoder model weights" />
-    <option name="LAST_COMMIT_MESSAGE" value="update the script to save the encoder model weights" />
+    <MESSAGE value="Add data folder and download script to download images fom AWS" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add data folder and download script to download images fom AWS" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN.coverage" NAME="Modeling_CNN Coverage Results" MODIFIED="1649696857211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$scrap.coverage" NAME="scrap Coverage Results" MODIFIED="1646885245914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Clipping_Images.coverage" NAME="Clipping_Images Coverage Results" MODIFIED="1649796373828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$autoencoder_mlp.coverage" NAME="autoencoder_mlp Coverage Results" MODIFIED="1650167563037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$download.coverage" NAME="download Coverage Results" MODIFIED="1650516068863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Oversample.coverage" NAME="Oversample Coverage Results" MODIFIED="1649802404625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$Extract_Coordinates.coverage" NAME="Extract_Coordinates Coverage Results" MODIFIED="1649795421334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing" />
     <SUITE FILE_PATH="coverage/Data_Science_Capstone$ConvertToPNG__1_.coverage" NAME="ConvertToPNG (1) Coverage Results" MODIFIED="1649802709217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
