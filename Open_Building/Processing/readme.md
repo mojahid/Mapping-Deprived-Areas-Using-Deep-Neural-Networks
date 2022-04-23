@@ -15,7 +15,7 @@ For image generation, the following technique was used:
 ## Using the code for Open Building Classification
 
 1. The dataset can be downloaded from [here](https://sites.research.google/open-buildings/), the full dataset or just certain regions can be downloaded separately
-2. Run **Extract_Open_Building_Subset.py** to narrow down the subset further and get the data for a specific boundary long/lat coordinates (current values in the cde corresponds to Lagos)
+2. Run **Extract_Open_Building_Subset.py** to narrow down the subset further and get the data for a specific boundary long/lat coordinates (current values in the cde corresponds to Lagos) **NOTE:** Lagos building subset should be part of the downloaded data
 3. Run **Open_Building_Testing.py** which will use the deprived labels and iterate through the Open Building subset to generate corresponding image for each label using functions in **Generate_OB_Images.py**   
 4. To augment the images, the **Open_Building_Augmentation.py** to generate more images from the minority class 
 
