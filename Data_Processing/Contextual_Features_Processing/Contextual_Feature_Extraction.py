@@ -18,7 +18,9 @@ from rasterio.plot import show, show_hist
 # The following code can generate 100 points from a given point
 # "data" dataframe contains the coordinates from the training data
 data = pd.read_csv("coordinates.csv")
-# create a column and put coordinates in tuple
+
+# create a column and put coordinates in tuple, Shift center of the label to the top left coordinates.
+
 data["Long_new"]= data["long"] -  5*0.00008333
 data["Lat_new"]= data["lat"] +  5*0.00008333
 data["coords"] = [(x,y) for x, y in zip(data["Long_new"], data["Lat_new"])]
@@ -50,7 +52,6 @@ for i in coordinates:
         long_lst.append(new_long)
         long= new_long
 
-#print(long_lst)
 
 # create lat list
     for w in range(9):
@@ -58,16 +59,11 @@ for i in coordinates:
         lat_lst.append(new_lat)
         lat= new_lat
 
-#print(lat_lst)
 
-
-#print(len(lat_lst))
-#print(len(long_lst))
 
 # generate coordinates
     z = [ (a,b) for a in long_lst for b in lat_lst ]
     coord_lst.append(z)
-#print(z)
     print(len(z))
 
 print("Number of points per row: ", len(coord_lst[0]))
@@ -84,9 +80,10 @@ print(len(coord_final))
 data_2= pd.DataFrame({"Coordinates": coord_final})
 print(data_2)
 data_2.to_csv('contextual_coordinates.csv' , index=False)
-#----------------------------------------------------------------------------------------------------------------
 
+######################################### CONTETXUAL FEATURES CSV GENERATION #########################################
 
+# Generate csv files for each contextual feature
 directory_in_str= "/home/ubuntu/context/"
 
 directory = os.fsencode(directory_in_str)
@@ -101,9 +98,6 @@ for file in os.listdir(directory):
 
 # Sample the raster at every point location and store values in DataFrame
         data_2['Raster Value'] = [x for x in src.sample(data_2["Coordinates"])]
-#print(data_2)
-#data_2['Raster Value'] = data_2['Raster Value'].apply(lambda x: x['Raster Value'][0], axis=1)
-
 
 # write dataframe to csv
         data_2.to_csv('{}.csv' .format(filename), index=False)
