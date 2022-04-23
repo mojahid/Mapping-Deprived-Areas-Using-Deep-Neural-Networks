@@ -1,3 +1,13 @@
+# The big picture of data processing
+
+The data processing pipeline is mainly performing the following tasks:
+1. Extract Geo-Tiff files based on the labeled coordinates (which were extracted [here](https://github.com/mojahid/Mapping-Deprived-Areas-Using-Deep-Neural-Networks/tree/main/Data_Processing)
+2. Perform different augmentation techniques to increase the number of samples of the minority class
+3. Convert the Geo-Tiff images to PNG that can be used in Deep Nueral Network training
+  
+<img src="https://user-images.githubusercontent.com/34656794/161366201-598b737f-8354-4d0b-95e6-897b252ce808.png" data-canonical-src="https://user-images.githubusercontent.com/34656794/161366201-598b737f-8354-4d0b-95e6-897b252ce808.png" width="750" height="300" />   
+
+
 # Clipping Image  
 This code loop through all the coordinates extracted from the training raster and extract their corresponding clipped image (GeoTiff) from the satellite image and store them in separate folder based on their label
 ![image](https://user-images.githubusercontent.com/34656794/161365206-53dee169-7082-4b97-8d05-9e364293c695.png)
@@ -36,12 +46,7 @@ The idea of image shifting is to take all images in the minority class (includin
 Final step to have enough labels for minority class is to take all images (original, rolled and shifted images) and rotate them by 90,180 and 270 degrees.  
 <img src="https://user-images.githubusercontent.com/34656794/161366147-20782f9c-7827-4564-90c2-d17b48d9a975.png" data-canonical-src="https://user-images.githubusercontent.com/34656794/161366147-20782f9c-7827-4564-90c2-d17b48d9a975.png"/>
 
-
-  
  
-At the end, we will have enough labels from the minority class to proceed with a good training dataset to train different model in the next phase of the raw image processig and analysis:  
-  
-<img src="https://user-images.githubusercontent.com/34656794/161366201-598b737f-8354-4d0b-95e6-897b252ce808.png" data-canonical-src="https://user-images.githubusercontent.com/34656794/161366201-598b737f-8354-4d0b-95e6-897b252ce808.png" width="750" height="300" />  
 
 # Working with the code:
 
