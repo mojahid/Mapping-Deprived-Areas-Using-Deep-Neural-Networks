@@ -47,13 +47,13 @@ At the end, we will have enough labels from the minority class to proceed with a
 
 The code in this folder should be executed after completing the coordinates extraction in the Extract_Coordinates.py which will end up with a csv file with all the coordinates and the corresponding label from the training data. Here should be the flow:  
 
-1- Generate/download the map tiff file (in our case the map created from the code [here](https://github.com/arathinair11/Satellite-Imagery/tree/main/Lagos)  
-2- Place it under your base path /Maps/  
-3- **Run Clipping** Images file in both modes TEST and TRAIN  and use only two labels   
-4- Now we have tif images extracted for both TEST and TRAIN under two different folders (each label has its own folder under Train or Test)  
-5- Now we can **Image Rolling** which will scan the coordinates (mainly for the train csv) and detect adjacent images and generate new images by rolling through them  
-6- After Image Rolling, run the **Image Shifting** which will also generate new images by scanning the coordinates for the minority class and shift the center by 1 or 2 pixel and generate new images from the original image  
-7- Now run the **convet to PNG** To convert all images to png to prepare for training  
+
+1- Run ** Clipping_Images.py** Images file in both modes TEST and TRAIN  and use only two labels   
+2- Now we have tif images extracted for both TEST and TRAIN under two different folders (each label has its own folder under Train or Test)  
+3- Now we can **Image_Rolling.py** which will scan the coordinates (mainly for the train csv) and detect adjacent images and generate new images by rolling through them  
+4- After Image Rolling, run the **Image_Shifting.py** which will also generate new images by scanning the coordinates for the minority class and shift the center by 1 or 5 pixel and generate new images from the original image  
+6- Now run the **ConvertToPNG.py** To convert all images to png to prepare for training
+7- The last step is to run **Oversample.py** which will rotate all the png file to have more images for the training
 
 
 
