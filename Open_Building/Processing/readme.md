@@ -35,7 +35,7 @@ For image generation, the following technique was used:
 3. Run **Open_Building_Testing.py** which will use the deprived labels and iterate through the Open Building subset to generate corresponding image for each label using functions in **Generate_OB_Images.py**   
 4. To augment the images, the **Open_Building_Augmentation.py** to generate more images from the minority class 
 
-At the end of these three steps, there will be two folders (corresponds to the labels) and each contains the generated images that corresponds to that label.  
+At the end of these four steps, there will be two folders (corresponds to the labels) and each contains the generated images that corresponds to that label.  
 <img src="https://user-images.githubusercontent.com/34656794/164747500-80940dd4-7c50-4e7f-9693-dab271c2da82.png" width="400" height="250"/> 
 
 
