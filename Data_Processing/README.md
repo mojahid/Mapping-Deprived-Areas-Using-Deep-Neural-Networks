@@ -19,7 +19,7 @@ For the raw image handing, the give data was two geoTiff files:
 
 
 # Downloading the data
-... Mojahid
+Data can be downloaded as per the instructions [here](https://github.com/mojahid/Mapping-Deprived-Areas-Using-Deep-Neural-Networks/tree/main/Data)
 
 
 # Extracting coordinates
