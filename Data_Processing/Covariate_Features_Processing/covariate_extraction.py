@@ -50,21 +50,6 @@ src = rasterio.open(LABEL_PATH)
 
 # Sample the raster at every point location and store values in DataFrame
 data_2['Raster Value'] = [x for x in src.sample(data_2["Coordinates"])]
-x=[]
-#for i in src.sample(data_2["Coordinates"]):
-    #if i.isnumeric() == False:
-        #y= 99999999
-        #x.append(y)
-    #else:
-        #x.append(i)
-
-#for i in range(63):
-   # if i > 0:
-       #val = src.read(i)
-       #data_2["Band_{}".format(i)] = val.sample(data_2["Coordinates"])
-#print(data_2)
-#data_2['Raster Value'] = data_2['Raster Value'].apply(lambda x: x['Raster Value'][0], axis=1)
-
 
 # write dataframe to csv
 data_2.to_csv('covariate.csv' , index=False)
