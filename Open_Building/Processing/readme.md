@@ -5,9 +5,10 @@ The aim is to leverage Open Building data to map deprived areas by two approache
 1- Genearting images from Open Building Data to train different models  
 2- Generating numercial data that can be used to train hybride model (images + numerical data)    
 
-For image generation, the following technique was used:
-1- For each label coordinate in the training dataset, map all buildings that falls within the boundary of that label (100m2) 
-2- Construct an image using the geometry column that defines the shape of the mapped buildings  
+For image generation, the following technique was used:  
+
+1. For each label coordinate in the training dataset, map all buildings that falls within the boundary of that label (100m2) 
+2. Construct an image using the geometry column that defines the shape of the mapped buildings  
 
 ![image](https://user-images.githubusercontent.com/34656794/164742475-84b99530-a9dc-4f6b-8952-8cec027dc253.png)
 
