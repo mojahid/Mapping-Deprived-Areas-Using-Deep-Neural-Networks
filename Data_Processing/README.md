@@ -26,6 +26,8 @@ Data can be downloaded as per the instructions [here](https://github.com/mojahid
 The first step in all the data processing was to extract all the data from the labeled image and end up with a csv file that contains coordinates of the labeled box and the corresponding label.    
 ![image](https://user-images.githubusercontent.com/34656794/161973643-d21d341c-2fff-44ff-ac90-ce7a516a6d19.png)  
 
+# Using the code
+With data downloaded, **Extract_Coordinates.py** will need the raw satellite image file and the training label file to generate the csv that contains all the coordinates of the labeled data. This will be the first step in all further data processing.
 
 # Data Processing
 
