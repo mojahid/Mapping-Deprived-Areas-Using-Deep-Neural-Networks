@@ -3,17 +3,19 @@ import os
 from stat import S_ISDIR as isdir
 
 # get your local directory
+city_name='lagos'#accra
 local_dir = os.getcwd()
-local_dir = os.path.join(local_dir,'lagos')
+#will cretae folder with city name and download your data
+local_dir = os.path.join(local_dir,city_name)
 #print(local_dir)
 
 #define your parameters
 host_name='44.202.128.187'
 user_name='ubuntu'
-key_filename='/Users/dool/.ssh/World_Bank.pem'
+key_filename='/Users/mojahid/.ssh/World_Bank.pem'
 
 #this will not be changed
-remote_dir = '/home/ubuntu/Capstone/lagos'
+remote_dir = '/home/ubuntu/Autoencoder/Autoencoder/Accra_png/Train_png/0'
 
 def down_from_remote(sftp_obj, remote_dir_name, local_dir_name):
     #download files remotely
