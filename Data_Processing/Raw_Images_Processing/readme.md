@@ -53,7 +53,7 @@ Final step to have enough labels for minority class is to take all images (origi
 The code in this folder should be executed after completing the coordinates extraction in the Extract_Coordinates.py which will end up with a csv file with all the coordinates and the corresponding label from the training data. Here should be the flow:  
 
 
-1- Run ** Clipping_Images.py** Images file in both modes TEST and TRAIN  and use only two labels   
+1- Run **Clipping_Images.py** Images file in both modes TEST and TRAIN  and use only two labels   
 2- Now we have tif images extracted for both TEST and TRAIN under two different folders (each label has its own folder under Train or Test)  
 3- Now we can **Image_Rolling.py** which will scan the coordinates (mainly for the train csv) and detect adjacent images and generate new images by rolling through them  
 4- After Image Rolling, run the **Image_Shifting.py** which will also generate new images by scanning the coordinates for the minority class and shift the center by 1 or 5 pixel and generate new images from the original image  
