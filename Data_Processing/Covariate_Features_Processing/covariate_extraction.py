@@ -1,7 +1,6 @@
 import os
 os.system("sudo pip install geopandas")
 os.system("sudo pip install rasterio")
-
 #import geopandas as gpd
 import rasterio
 import numpy as np
@@ -9,10 +8,14 @@ import pandas as pd
 from rasterio.plot import show, show_hist
 #from pyproj import Proj, transform
 
+############################################# COVARIATE DATA EXTRACTION ############################################################
+
 
 LABEL_PATH = r'lag_covariates_compilation.tif'
 
-# Generating data from tif file
+# METHOD 1 :
+# Can be used to generate all data within the covariate tif file.
+
 
 
 # Basic exploration and meta data
@@ -38,7 +41,10 @@ LABEL_PATH = r'lag_covariates_compilation.tif'
         #print(len(res))
         #res.to_csv('covariate_band_{}.csv'.format(i), index=False)
 
-#------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------
+
+# METHOD 2:
+
 # Using Coordinates from training data to extract all band values  rather than just reading file
 
 
@@ -55,7 +61,7 @@ data_2['Raster Value'] = [x for x in src.sample(data_2["Coordinates"])]
 data_2.to_csv('covariate.csv' , index=False)
 
 
-#--------------------------------------------------------------------------------------------
+################################### PROCESSING COVARIATE FEATURES #####################################################
 # Extracting covariate bands into a data frame
 
 # Raster value column is a string containing all band values.
