@@ -16,7 +16,7 @@ models = r'../code/model_{}.h5'
 
 dir0 =  r'../data/test/png/0'
 dir1 = r'../data/test/png/1'
-#dir2 = r"C:\Users\minaf\Documents\GWU\Capstone\Data\lagos\Raw_Images\Test\png\2"
+
 
 IMAGE_SIZE = 10
 THRESHOLD = 0.5
