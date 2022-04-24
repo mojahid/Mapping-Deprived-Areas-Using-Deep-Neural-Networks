@@ -76,7 +76,7 @@ for index, row in coord.iterrows():
 
 
 # setting the path for joining multiple files
-files = os.path.join(r"C:\Users\abdul\capstone\Open_Building_2", "Lagos_polygons*.csv")
+files = os.path.join(r"home\ubuntu\Open_Building_2", "Lagos_polygons*.csv")
 
 # list of merged files returned
 files = glob.glob(files)
