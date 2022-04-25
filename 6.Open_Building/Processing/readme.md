@@ -3,7 +3,7 @@
 
 The aim is to leverage Open Building data to map deprived areas by two approaches:  
 1- Genearting images from Open Building Data to train different models  
-2- Generating numercial data that can be used to train hybride model (images + numerical data)    
+2- Generating numercial data that can be used to train hybrid model (images + numerical data)    
 
 For image generation, the following technique was used:  
 
