@@ -1,5 +1,10 @@
 # Contextual Feature Folder
 
+## Pipeline for Contextual Feature Feature Importance
+<img width="628" alt="Contextual_diagram" src="https://user-images.githubusercontent.com/60163434/165119981-01fb84d6-42ea-40fc-b147-c45991ae2185.png">
+
+
+
 Description of each file:
   1. Contextual_Feature_Importance_0_1.jpynb
       
