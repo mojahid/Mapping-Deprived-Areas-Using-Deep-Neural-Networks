@@ -1,4 +1,4 @@
-# Covariate Feature Folder
+# Covariate Feature Code Folder
 
 Description of each file:
   1. Covariate_Features_Importance_0_1.jpynb
