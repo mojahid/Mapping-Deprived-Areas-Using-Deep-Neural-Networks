@@ -1,7 +1,7 @@
 
 # The data
 All data was collected with joint efforts led by [Idea Maps Network](https://ideamapsnetwork.org/lagos-aos/).  
-IdeaMaps network mapped 100x100 m2 areas to against the following three labels (across multiple major cities in Africa):  
+IdeaMaps network mapped 100x100 m2 areas to the following three labels (across multiple major cities in Africa):  
 1- Built-up areas with label 0  
 2- Deprived area with label 1  
 3 - Non-built-up area with label 2 
