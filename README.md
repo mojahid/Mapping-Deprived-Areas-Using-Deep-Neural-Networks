@@ -22,7 +22,8 @@ The project is divided in several sub-streams where each is focused on certain a
 * Data Processing folders contains the label extraction code and pre-processing of the data for each of the sub-streams (raw images, contextual and covariate)
 * Contextual features modeling: contains modeling coding and results based on the contextual features
 * Covariate features modeling: contains modeling coding and results based on covariate features
-* Raw images modeling: contains modeling coding and results based on raw images and google open building
+* Raw images modeling: contains modeling coding and results based on raw images 
+* Open Building: contains modeling and special data processing based on google open building dataset
 * Ensemble model: ensembling best models in raw image modeling in one ensemble model to boost the performance
 
 
