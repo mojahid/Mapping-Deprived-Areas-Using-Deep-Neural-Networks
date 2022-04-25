@@ -1,4 +1,4 @@
-# Contextual Feature Folder
+# Covariate Feature Selection Folder
 
 Description of each file:
   1. Covariate_Features_Rankings.csv
