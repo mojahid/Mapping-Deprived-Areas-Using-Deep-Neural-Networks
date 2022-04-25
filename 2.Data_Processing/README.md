@@ -7,7 +7,7 @@ IdeaMaps network mapped 100x100 m2 areas to against the following three labels (
 3 - Non-built-up area with label 2 
 
 
-For the raw image handing, the give data was two geoTiff files:  
+For the raw image handing, the given data was two geoTiff files:  
 1- Map image extracted from Google earth engine using [this branch of the project](https://github.com/arathinair11/Satellite-Imagery)  
 2- Labeled image that is mapping three labels:  
     2.1 - Built-up areas with label 0  
