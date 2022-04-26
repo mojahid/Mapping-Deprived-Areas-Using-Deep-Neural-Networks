@@ -8,9 +8,11 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import confusion_matrix
+from joblib import dump, load
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
+import json
 import os
 import warnings
 warnings.filterwarnings("ignore")
@@ -55,28 +57,28 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
         X = df.values[:, 1:]
         y = df.values[:, 0]
 
-    elif features == 'PCA_Features': # PCA feature selection
+    elif features == 'ADA_Features': # PCA feature selection
 
         if dataset == 'contextual':
-            pca_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_best_pca_features.csv')
+            ada_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_best_ada_boosting_features_0_1.csv')
         else:
-            pca_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search\Covariate_best_pca_features.csv')
+            ada_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_best_ada_boosting_features_0_1.csv')
 
 
-        pca = ['Label']
+        ada = ['Label']
         for row in range(feature_count):
-            pca.append(pca_features.iloc[row, 0])
+            ada.append(ada_features.iloc[row, 0])
 
-        df_pca = df[pca]
-        X = df_pca.values[:, 1:]
-        y = df_pca.values[:, 0]
+        df_ada = df[ada]
+        X = df_ada.values[:, 1:]
+        y = df_ada.values[:, 0]
 
     elif features == 'Random_Forest_Features':  # Random Forest feature selection
 
         if dataset == 'contextual':
-            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_best_random_forest_features.csv')
+            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_best_random_forest_features_0_1.csv')
         else:
-            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search\Covariate_best_random_forest_features.csv')
+            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_best_random_forest_features_0_1.csv')
 
         rf = ['Label']
         for row in range(feature_count):
@@ -86,6 +88,54 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
 
         X = df_rf.values[:, 1:]
         y = df_rf.values[:, 0]
+
+    elif features == 'Gradient_Boosting_Features':  # Random Forest feature selection
+
+        if dataset == 'contextual':
+            gb_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_best_gradient_boosting_features_0_1.csv')
+        else:
+            gb_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_best_gradient_boosting_features_0_1.csv')
+
+        gb = ['Label']
+        for row in range(feature_count):
+            gb.append(gb_features.iloc[row,0])
+
+        df_gb = df[gb]
+
+        X = df_gb.values[:, 1:]
+        y = df_gb.values[:, 0]
+
+    elif features == 'Logistic_Features':  # Random Forest feature selection
+
+        if dataset == 'contextual':
+            log_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_best_logistic_features_0_1.csv')
+        else:
+            log_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_best_logistic_features_0_1.csv')
+
+        log = ['Label']
+        for row in range(feature_count):
+            log.append(log_features.iloc[row,0])
+
+        df_log = df[log]
+
+        X = df_log.values[:, 1:]
+        y = df_log.values[:, 0]
+
+    elif features == 'Minfo_Features':  # Random Forest feature selection
+
+        if dataset == 'contextual':
+            minfo_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_minfo_features_0_1.csv')
+        else:
+            minfo_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_minfo_features_0_1.csv')
+
+        minfo = ['Label']
+        for row in range(feature_count):
+            minfo.append(minfo_features.iloc[row,0])
+
+        df_minfo = df[minfo]
+
+        X = df_minfo.values[:, 1:]
+        y = df_minfo.values[:, 0]
 
 
     # train test split
@@ -100,6 +150,14 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     X_test = sc.transform(X_test)
     X_val = sc.transform(X_val)
 
+    # Save standard scalar
+    # directory path standard scarlar is saved in
+    directory = r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search'
+    # model filename
+    sc_filename = f'{dataset}_{feature_count}{features}_std_scalar.bin'
+    if not os.path.exists(directory + '\\' + sc_filename):
+        dump(sc, sc_filename, compress=True)
+
 
     # Model file saved and exists externally
 
@@ -113,7 +171,7 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
             # Hyper-parameter space
             '''
             parameter_space = {
-                'hidden_layer_sizes': [(60, 100, 60), (100, 100, 100), (50, 100, 50)],
+                'hidden_layer_sizes': [c],
                 'activation': ['identity', 'relu', 'logistic', 'tanh'],
                 'solver': ['sgd', 'adam', 'lbfgs'],
                 'alpha': [0.0001, 0.00001, 0.000001],
@@ -262,6 +320,7 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
         print("Classification Report: ")
         print(classification_report(y_val, val_pred))
         cf_matrix = confusion_matrix(y_val, val_pred)
+        print(cf_matrix)
         sns.heatmap(cf_matrix, annot=True, fmt="d")
         plt.title(f'{model} Confusion Matrix - {feature_count}{features}, {classes}')
         plt.show()
@@ -286,9 +345,14 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
         print("Classification Report: ")
         print(classification_report(y_val, val_pred))
         cf_matrix = confusion_matrix(y_val, val_pred)
+        print(cf_matrix)
         sns.heatmap(cf_matrix, annot=True, fmt="d")
-        plt.title(f'{model} Confusion Matrix - {feature_count}{features}, {classes}')
+        plt.title(f'{model} - {feature_count} {features}, {classes}')
+        plt.tight_layout()
         plt.show()
+
+        if model == 'MLP' or model == 'Logistic_Regression':
+            print(f'Best parameters found for {model}:\n', loaded_model.best_params_)
 
         # f1 scores for comparison table output
         f1_micro_class0 = f1_score(y_val, val_pred, average=None)[0]
@@ -298,6 +362,4 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
         return f1_micro_class0, f1_micro_class1, f1_macro
 
 
-
-
-
+run_model(dataset ='covariate', model='MLP', features='All_Features', feature_count=144, classes = 'classes_0&1')

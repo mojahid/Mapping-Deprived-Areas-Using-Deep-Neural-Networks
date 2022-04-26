@@ -7,19 +7,15 @@ from Models import run_model
 # all potential parameters for model testing
 datasets = ['contextual', 'covariate']
 models = ['MLP', 'Gradient_Boosting', 'Logistic_Regression', 'Random_Forest']
-features = ['All_Features', 'PCA_Features', 'Random_Forest_Features']
-# feature_count = 2 #Any integer. Not required if using full feature set(use '' to remove count from titles)
+features = ['All_Features', 'ADA_Features', 'Random_Forest_Features', 'Gradient_Boosting_Features', 'Logistic_Features', 'Minfo_Features']
 classes = ['all_classes', 'classes_0&1']
-pretrained = False #{True: Use if the model has been trained and saved as a .sav, False: Use if model needs to be created/trained and saved as a .sav]
-
+'''
 # desired model parameter combinations
-datasets = ['contextual']
+datasets = ['contextual', 'covariate']
 models = ['MLP', 'Gradient_Boosting', 'Random_Forest', 'Logistic_Regression']
-features = ['All_Features', 'PCA_Features', 'Random_Forest_Features']
-# feature_count = 50 # only applies when features == 'PCA_Features' or 'Random_Forest_Features'
-classes = ['classes_0&1']
-# pretrained = False #{True: Use if the model has been trained and saved as a .sav, False: Use if model needs to be created/trained and saved as a .sav]
-
+features = ['ADA_Features', 'Gradient_Boosting_Features', 'Logistic_Features', 'Minfo_Features']
+classes = ['classes_0&1', 'all_classes']
+'''
 dataset_list = []
 model_list = []
 features_list = []
@@ -36,7 +32,7 @@ for dataset in datasets:
             if feat == 'All_Features':
                 feature_count = 144
             else:
-                feature_count = 50
+                feature_count = 50 # edit to change feature count when using a feature reduction set in 'features' parameter
             for class_count in classes:
                 stored_model_info = run_model(dataset=dataset,
                                               model=model,
