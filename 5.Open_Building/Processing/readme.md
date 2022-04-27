@@ -24,9 +24,9 @@ At the end of these four steps, there will be two folders (corresponds to the la
   
 
 
-# Using Open Building Data combined with satellite images for classificatin 
+# Using Open Building Data combined with satellite images for classification 
 The other use of Google Open building is to use it along with satellite images to train a hybrid model. To do so, the following steps were used:
-1. Generate numerical data from Google Open Building for the hybrid model
+1. Generate numerical data (number of building, min/max/mean/avg area) from Google Open Building for the hybrid model
 
 ![image](https://user-images.githubusercontent.com/34656794/164884508-6af76e40-4292-4638-81f7-7920adde7218.png)
 
@@ -46,3 +46,9 @@ The other use of Google Open building is to use it along with satellite images t
 
 ## Using the code for combined data
 
+To combine the three data (raw satelitte images, open building generated images and the numerical data) the code flow is as follows:
+1. With the Open Building subset file available (outcome of step two in the above code flow) and using the original coordinates file that contains all the labeled coordinates, run the **Open_Building_Numerical_Features_Extraction.py**
+2. After this step a csv with all numerical data will be available, copy the raw images (no rolling) folder and the open building folder under the "mixed_data" folder. There should be two separate folders one for "raw_images" and the other is for open building "ob_images"
+3. Since some open building images are empty and might not be generated also raw satelitte images has empty images, we have to match the two datasets and rename the files to align and this is done by running: **match_datasets.py**. This file will also keep train data mixed (not split in two different folders per labels).
+4. Run the **Rotate_Mixed_Data.py** to add more images to both datasets
+5. Run **Split.py** to split the validation from the test
