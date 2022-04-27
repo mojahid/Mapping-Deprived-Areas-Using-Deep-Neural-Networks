@@ -157,7 +157,7 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     # model filename
     filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
 
-    if not os.path.exists(directory + '\\' + filename):
+    if not os.path.exists(f'{directory}/{filename}'):
         if model == 'MLP':
             # Hyper-parameter space
             '''
@@ -194,8 +194,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
             print(f'Best parameters found for {model}:\n', clf.best_params_)
 
             # Save model
+            saved_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
             filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
-            pickle.dump(clf, open(filename, 'wb'))
+            pickle.dump(clf, open(f'{saved_path}/{filename}', 'wb'))
 
         elif model == "Gradient_Boosting":
             # Hyper-parameter space
@@ -240,8 +241,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
             # print(f'Best parameters found for {model}:\n', clf.best_params_)
 
             # Save model
+            saved_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
             filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
-            pickle.dump(clf, open(filename, 'wb'))
+            pickle.dump(clf, open(f'{saved_path}/{filename}', 'wb'))
 
         elif model == "Logistic_Regression":
             # Logistic Regression Hyper-parameter space
@@ -268,8 +270,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
             print(f'Best parameters found for {model}:\n', clf.best_params_)
 
             # Save model
+            saved_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
             filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
-            pickle.dump(clf, open(filename, 'wb'))
+            pickle.dump(clf, open(f'{saved_path}/{filename}', 'wb'))
 
         elif model == "Random_Forest":
             # Hyper-parameter space
@@ -298,8 +301,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
             # print(f'Best parameters found for {model}:\n', clf.best_params_)
 
             # Save model
+            saved_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
             filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
-            pickle.dump(clf, open(filename, 'wb'))
+            pickle.dump(clf, open(f'{saved_path}/{filename}', 'wb'))
 
         # Load Model
         stored_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
