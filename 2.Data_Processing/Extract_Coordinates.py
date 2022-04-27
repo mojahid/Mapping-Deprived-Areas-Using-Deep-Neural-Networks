@@ -12,8 +12,9 @@ from sklearn.model_selection import train_test_split
 # with its corresponding label in a csv
 
 
-BASE_PATH = r"C:\Users\minaf\Documents\GWU\Capstone\Data\accra"
+BASE_PATH = r"1.Data"
 
+# update for lagos for default pathing------------------------------------------------------------------------------------
 LABEL_PATH = BASE_PATH + r'\training_data\acc_training_2021.tif'
 
 # Basic exploration and meta data
@@ -40,9 +41,9 @@ outProj = Proj(init='epsg:4326')
 res["new_long"],res["new_lat"] = transform(inProj,outProj,res["long"],res["lat"])
 
 # Save coordinates
-res.to_csv(BASE_PATH + r"\coordinates_acc.csv", index=False)
+res.to_csv(BASE_PATH + r"\coordinates.csv", index=False)
 
-res = pd.read_csv(BASE_PATH + r"\coordinates_acc.csv")
+res = pd.read_csv(BASE_PATH + r"\coordinates.csv")
 
 # Split the data and reserve 20% as test that will never be used in the model training or validation
 # use stratify to main the distribution

@@ -1,6 +1,7 @@
 # Script for running the run_model function
 
 import pandas as pd
+import os.path
 from Models import run_model
 
 
@@ -8,14 +9,15 @@ from Models import run_model
 datasets = ['contextual', 'covariate']
 models = ['MLP', 'Gradient_Boosting', 'Logistic_Regression', 'Random_Forest']
 features = ['All_Features', 'ADA_Features', 'Random_Forest_Features', 'Gradient_Boosting_Features', 'Logistic_Features', 'Minfo_Features']
+# feature_count = 2 #Any integer. Not required if using full feature set(use '' to remove count from titles)
 classes = ['all_classes', 'classes_0&1']
-'''
+
 # desired model parameter combinations
-datasets = ['contextual', 'covariate']
-models = ['MLP', 'Gradient_Boosting', 'Random_Forest', 'Logistic_Regression']
-features = ['ADA_Features', 'Gradient_Boosting_Features', 'Logistic_Features', 'Minfo_Features']
-classes = ['classes_0&1', 'all_classes']
-'''
+datasets = ['contextual']
+models = ['MLP', 'Gradient_Boosting']
+features = ['ADA_Features', 'Gradient_Boosting_Features']
+classes = ['classes_0&1']
+
 dataset_list = []
 model_list = []
 features_list = []
@@ -32,7 +34,7 @@ for dataset in datasets:
             if feat == 'All_Features':
                 feature_count = 144
             else:
-                feature_count = 50 # edit to change feature count when using a feature reduction set in 'features' parameter
+                feature_count = 2
             for class_count in classes:
                 stored_model_info = run_model(dataset=dataset,
                                               model=model,
@@ -60,5 +62,6 @@ comparison_table = pd.DataFrame(data)
 print(comparison_table)
 
 # write dataframe to csv
-comparison_table.to_csv('Model_Results_Comparison_Table.csv', index=False)
-
+save_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
+filename = 'Model_Results_Comparison_Table.csv'
+comparison_table.to_csv(f'{save_path}/{filename}', index=False)

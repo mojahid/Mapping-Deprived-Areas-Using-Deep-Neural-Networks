@@ -17,7 +17,7 @@ from rasterio.plot import show, show_hist
 
 # The following code can generate 100 points from a given point
 # "data" dataframe contains the coordinates from the training data
-data = pd.read_csv("coordinates.csv")
+data = pd.read_csv("1.Data/coordinates.csv")
 
 # create a column and put coordinates in tuple, Shift center of the label to the top left coordinates.
 
@@ -96,11 +96,12 @@ for file in os.listdir(directory):
         src = rasterio.open(filename)
 
 
-# Sample the raster at every point location and store values in DataFrame
+        # Sample the raster at every point location and store values in DataFrame
         data_2['Raster Value'] = [x for x in src.sample(data_2["Coordinates"])]
 
-# write dataframe to csv
-        data_2.to_csv('{}.csv' .format(filename), index=False)
+        # write dataframe to csv
+        save_path = r'1.Data'
+        data_2.to_csv.to_csv(f'{save_path}/{filename}.csv', index=False)
 
 
 

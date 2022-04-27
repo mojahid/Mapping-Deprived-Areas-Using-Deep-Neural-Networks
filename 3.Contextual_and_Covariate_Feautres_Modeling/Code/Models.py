@@ -8,7 +8,6 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import confusion_matrix
-from joblib import dump, load
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
@@ -21,7 +20,7 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
 
     if dataset == 'contextual': 
         # Read in dataframe and remove merged columns
-        df = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search\Contextual_data.csv')
+        df = pd.read_csv(r'1.Data/Contextual_Features.csv')
         df = df.drop(columns=['long', 'lat', 'Point'])
         cols_to_move = ['Label']
         df = df[cols_to_move + [col for col in df.columns if col not in cols_to_move]]
@@ -33,7 +32,7 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
 
     elif dataset == 'covariate':
         # Read in dataframe and remove merged columns
-        df = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search\Covariates_w_names.csv')
+        df = pd.read_csv(r'1.Data/Covariate_Features.csv')
         df.drop(['long', 'lat'], axis=1, inplace=True)
         df.dropna(inplace=True)
         cols_to_move = ['Label']
@@ -60,9 +59,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'ADA_Features': # PCA feature selection
 
         if dataset == 'contextual':
-            ada_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_best_ada_boosting_features_0_1.csv')
+            ada_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Contextual/Contextual_best_ada_boosting_features_0_1.csv')
         else:
-            ada_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_best_ada_boosting_features_0_1.csv')
+            ada_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Covariate/Covariate_best_ada_boosting_features_0_1.csv')
 
 
         ada = ['Label']
@@ -76,9 +75,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'Random_Forest_Features':  # Random Forest feature selection
 
         if dataset == 'contextual':
-            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_best_random_forest_features_0_1.csv')
+            rf_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Contextual/Contextual_best_random_forest_features_0_1.csv')
         else:
-            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_best_random_forest_features_0_1.csv')
+            rf_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Covariate/Covariate_best_random_forest_features_0_1.csv')
 
         rf = ['Label']
         for row in range(feature_count):
@@ -108,9 +107,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'Logistic_Features':  # Random Forest feature selection
 
         if dataset == 'contextual':
-            log_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_best_logistic_features_0_1.csv')
+            log_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Contextual/Contextual_best_gradient_boosting_features_0_1.csv')
         else:
-            log_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_best_logistic_features_0_1.csv')
+            log_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Covariate/Covariate_best_gradient_boosting_features_0_1.csv')
 
         log = ['Label']
         for row in range(feature_count):
@@ -124,9 +123,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'Minfo_Features':  # Random Forest feature selection
 
         if dataset == 'contextual':
-            minfo_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Contextual_features\Contextual_minfo_features_0_1.csv')
+            minfo_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Contextual/Contextual_minfo_features_0_1.csv')
         else:
-            minfo_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\feature_selection\Covariate_features\Covariate_minfo_features_0_1.csv')
+            minfo_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Covariate/Covariate_minfo_features_0_1.csv')
 
         minfo = ['Label']
         for row in range(feature_count):
@@ -150,19 +149,11 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     X_test = sc.transform(X_test)
     X_val = sc.transform(X_val)
 
-    # Save standard scalar
-    # directory path standard scarlar is saved in
-    directory = r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search'
-    # model filename
-    sc_filename = f'{dataset}_{feature_count}{features}_std_scalar.bin'
-    if not os.path.exists(directory + '\\' + sc_filename):
-        dump(sc, sc_filename, compress=True)
-
 
     # Model file saved and exists externally
 
     # directory path models are saved in
-    directory = r'C:\Users\brear\OneDrive\Desktop\Grad School\Data-Science-Capstone\Contextual_Feautres_Modeling\Code\Grid_Search'
+    directory = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
     # model filename
     filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
 
@@ -311,8 +302,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
             pickle.dump(clf, open(filename, 'wb'))
 
         # Load Model
+        stored_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
         filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
-        loaded_model = pickle.load(open(filename, 'rb'))
+        loaded_model = pickle.load(open(f'{stored_path}/{filename}', 'rb'))
 
         # Predict on validation set
         val_pred = loaded_model.predict(X_val)
@@ -336,8 +328,9 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     # Model already saved as external file
     else:
         # Load Model
+        stored_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
         filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
-        loaded_model = pickle.load(open(filename, 'rb'))
+        loaded_model = pickle.load(open(f'{stored_path}/{filename}', 'rb'))
 
         # Predict on validation set
         val_pred = loaded_model.predict(X_val)
@@ -362,4 +355,3 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
         return f1_micro_class0, f1_micro_class1, f1_macro
 
 
-run_model(dataset ='covariate', model='MLP', features='All_Features', feature_count=144, classes = 'classes_0&1')
