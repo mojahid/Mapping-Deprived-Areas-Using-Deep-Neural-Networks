@@ -135,7 +135,8 @@ def count_values_in_column(data,feature):
 
 
 # import data and clean it
-df = pd.read_csv('Covariate_Features.csv')
+df = pd.read_csv(r'1.Data/Covariate_Features.csv')
+#df = pd.read_csv('Covariate_Features.csv')
 df.drop(['long','lat','Coordinates','Transformed_Long','Transformed_Lat','new_long','new_lat','Raster Value'],axis=1,inplace=True)
 print('there are', df.shape[1], 'columns in the original dataframe')
 print('there are', df.shape[0],'values in the original dataframe')
@@ -244,6 +245,13 @@ df.dropna(inplace=True)
 df.drop([' ph_gdmhz_2005'], axis=1,inplace = True)
 
 print('there are ',df.shape[0],'rows of data after removing nan values')
+
+
+# In[109]:
+
+
+nan_values = pd.DataFrame(null_values.index,columns=['index_values'])
+nan_values.to_csv('covariate_null_values.csv',index=False)
 
 
 # In[9]:
@@ -404,10 +412,11 @@ X_train_scaled.head()
 
 # # Mutual Infomration Feature Selection 
 
-# In[22]:
+# In[92]:
 
 
 #run select k best
+np.random.seed(42)
 fs_fit_fscore = SelectKBest(mutual_info_classif,  k='all')
 fs_fit_fscore.fit_transform(X_train_scaled,y_train)
 fs_indicies_fscore = np.argsort(np.nan_to_num(fs_fit_fscore.scores_))[::-1][0:60]
@@ -423,7 +432,7 @@ m_info_0_1.head()
 # In[23]:
 
 
-m_info_0_1.to_csv(path_or_buf='Feature_Selection/Covariate_features/' + 'Covariate_minfo_features_0_1.csv',index=False)
+m_info_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_minfo_features_0_1.csv',index=False)
 
 
 # In[24]:
@@ -625,7 +634,7 @@ df_fi_rfc_0_1 = df_fi_rfc_0_1.sort_values(ascending=False, by='Importance').rese
 df_fi_rfc_0_1.head()
 
 #save results as csv
-df_fi_rfc_0_1.to_csv(path_or_buf='Feature_Selection/Covariate_features/' + 'Covariate_best_random_forest_features_0_1.csv',index=False)
+df_fi_rfc_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_random_forest_features_0_1.csv',index=False)
 
 
 # In[35]:
@@ -848,7 +857,7 @@ plt.show()
 
 
 #save best logistic features in csv file
-best_log.to_csv(path_or_buf='Feature_Selection/Covariate_features/' + 'Covariate_best_logistic_features_0_1.csv',index=False)
+best_log.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_logistic_features_0_1.csv',index=False)
 
 
 # # Gradient Boosting with Testing Data
@@ -1025,7 +1034,7 @@ df_fi_gb_0_1 = pd.DataFrame(np.hstack((np.setdiff1d(X.columns, [target]).reshape
 df_fi_gb_0_1 = df_fi_gb_0_1.sort_values(ascending=False, by='Importance').reset_index(drop=True)
 
 #save results as csv
-df_fi_gb_0_1.to_csv(path_or_buf='Feature_Selection/Covariate_features/' + 'Covariate_best_gradient_boosting_features_0_1.csv',index=False)
+df_fi_gb_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_gradient_boosting_features_0_1.csv',index=False)
 
 
 # # Gradient Boosting Feature Importance
@@ -1221,7 +1230,7 @@ df_fi_ad_0_1 = df_fi_ad_0_1.sort_values(ascending=False, by='Importance').reset_
 df_fi_ad_0_1.head()
 
 #save results as csv
-df_fi_ad_0_1.to_csv(path_or_buf='Feature_Selection/Covariate_features/' + 'Covariate_best_ada_boosting_features_0_1.csv',index=False)
+df_fi_ad_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_ada_boosting_features_0_1.csv',index=False)
 
 
 # In[68]:
@@ -1321,7 +1330,7 @@ best.head(60)
 
 
 # save file 
-best.to_csv(path_or_buf='Feature_Selection/Covariate_features/' + 'Covariate_Features_Ranking.csv',index=False)
+best.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_Features_Ranking.csv',index=False)
 
 
 # In[77]:
@@ -1332,6 +1341,12 @@ best['max'] = best[["top_logistic_0_1", "top_Random_Forest_0_1",
 best['min'] = best[["top_logistic_0_1", "top_Random_Forest_0_1",
                     "top_Gradient_Boosting_0_1","top_Ada_Boosting_0_1","minfo_0_1"]].min(axis=1)
 best.head(60)
+
+
+# In[110]:
+
+
+best[0:10]
 
 
 # In[ ]:

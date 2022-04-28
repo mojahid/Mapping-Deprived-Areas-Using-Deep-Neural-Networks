@@ -49,6 +49,7 @@ from sklearn.metrics import roc_auc_score,confusion_matrix, classification_repor
 warnings.filterwarnings('ignore')
 pd.set_option('display.max_columns', 90) # display all column of dataframe
 pd.set_option('display.max_row', 100)
+pd.set_option('display.max_colwidth', -1) 
 #-----------------------------------------------------------------------
 
 
@@ -134,7 +135,8 @@ def count_values_in_column(data,feature):
 
 
 # import data and clean it
-df = pd.read_csv('Contextual_Features.csv')
+df = pd.read_csv(r'1.Data/Contextual_Features.csv')
+#df = pd.read_csv('Contextual_Features.csv')
 df.drop(['long','lat','Point'],axis=1,inplace=True)
 print('there are ', df.shape[0],'values in the original dataframe')
 df.head()
@@ -321,10 +323,11 @@ X_train_scaled.head()
 
 # # Mutual Information Feature Selection
 
-# In[20]:
+# In[75]:
 
 
 #run select k best
+np.random.seed(42)
 fs_fit_fscore = SelectKBest(mutual_info_classif,  k='all')
 fs_fit_fscore.fit_transform(X_train_scaled,y_train)
 fs_indicies_fscore = np.argsort(np.nan_to_num(fs_fit_fscore.scores_))[::-1][0:144]
@@ -335,13 +338,17 @@ feature_importances_fscore
 data_tuples = list(zip(best_features_fscore, feature_importances_fscore))
 m_info_0_1 = pd.DataFrame(data_tuples,columns = ['Contextual_features','values'])
 
-m_info_0_1.shape
+m_info_0_1.head()
 
 
 # In[21]:
 
 
-m_info_0_1.to_csv(path_or_buf='feature_selection/Contextual_features/' + 'Contextual_minfo_features_0_1.csv',index=False)
+m_info_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_minfo_features_0_1.csv',index=False)
+
+
+
+
 
 
 # In[22]:
@@ -549,7 +556,7 @@ df_fi_rfc_0_1 = df_fi_rfc_0_1.sort_values(ascending=False, by='Importance').rese
 df_fi_rfc_0_1.head()
 
 #save results as csv
-df_fi_rfc_0_1.to_csv(path_or_buf='feature_selection/Contextual_features/' + 'Contextual_best_random_forest_features_0_1.csv',index=False)
+df_fi_rfc_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_random_forest_features_0_1.csv',index=False)
 
 
 # In[33]:
@@ -772,7 +779,7 @@ plt.show()
 
 
 #save best logistic features in csv file
-best_log.to_csv(path_or_buf='feature_selection/Contextual_features/' + 'Contextual_best_logistic_features_0_1.csv',index=False)
+best_log.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_logistic_features_0_1.csv',index=False)
 
 
 # # Gradient Boosting with Testing Data
@@ -952,7 +959,7 @@ df_fi_gb_0_1 = df_fi_gb_0_1.sort_values(ascending=False, by='Importance').reset_
 df_fi_gb_0_1.head()
 
 #save results as csv
-df_fi_gb_0_1.to_csv(path_or_buf='feature_selection/Contextual_features/' + 'Contextual_best_gradient_boosting_features_0_1.csv',index=False)
+df_fi_gb_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_gradient_boosting_features_0_1.csv',index=False)
 
 
 # In[55]:
@@ -1146,7 +1153,7 @@ df_fi_ad_0_1 = df_fi_ad_0_1.sort_values(ascending=False, by='Importance').reset_
 df_fi_ad_0_1.head()
 
 #save results as csv
-df_fi_ad_0_1.to_csv(path_or_buf='feature_selection/Contextual_features/' + 'Contextual_best_ada_boosting_features_0_1.csv',index=False)
+df_fi_ad_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_ada_boosting_features_0_1.csv',index=False)
 
 
 # In[66]:
@@ -1240,13 +1247,13 @@ best.tail(20)
 
 
 # save rank file
-best.to_csv(path_or_buf='feature_selection/Contextual_features/' + 'Contextual_Features_Ranking.csv',index=False)
+best.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_Features_Ranking.csv',index=False)
 
 
-# In[ ]:
+# In[74]:
 
 
-
+best.head()
 
 
 # In[ ]:
