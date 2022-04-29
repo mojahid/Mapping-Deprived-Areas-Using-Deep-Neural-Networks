@@ -24,19 +24,22 @@ Description of each file:
     
       * Contains all models to be run for analyzing the Contextual Features
     
-  7. Contextual_Ensemble_Model.py
+  5. Contextual_Ensemble_Model.py
 
       * Ensembles desired models for the contextual features dataset testing.
       * Stores model in Saved_Models directory 
     
-  5. Run_Models.py
+  6. Run_Models.py
    
       * Runs the file Models.py1. Covariate_Features_Importance_0_1.jpynb
      
-  6. Covariate_Feature_Importance_0_1.py
+  7. Covariate_Feature_Importance_0_1.py
      
      * .py version of jupyter notebook file
 
-  7. Covariate_Features_Importance_0_1.jpynb
+  8. Covariate_Features_Importance_0_1.jpynb
      
      * jupyter notebook of feature importance methodology on covariate features
+     
+9.  project_root:
+     * This python file contains the code to path throughout the project for all users, regardless of system used to operate the code.
