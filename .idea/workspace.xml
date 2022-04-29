@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b4a1fc77-34ee-4ea4-bef0-03055a2dd619" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/1.Data/project_root.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.Data_Processing/Contextual_Features_Processing/project_root.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.Data_Processing/Covariate_Features_Processing/project_root.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/project_root.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.Data_Processing/Contextual_Features_Processing/Contextual_Feature_Extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/2.Data_Processing/Contextual_Features_Processing/Contextual_Feature_Extraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.Data_Processing/Contextual_Features_Processing/Contextual_Feature_Merging.py" beforeDir="false" afterPath="$PROJECT_DIR$/2.Data_Processing/Contextual_Features_Processing/Contextual_Feature_Merging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.Data_Processing/Covariate_Features_Processing/covariate_extraction.py" beforeDir="false" afterPath="$PROJECT_DIR$/2.Data_Processing/Covariate_Features_Processing/covariate_extraction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Contextual_Ensemble_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Contextual_Ensemble_Model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Run_Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Run_Models.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="28MDNy6m0JwhO7bk5Aus97Z15Hr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/1.Data" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\1.Data" />
+      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\2.Data_Processing\Contextual_Features_Processing" />
+      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\2.Data_Processing\Covariate_Features_Processing" />
+      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Saved_Models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Code" />
+      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Contextual" />
+      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Covariate" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.delete">
+    <configuration name="Contextual_Ensemble_Model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Mapping-Deprived-Areas-Using-Deep-Neural-Networks" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Contextual_Ensemble_Model.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Run_Models" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Mapping-Deprived-Areas-Using-Deep-Neural-Networks" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Run_Models.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="delete" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Mapping-Deprived-Areas-Using-Deep-Neural-Networks" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/delete.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.delete" />
+        <item itemvalue="Python.Run_Models" />
+        <item itemvalue="Python.Contextual_Ensemble_Model" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <created>1651017525270</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1651017525270</updated>
+      <workItem from="1651017527282" duration="3686000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Oversample.coverage" NAME="Oversample Coverage Results" MODIFIED="1649802404625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$ConvertToPNG.coverage" NAME="ConvertToPNG Coverage Results" MODIFIED="1649803124422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN__1_.coverage" NAME="Modeling_CNN (1) Coverage Results" MODIFIED="1649660109429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$autoencoder_mlp.coverage" NAME="autoencoder_mlp Coverage Results" MODIFIED="1650167563037" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Raw_Images_Modeling/Code/MLP" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$scrap.coverage" NAME="scrap Coverage Results" MODIFIED="1646885245914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Modeling_CNN.coverage" NAME="Modeling_CNN Coverage Results" MODIFIED="1649696857211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+    <SUITE FILE_PATH="coverage/Mapping_Deprived_Areas_Using_Deep_Neural_Networks$Contextual_Ensemble_Model.coverage" NAME="Contextual_Ensemble_Model Coverage Results" MODIFIED="1651189646691" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Rolling.coverage" NAME="Image_Rolling Coverage Results" MODIFIED="1649796727686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Deep_Learning_Models.coverage" NAME="Deep_Learning_Models Coverage Results" MODIFIED="1646085154074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$merge_scrap.coverage" NAME="merge_scrap Coverage Results" MODIFIED="1650314529332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Contextual_Features_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Oversample__1_.coverage" NAME="Oversample (1) Coverage Results" MODIFIED="1649803049653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Clipping_Images.coverage" NAME="Clipping_Images Coverage Results" MODIFIED="1649796373828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+    <SUITE FILE_PATH="coverage/Mapping_Deprived_Areas_Using_Deep_Neural_Networks$Run_Models.coverage" NAME="Run_Models Coverage Results" MODIFIED="1651190170765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Load_Test_Model_2.coverage" NAME="Load_Test_Model_2 Coverage Results" MODIFIED="1649704674102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Contextual_Feature_Merging.coverage" NAME="Contextual_Feature_Merging Coverage Results" MODIFIED="1650312149266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Contextual_Features_Processing" />
+    <SUITE FILE_PATH="coverage/Mapping_Deprived_Areas_Using_Deep_Neural_Networks$delete.coverage" NAME="delete Coverage Results" MODIFIED="1651194469458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$ConvertToPNG__1_.coverage" NAME="ConvertToPNG (1) Coverage Results" MODIFIED="1649802709217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Data-Science-Capstone" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Extract_Coordinates.coverage" NAME="Extract_Coordinates Coverage Results" MODIFIED="1649795421334" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing" />
+    <SUITE FILE_PATH="coverage/Mapping_Deprived_Areas_Using_Deep_Neural_Networks$Models.coverage" NAME="Models Coverage Results" MODIFIED="1651107898347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$MLP_Grid.coverage" NAME="MLP_Grid Coverage Results" MODIFIED="1646885395773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Contextual_Feautres_Modeling/Grid_Search" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Contextual_Feature_Extraction.coverage" NAME="Contextual_Feature_Extraction Coverage Results" MODIFIED="1650207810110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Contextual_Features_Processing" />
+    <SUITE FILE_PATH="coverage/Data_Science_Capstone$Image_Shifting.coverage" NAME="Image_Shifting Coverage Results" MODIFIED="1649797528270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_Processing/Raw_Images_Processing" />
+  </component>
+</project>

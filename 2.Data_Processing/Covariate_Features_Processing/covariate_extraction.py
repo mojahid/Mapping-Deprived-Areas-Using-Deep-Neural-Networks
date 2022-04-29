@@ -8,6 +8,9 @@ import pandas as pd
 from rasterio.plot import show, show_hist
 #from pyproj import Proj, transform
 
+from project_root import get_project_root
+root = get_project_root()
+
 ############################################# COVARIATE DATA EXTRACTION ############################################################
 
 
@@ -48,7 +51,7 @@ LABEL_PATH = r'lag_covariates_compilation.tif'
 # Using Coordinates from training data to extract all band values  rather than just reading file
 
 
-data_2= pd.read_csv("1.Data/coordinates.csv")
+data_2 = pd.read_csv(root / '1.Data' / 'coordinates.csv')
 
 data_2["Coordinates"] = [(x,y) for x, y in zip(data_2["long"], data_2["lat"])]
 src = rasterio.open(LABEL_PATH)
@@ -98,9 +101,6 @@ for z in range(61):
 data_2 = data_2.rename({"Data":"Label"}, axis=1)
 
 # write dataframe to csv
-save_path = r'1.Data'
 filename = 'Covariate_Features.csv'
-data_2.to_csv(f'{save_path}/{filename}', index=False)
-
-
+data_2.to_csv(root / '1.Data' / f'{filename}', index=False)
 

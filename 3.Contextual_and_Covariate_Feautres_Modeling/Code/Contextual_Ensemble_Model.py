@@ -14,12 +14,28 @@ import os
 import warnings
 warnings.filterwarnings("ignore")
 
+from project_root import get_project_root
+root = get_project_root()
+
+# parameters for file storage name
+dataset = 'contextual'
+model = 'Ensemble'
+feature_count = 144
+features = 'All_Features'
+classes = 'all_classes'
+
+if feature_count == 144:
+    feature_count = ''
+else:
+    feature_count = feature_count
+
+
 # data
-df = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\1.Data\Contextual_Features_final.csv')
+df = pd.read_csv(root / '1.Data' / 'Contextual_data.csv')
 df = df.drop(columns=['long', 'lat', 'Point'])
 cols_to_move = ['Label']
 df = df[cols_to_move + [col for col in df.columns if col not in cols_to_move]]
-df = df[df['Label'].isin([0, 1])]
+# df = df[df['Label'].isin([0, 1])]
 
 # Move Target to first column
 target = 'Label'
@@ -43,71 +59,56 @@ X_test = sc.transform(X_test)
 X_val = sc.transform(X_val)
 
 
-# Load Models
 
-# model 1
-stored_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
-filename = 'contextual_Gradient_Boosting_model_50ADA_Features_classes_0&1.sav'
-# loaded_model1 = pickle.load(open(f'{stored_path}/{filename}', 'rb'))
-loaded_model1 = pickle.load(open(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Saved_Models\contextual_Logistic_Regression_model_All_Features_classes_0&1.sav', 'rb'))
-
-lm1_pred = loaded_model1.predict(X_val)
-
-# model 2
-stored_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
-filename = 'contextual_Gradient_Boosting_model_50Gradient_Boosting_Features_classes_0&1.sav'
-# loaded_model2 = pickle.load(open(f'{stored_path}/{filename}', 'rb'))
-loaded_model2 = pickle.load(open(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Saved_Models\contextual_MLP_model_All_Features_classes_0&1.sav', 'rb'))
-
-
-lm2_pred = loaded_model2.predict(X_val)
-
-# model 3
-stored_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
-filename = 'contextual_Gradient_Boosting_model_50Minfo_Features_classes_0&1.sav'
-# loaded_model3 = pickle.load(open(f'{stored_path}/{filename}', 'rb'))
-loaded_model3 = pickle.load(open(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Saved_Models\contextual_Random_Forest_model_All_Features_classes_0&1.sav', 'rb'))
-
-
-lm3_pred = loaded_model3.predict(X_val)
-
-# model 4
-stored_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
-filename = 'contextual_Gradient_Boosting_model_All_Features_classes_0&1.sav'
-# loaded_model4 = pickle.load(open(f'{stored_path}/{filename}', 'rb'))
-loaded_model4 = pickle.load(open(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Saved_Models\contextual_Gradient_Boosting_model_All_Features_classes_0&1.sav', 'rb'))
-
-
-lm4_pred = loaded_model4.predict(X_val)
-
-# model 5
-stored_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
-filename = 'contextual_Random_Forest_model_50ADA_Features_classes_0&1.sav'
-# loaded_model5 = pickle.load(open(f'{stored_path}/{filename}', 'rb'))
-# loaded_model5 = pickle.load(open(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Saved_Models\contextual_Random_Forest_model_50ADA_Features_classes_0&1.sav', 'rb'))
-loaded_model5 = GaussianNB()
-
-loaded_model5.fit(X_train, y_train)
-lm5_pred = loaded_model5.predict(X_val)
-
-data = {'Model1_pred1': lm1_pred,
-        'Model1_pred2': lm2_pred,
-        'Model1_pred3': lm3_pred,
-        'Model1_pred4': lm4_pred,
-        'Model1_pred5': lm5_pred}
-df_pred = pd.DataFrame(data)
-df_pred['Vote'] = df_pred.mean(axis=1).round(0)
-
-
-clf1 = LogisticRegression(multi_class='multinomial', random_state=1)
-clf2 = RandomForestClassifier(n_estimators=50, random_state=1)
-clf3 = GradientBoostingClassifier()
-clf4 = GaussianNB()
-clf5 = MLPClassifier()
+# models for ensembling
+clf1 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
+clf2 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
+clf3 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
+clf4 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
+clf5 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
+clf6 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
+clf7 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
+clf8 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
+clf9 = MLPClassifier(hidden_layer_sizes = (100, 100, 100),
+                     activation = 'tanh',
+                     solver = 'adam',
+                     alpha = 0.001,
+                     learning_rate = 'invscaling')
 
 # ensemble models
-eclf1 = VotingClassifier(estimators=[('model1', loaded_model1), ('model2', loaded_model2), ('model3', loaded_model3), ('model4', loaded_model4), ('model5', loaded_model5)], voting='hard')
-# eclf1 = VotingClassifier(estimators=[('lr', clf1), ('rf', clf2), ('gb', clf3), ('gnb', clf4), ('mlp', clf5)], voting='hard')
+eclf1 = VotingClassifier(estimators=[('mlp1', clf1), ('mlp2', clf2), ('mlp3', clf3), ('mlp4', clf4), ('mlp5', clf5), ('mlp6', clf6), ('mlp7', clf7), ('mlp8', clf8), ('mlp9', clf9)], voting='hard')
 
 # Fit model
 eclf1.fit(X_train, y_train)
@@ -122,7 +123,7 @@ print(classification_report(y_val, val_pred))
 cf_matrix = confusion_matrix(y_val, val_pred)
 print(cf_matrix)
 sns.heatmap(cf_matrix, annot=True, fmt="d")
-plt.title(f'Confusion Matrix - Contextual Ensemble Model')
+plt.title(f'Contextual {model} Model - {feature_count}{features}, {classes}')
 plt.show()
 
 # f1 scores for comparison table output
@@ -130,19 +131,6 @@ f1_micro_class0 = f1_score(y_val, val_pred, average=None)[0]
 f1_micro_class1 = f1_score(y_val, val_pred, average=None)[1]
 f1_macro = f1_score(y_val, val_pred, average='macro')
 
-val_pred = df_pred['Vote']
-print(f"Validation Results Using Ensembled Contextual Models: \n")
-print("Classification Report: ")
-print(classification_report(y_val, val_pred))
-cf_matrix = confusion_matrix(y_val, val_pred)
-print(cf_matrix)
-sns.heatmap(cf_matrix, annot=True, fmt="d")
-plt.title(f'Confusion Matrix - Contextual Ensemble Model')
-plt.show()
-
-# f1 scores for comparison table output
-f1_micro_class0 = f1_score(y_val, val_pred, average=None)[0]
-f1_micro_class1 = f1_score(y_val, val_pred, average=None)[1]
-f1_macro = f1_score(y_val, val_pred, average='macro')
-
-
+# Save model
+filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
+pickle.dump(eclf1, open(root / '1.Data' / filename, 'wb'))

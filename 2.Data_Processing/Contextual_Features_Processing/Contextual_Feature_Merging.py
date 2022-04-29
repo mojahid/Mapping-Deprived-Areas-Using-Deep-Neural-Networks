@@ -3,6 +3,9 @@ import os
 import warnings
 warnings.filterwarnings('ignore')
 
+from project_root import get_project_root
+root = get_project_root()
+
 ######################################### CONTEXTUAL FEATURES MERGING############################################
 
 
@@ -10,7 +13,7 @@ warnings.filterwarnings('ignore')
 
 
 # Read training file
-training_df= pd.read_csv("1.Data/coordinates.csv")
+training_df = pd.read_csv(root / '1.Data' / 'coordinates.csv')
 
 # Change Label column to "Label"
 training_df= training_df.rename({"Data":"Label"}, axis=1)
@@ -71,7 +74,5 @@ print(training_df)
 
 
 # write dataframe to csv
-save_path = r'1.Data'
 filename = 'Contextual_Features.csv'
-training_df.to_csv(f'{save_path}/{filename}', index=False)
-
+training_df.to_csv(root / '1.Data' / f'{filename}', index=False)
