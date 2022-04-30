@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b4a1fc77-34ee-4ea4-bef0-03055a2dd619" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.Data_Processing/Contextual_Features_Processing/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/2.Data_Processing/Contextual_Features_Processing/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.Data_Processing/Covariate_Features_Processing/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/2.Data_Processing/Covariate_Features_Processing/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Run_Models.py" beforeDir="false" afterPath="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Code/Run_Models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +33,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/1.Data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -46,10 +44,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Saved_Models" />
       <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\1.Data" />
       <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\2.Data_Processing\Contextual_Features_Processing" />
       <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\2.Data_Processing\Covariate_Features_Processing" />
-      <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Saved_Models" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\Code" />

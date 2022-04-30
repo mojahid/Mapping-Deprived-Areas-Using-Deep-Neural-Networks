@@ -4,6 +4,10 @@ import pandas as pd
 import os.path
 from Models import run_model
 
+from project_root import get_project_root
+root = get_project_root()
+
+
 
 # all potential parameters for model testing
 datasets = ['contextual', 'covariate']
@@ -85,7 +89,5 @@ comparison_table = pd.DataFrame(data)
 print(comparison_table)
 
 # write dataframe to csv
-# save_path = r'3.Contextual_and_Covariate_Feautres_Modeling/Saved_Models'
-save_path = r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\1.Data'
 filename = 'Model_Results_Comparison_Table.csv'
-comparison_table.to_csv(f'{save_path}/{filename}', index=False)
+comparison_table.to_csv(root / '1.Data' / f'{filename}', index=False)
