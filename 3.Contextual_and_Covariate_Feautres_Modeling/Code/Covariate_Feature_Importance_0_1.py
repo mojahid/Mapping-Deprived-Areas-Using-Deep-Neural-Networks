@@ -14,6 +14,7 @@ import pandas as pd
 # https://matplotlib.org/
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.lines import Line2D 
 #https://seaborn.pydata.org/
 import seaborn as sns
 #-------------------------------------
@@ -35,6 +36,13 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import f_classif
 from sklearn.feature_selection import mutual_info_classif
+from scipy.stats import kstest
+import scipy.stats as stats
+
+#-----------------------------------------------------------------------
+# pathing
+from project_root import get_project_root
+root = get_project_root()
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
@@ -89,6 +97,16 @@ pd.set_option('display.max_colwidth', -1)
 #     
 #     * Comparing Features
 #     
+#     * Statistical Test
+#     
+#     * Chi Square test for cateogorical data
+#     
+#     * Kolmogorov–Smirnov Test for Normality
+#     
+#     * Leven Test for Equality of Variance 
+#     
+#     * Krskal-Wallis H-Test for non-parametric Version of ANOVA
+#     
 
 # # EDA 
 
@@ -135,8 +153,8 @@ def count_values_in_column(data,feature):
 
 
 # import data and clean it
-df = pd.read_csv(r'1.Data/Covariate_Features.csv')
-#df = pd.read_csv('Covariate_Features.csv')
+#df = pd.read_csv(root / '1.Data' / 'Covariate_Features.csv')
+df = pd.read_csv('Covariate_Features.csv')
 df.drop(['long','lat','Coordinates','Transformed_Long','Transformed_Lat','new_long','new_lat','Raster Value'],axis=1,inplace=True)
 print('there are', df.shape[1], 'columns in the original dataframe')
 print('there are', df.shape[0],'values in the original dataframe')
@@ -216,12 +234,20 @@ df.head()
 # In[6]:
 
 
+print(df.groupby('Label').mean()[' uu_bld_den_2020'])
+df.groupby('Label').mean()[' uu_bld_den_2020'].plot(kind='bar')
+plt.figure()
+
+
+# In[7]:
+
+
 # create pie chart data
 pie_data= count_values_in_column(df,"Label") # save data aS a dataframe
 count_values_in_column(df,"Label")
 
 
-# In[7]:
+# In[8]:
 
 
 plt.figure(figsize=(10,10))
@@ -233,7 +259,7 @@ plt.tight_layout()
 plt.show
 
 
-# In[8]:
+# In[9]:
 
 
 #checking NAN on Covariate data values
@@ -247,21 +273,21 @@ df.drop([' ph_gdmhz_2005'], axis=1,inplace = True)
 print('there are ',df.shape[0],'rows of data after removing nan values')
 
 
-# In[109]:
+# In[10]:
 
 
 nan_values = pd.DataFrame(null_values.index,columns=['index_values'])
 nan_values.to_csv('covariate_null_values.csv',index=False)
 
 
-# In[9]:
+# In[11]:
 
 
 pie_data= count_values_in_column(df,"Label") # save data aS a dataframe
 count_values_in_column(df,"Label")
 
 
-# In[10]:
+# In[12]:
 
 
 plt.figure(figsize=(10,10))
@@ -273,7 +299,7 @@ plt.tight_layout()
 plt.show
 
 
-# In[11]:
+# In[13]:
 
 
 #heat map on Covariate Features
@@ -284,21 +310,41 @@ plt.tight_layout()
 plt.show()
 
 
-# In[12]:
+# In[14]:
 
 
-
-#df.drop('Label',axis=1).corr()
 df.corr()
+
+
+# In[15]:
+
+
+# recognized values had high correlation with each other
+df[[' sh_pol_relev_ethnic_gr_2019',' uu_urb_bldg_2018']].corr()
+
+
+# In[16]:
+
+
+# decided to remove uu_urb_bld_2018 as it had a lower average correlation with values than did sh_pol_relev_ethnic_gr_2019
+ex = df.corr()
+print(ex[[' sh_pol_relev_ethnic_gr_2019',' uu_urb_bldg_2018']].mean())
+
+#df = df.drop(' uu_urb_bldg_2018', axis =1)
 df.shape
 
 
-# In[13]:
+# In[17]:
 
 
 # create dataframe 'df_corr' of all correlation values
 # correlation values on for 0 and 1
 df_corr =df[df['Label'].isin([0,1])]
+
+
+# In[18]:
+
+
 # remove 'label' column from correlation datafram
 df_corr = df_corr.drop('Label',axis=1)
 print(df_corr.shape)
@@ -315,7 +361,7 @@ print('the skew of the correlation coefficient values for covariate features is'
 corr.shape
 
 
-# In[14]:
+# In[19]:
 
 
 #created Histogram of Correlation Values
@@ -334,9 +380,34 @@ plt.tight_layout()
 plt.show()
 
 
+# In[20]:
+
+
+# created function that creates histogram of correlation coefficients of data
+def distribution_hist(data,title=''):
+        correlation = pd.DataFrame(data.corr().unstack().sort_values(ascending=False).reset_index())
+        corr = correlation.loc[lambda x : x['level_0'] != x['level_1']].reset_index(drop=True)
+        corr = corr.rename(columns={0: 'Correlation_Values'})
+        corr.sort_values(by = 'level_0',ascending=False).reset_index()
+        corr.drop_duplicates(subset='Correlation_Values',inplace=True)
+        print('the skew of the correlation coefficient values for covariate features is', corr.skew())
+        plt.figure(figsize= (15,10), facecolor='white')
+        plt.rcParams["figure.figsize"] = (20,15)
+        corr.plot(kind='hist',bins=15, color ='#ff5349')
+        plt.title('Distribution of Correlation Values ' + title,fontsize=30)
+        plt.xlabel('Correlation Coefficeint Values',fontsize=25)
+        plt.ylabel('Frequency',fontsize=25)
+        plt.xticks(fontsize=15)
+        plt.yticks(fontsize=15)
+        plt.grid(False)
+        plt.legend().remove()
+        plt.tight_layout()
+        plt.show()
+
+
 # # Splitting and standardizing data for analysis
 
-# In[15]:
+# In[21]:
 
 
 # Make directory to save results 
@@ -345,11 +416,16 @@ if not os.path.exists(directory):
     os.makedirs(directory)
 
 
-# In[16]:
+# In[22]:
 
 
 # select 0 and 1 classes
 df =df[df['Label'].isin([0,1])]
+
+
+# In[23]:
+
+
 X = df.drop('Label', axis=1)
 y = df['Label']
 # train, val, test split 60/20/20
@@ -357,7 +433,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.25, random_state=42) # 0.25 x 0.8 = 0.2
 
 
-# In[17]:
+# In[24]:
 
 
 # create pie chart data
@@ -365,7 +441,7 @@ pie_data= count_values_in_column(df,"Label") # save data aS a dataframe
 count_values_in_column(df,"Label")
 
 
-# In[18]:
+# In[25]:
 
 
 #created Pie chart after removing Not-Built-up areas
@@ -378,7 +454,7 @@ plt.tight_layout()
 plt.show
 
 
-# In[19]:
+# In[26]:
 
 
 # Standardize Features for training and test set
@@ -395,7 +471,7 @@ X_test = ss.fit_transform(X_test)
 X_test_scaled = pd.DataFrame(X_test, columns= X.columns)
 
 
-# In[20]:
+# In[27]:
 
 
 # Check shape of split data 
@@ -404,7 +480,7 @@ print('There are', X_val_scaled.shape[0], 'rows in the validation data')
 print('There are', X_test_scaled.shape[0], 'rows in the test data')
 
 
-# In[21]:
+# In[28]:
 
 
 X_train_scaled.head()
@@ -412,7 +488,7 @@ X_train_scaled.head()
 
 # # Mutual Infomration Feature Selection 
 
-# In[92]:
+# In[29]:
 
 
 #run select k best
@@ -429,13 +505,20 @@ m_info_0_1 = pd.DataFrame(data_tuples,columns = ['Covariate_features','values'])
 m_info_0_1.head()
 
 
-# In[23]:
+# In[30]:
 
 
-m_info_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_minfo_features_0_1.csv',index=False)
 
 
-# In[24]:
+filename = 'Covariate_minfo_features_0_1.csv'
+m_info_0_1.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate'/ f'{filename}', index=False)
+
+
+#m_info_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_minfo_features_0_1.csv',index=False)
+
+
+
+# In[31]:
 
 
 #Create a figure for Random Forest Feature Importance
@@ -460,7 +543,7 @@ plt.show()
 
 # # Random Forest Model with Test Data
 
-# In[25]:
+# In[32]:
 
 
 models = {'rfc': RandomForestClassifier( random_state=42)}
@@ -481,7 +564,7 @@ param_grids['rfc'] = [{'model__min_samples_split': min_samples_split_grids,
                        'model__min_samples_leaf': min_samples_leaf_grids}]
 
 
-# In[26]:
+# In[33]:
 
 
 # The list of [best_score_, best_params_, best_estimator_] obtained by GridSearchCV
@@ -524,13 +607,13 @@ best_score_params_estimator_gs = sorted(best_score_params_estimator_gs, key=lamb
 pd.DataFrame(best_score_params_estimator_gs, columns=['best_score', 'best_param', 'best_estimator'])
 
 
-# In[27]:
+# In[34]:
 
 
 best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
 
 
-# In[28]:
+# In[35]:
 
 
 # Predict using test data
@@ -544,7 +627,7 @@ precision, recall, fscore, support = precision_recall_fscore_support(y_test, y_t
 pd.DataFrame([[precision, recall, fscore]], columns=['Precision', 'Recall', 'F1-score'])
 
 
-# In[29]:
+# In[36]:
 
 
 # Plotting confusion matrix obtained from the testing data predictions
@@ -564,7 +647,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[30]:
+# In[37]:
 
 
 print('Random Forest Model with Test Data\n on Covariate Features Classification Report')
@@ -573,7 +656,7 @@ print(classification_report(y_test,y_test_pred))
 
 # # Random Forest Model with Validation Data
 
-# In[31]:
+# In[38]:
 
 
 # Predict using Validation data
@@ -587,7 +670,7 @@ precision, recall, fscore, support = precision_recall_fscore_support(y_val, y_va
 pd.DataFrame([[precision, recall, fscore]], columns=['Precision', 'Recall', 'F1-score'])
 
 
-# In[32]:
+# In[39]:
 
 
 # Plotting confusion matrix obtained from the testing data predictions
@@ -607,7 +690,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[33]:
+# In[40]:
 
 
 print('Random Forest Model with Validation Data\n on Covariate Features Classification Report')
@@ -616,7 +699,7 @@ print(classification_report(y_val,y_val_pred))
 
 # # Random Forest Feature Importance
 
-# In[34]:
+# In[41]:
 
 
 target="label"
@@ -634,10 +717,17 @@ df_fi_rfc_0_1 = df_fi_rfc_0_1.sort_values(ascending=False, by='Importance').rese
 df_fi_rfc_0_1.head()
 
 #save results as csv
-df_fi_rfc_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_random_forest_features_0_1.csv',index=False)
 
 
-# In[35]:
+filename = 'Covariate_best_random_forest_features_0_1.csv'
+df_fi_rfc_0_1.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate'/ f'{filename}', index=False)
+
+
+
+#df_fi_rfc_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_random_forest_features_0_1.csv',index=False)
+
+
+# In[42]:
 
 
 #Create a figure for Random Forest Feature Importance
@@ -662,7 +752,7 @@ plt.show()
 
 # # Logistic Model with Testing Data
 
-# In[36]:
+# In[43]:
 
 
 # Logistic model construction
@@ -687,7 +777,7 @@ param_grids['lr'] = [{'model__tol': tol_grid,
                       'model__C': C_grid}]
 
 
-# In[37]:
+# In[44]:
 
 
 # The list of [best_score_, best_params_, best_estimator_] obtained by GridSearchCV
@@ -730,7 +820,7 @@ best_score_params_estimator_gs = sorted(best_score_params_estimator_gs, key=lamb
 pd.DataFrame(best_score_params_estimator_gs, columns=['best_score', 'best_param', 'best_estimator'])
 
 
-# In[38]:
+# In[45]:
 
 
 best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
@@ -745,7 +835,7 @@ precision, recall, fscore, support = precision_recall_fscore_support(y_test, y_t
 pd.DataFrame([[precision, recall, fscore]], columns=['Precision', 'Recall', 'F1-score'])
 
 
-# In[39]:
+# In[46]:
 
 
 # Plotting confusion matrix obtained from the testing data predictions
@@ -764,7 +854,7 @@ plt.title('Logistic Model with Test Data\n on Covariate Features Confusion Matri
 plt.show()
 
 
-# In[40]:
+# In[47]:
 
 
 print('Logistic Model with Test Data\n on Covariate Features Classification Report') 
@@ -775,7 +865,7 @@ print(classification_report(y_test,y_test_pred))
 
 # # Logistic Model with Validation Data
 
-# In[41]:
+# In[48]:
 
 
 best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
@@ -790,7 +880,7 @@ precision, recall, fscore, support = precision_recall_fscore_support(y_val, y_va
 pd.DataFrame([[precision, recall, fscore]], columns=['Precision', 'Recall', 'F1-score'])
 
 
-# In[42]:
+# In[49]:
 
 
 # Plotting confusion matrix obtained from the testing data predictions
@@ -810,7 +900,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[43]:
+# In[50]:
 
 
 print('Logistic Model with Test Data\n on Covariate Features Classification Report')  
@@ -819,7 +909,7 @@ print(classification_report(y_val,y_val_pred))
 
 # # Logistic Feature Importance
 
-# In[44]:
+# In[51]:
 
 
 # Evaluate odds of each variable and sort by odds value
@@ -830,7 +920,7 @@ best_log.rename(columns={'index':'Covariate_features','odds':'values'},inplace=T
 best_log.head(10)
 
 
-# In[45]:
+# In[52]:
 
 
 #Create a figure
@@ -853,16 +943,21 @@ plt.tight_layout()
 plt.show()
 
 
-# In[46]:
+# In[53]:
 
 
 #save best logistic features in csv file
-best_log.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_logistic_features_0_1.csv',index=False)
+
+filename = 'Covariate_best_logistic_features_0_1.csv'
+best_log.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate'/ f'{filename}', index=False)
+
+
+#best_log.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_logistic_features_0_1.csv',index=False)
 
 
 # # Gradient Boosting with Testing Data
 
-# In[47]:
+# In[54]:
 
 
 # hyper parameters for testing
@@ -921,13 +1016,13 @@ best_score_params_estimator_gs = sorted(best_score_params_estimator_gs, key=lamb
 pd.DataFrame(best_score_params_estimator_gs, columns=['best_score', 'best_param', 'best_estimator'])
 
 
-# In[48]:
+# In[55]:
 
 
 best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
 
 
-# In[49]:
+# In[56]:
 
 
 #best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
@@ -942,7 +1037,7 @@ precision, recall, fscore, support = precision_recall_fscore_support(y_test, y_t
 pd.DataFrame([[precision, recall, fscore]], columns=['Precision', 'Recall', 'F1-score'])
 
 
-# In[50]:
+# In[57]:
 
 
 # Gradient Boosting Results
@@ -963,7 +1058,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[51]:
+# In[58]:
 
 
 print('Gradient Boosting Model with Testing Data\n on Covariate Features Classification Report') 
@@ -972,7 +1067,7 @@ print(classification_report(y_test,y_test_pred))
 
 # # Gradient Boosting with Validation Data
 
-# In[52]:
+# In[59]:
 
 
 best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
@@ -987,7 +1082,7 @@ precision, recall, fscore, support = precision_recall_fscore_support(y_val, y_va
 pd.DataFrame([[precision, recall, fscore]], columns=['Precision', 'Recall', 'F1-score'])
 
 
-# In[53]:
+# In[60]:
 
 
 # Gradient Boosting Results
@@ -1008,14 +1103,14 @@ plt.tight_layout()
 plt.show()
 
 
-# In[54]:
+# In[61]:
 
 
 print('Gradient Boosting Model with Validation Data\n on Covariate Features Classification Report') 
 print(classification_report(y_val,y_val_pred))
 
 
-# In[55]:
+# In[62]:
 
 
 target="label"
@@ -1027,19 +1122,25 @@ df_fi_gb_0_1 = pd.DataFrame(np.hstack((np.setdiff1d(X.columns, [target]).reshape
                          columns=['Features', 'Importance'])
 
 
-# In[56]:
+# In[63]:
 
 
 # Sort df_fi_rfc in descending order of the importance
 df_fi_gb_0_1 = df_fi_gb_0_1.sort_values(ascending=False, by='Importance').reset_index(drop=True)
 
 #save results as csv
-df_fi_gb_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_gradient_boosting_features_0_1.csv',index=False)
+
+filename = 'Covariate_best_gradient_boosting_features_0_1.csv'
+df_fi_gb_0_1.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate'/ f'{filename}', index=False)
+
+
+
+#df_fi_gb_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_gradient_boosting_features_0_1.csv',index=False)
 
 
 # # Gradient Boosting Feature Importance
 
-# In[57]:
+# In[64]:
 
 
 #Create a figure
@@ -1064,7 +1165,7 @@ plt.show()
 
 # # AdaBoosting on Testing Data
 
-# In[58]:
+# In[65]:
 
 
 # hyper parameters for testing
@@ -1116,13 +1217,13 @@ best_score_params_estimator_gs = sorted(best_score_params_estimator_gs, key=lamb
 pd.DataFrame(best_score_params_estimator_gs, columns=['best_score', 'best_param', 'best_estimator'])
 
 
-# In[59]:
+# In[66]:
 
 
 best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
 
 
-# In[60]:
+# In[67]:
 
 
 #best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
@@ -1137,7 +1238,7 @@ precision, recall, fscore, support = precision_recall_fscore_support(y_test, y_t
 pd.DataFrame([[precision, recall, fscore]], columns=['Precision', 'Recall', 'F1-score'])
 
 
-# In[61]:
+# In[68]:
 
 
 sns.set(style="white")
@@ -1156,7 +1257,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[62]:
+# In[69]:
 
 
 print('AdaBoost Model with Testing Data\n on Covariate Features Classification Report') 
@@ -1165,7 +1266,7 @@ print(classification_report(y_test,y_test_pred))
 
 # # AdaBoosting on Validation Data
 
-# In[63]:
+# In[70]:
 
 
 #best_score_gs, best_params_gs, best_estimator_gs = best_score_params_estimator_gs[0]
@@ -1180,7 +1281,7 @@ precision, recall, fscore, support = precision_recall_fscore_support(y_val, y_va
 pd.DataFrame([[precision, recall, fscore]], columns=['Precision', 'Recall', 'F1-score'])
 
 
-# In[64]:
+# In[71]:
 
 
 sns.set(style="white")
@@ -1199,7 +1300,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[65]:
+# In[72]:
 
 
 print('AdaBoost Model with Validation Data\n on Covariate Features Classification Report') 
@@ -1208,7 +1309,7 @@ print(classification_report(y_val,y_val_pred))
 
 # # AdaBoosting Feature Importance
 
-# In[66]:
+# In[73]:
 
 
 target="label"
@@ -1220,7 +1321,7 @@ df_fi_ad_0_1 = pd.DataFrame(np.hstack((np.setdiff1d(X.columns, [target]).reshape
                          columns=['Features', 'Importance'])
 
 
-# In[67]:
+# In[74]:
 
 
 # Sort df_fi_rfc in descending order of the importance
@@ -1230,10 +1331,16 @@ df_fi_ad_0_1 = df_fi_ad_0_1.sort_values(ascending=False, by='Importance').reset_
 df_fi_ad_0_1.head()
 
 #save results as csv
-df_fi_ad_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_ada_boosting_features_0_1.csv',index=False)
+
+filename = 'Covariate_best_ada_boosting_features_0_1.csv'
+df_fi_ad_0_1.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate'/ f'{filename}', index=False)
 
 
-# In[68]:
+
+#df_fi_ad_0_1.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_best_ada_boosting_features_0_1.csv',index=False)
+
+
+# In[75]:
 
 
 #Create a figure
@@ -1256,7 +1363,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[69]:
+# In[76]:
 
 
 df_fi_ad_0_1.head()
@@ -1264,7 +1371,7 @@ df_fi_ad_0_1.head()
 
 # # Comparing Feature Selections of Different Models
 
-# In[70]:
+# In[77]:
 
 
 # Random Forest feature importance two classes
@@ -1274,7 +1381,7 @@ df_fi_rfc_0_1['top_Random_Forest_0_1']= range(1,len(df_fi_rfc_0_1)+1)
 df_fi_rfc_0_1.head()
 
 
-# In[71]:
+# In[78]:
 
 
 # logisitc featue importance for two classes
@@ -1283,7 +1390,7 @@ best_log['top_logistic_0_1'] = range(1,len(best_log)+1)
 best_log.head()
 
 
-# In[72]:
+# In[79]:
 
 
 # Gradient Boosting feature importance for two classes
@@ -1293,7 +1400,7 @@ df_fi_gb_0_1['top_Gradient_Boosting_0_1']= range(1,len(df_fi_gb_0_1)+1)
 df_fi_gb_0_1.head()
 
 
-# In[73]:
+# In[80]:
 
 
 df_fi_ad_0_1 = df_fi_ad_0_1.rename(columns = {'Features':'Covariate_features','Importance':'values'})
@@ -1302,14 +1409,14 @@ df_fi_ad_0_1['top_Ada_Boosting_0_1']= range(1,len(df_fi_ad_0_1)+1)
 df_fi_ad_0_1.head()
 
 
-# In[74]:
+# In[81]:
 
 
 m_info_0_1['minfo_0_1'] = range(1,len(m_info_0_1)+1)
 m_info_0_1.head()
 
 
-# In[75]:
+# In[82]:
 
 
 #merge best features for all three methods 
@@ -1326,27 +1433,691 @@ del best['values']
 best.head(60)
 
 
-# In[76]:
+# In[83]:
 
 
 # save file 
-best.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_Features_Ranking.csv',index=False)
+
+filename = 'Covariate_Features_Ranking.csv'
+best.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate'/ f'{filename}', index=False)
 
 
-# In[77]:
+#best.to_csv(path_or_buf='feature_selection/Covariate/' + 'Covariate_Features_Ranking.csv',index=False)
 
 
-best['max'] = best[["top_logistic_0_1", "top_Random_Forest_0_1",
-                    "top_Gradient_Boosting_0_1","top_Ada_Boosting_0_1","minfo_0_1"]].max(axis=1)
-best['min'] = best[["top_logistic_0_1", "top_Random_Forest_0_1",
-                    "top_Gradient_Boosting_0_1","top_Ada_Boosting_0_1","minfo_0_1"]].min(axis=1)
-best.head(60)
+# # Statistical tests for confirm difference between Deprived and Built-up
+
+# # Chi Square test of Independence for Cateogircal features
+
+# In[84]:
+
+
+# introduced Chi Square test on six categorical variables to see if they were statistically significant 
+# in showing a difference between 'Deprived' and 'Built-up' areas
+
+
+# In[85]:
+
+
+# identified categorical features
+best_cat = best.set_index('Covariate_features')
+best_cat = best_cat.loc[[ ' fs_electric_dist_2020', ' ph_hzd_index_2011', ' ph_land_c1_2019',
+                        ' ph_land_c2_2020', ' sh_pol_relev_ethnic_gr_2019', ' uu_urb_bldg_2018']]
+best_cat
+
+
+# In[86]:
+
+
+#created dataframe for categorical features with Label data
+
+df_cat = df[['Label',' fs_electric_dist_2020',' ph_hzd_index_2011',' ph_land_c1_2019',
+                  ' ph_land_c2_2020', ' sh_pol_relev_ethnic_gr_2019',' uu_urb_bldg_2018']]
+
+
+# In[87]:
+
+
+# convert values to categorical
+df_cat['Label'] = pd.Categorical(df_cat['Label'])
+df_cat[' fs_electric_dist_2020'] = pd.Categorical(df_cat[' fs_electric_dist_2020'])
+df_cat[' ph_hzd_index_2011'] = pd.Categorical(df_cat[' ph_hzd_index_2011'])
+df_cat[' ph_land_c1_2019'] = pd.Categorical(df_cat[' ph_land_c1_2019'])
+df_cat[' ph_land_c2_2020'] = pd.Categorical(df_cat[' ph_land_c2_2020'])
+df_cat[' sh_pol_relev_ethnic_gr_2019'] = pd.Categorical(df_cat[' sh_pol_relev_ethnic_gr_2019'])
+df_cat[' uu_urb_bldg_2018'] = pd.Categorical(df_cat[' uu_urb_bldg_2018'])
+df_cat.info()
+
+
+# In[88]:
+
+
+df_cat.head()
+
+
+# In[89]:
+
+
+# run chi square test on categorical variables
+crosstab_1 = pd.crosstab(df_cat["Label"], df_cat[" fs_electric_dist_2020"], margins=True)
+c,p,dof, ex = stats.chi2_contingency(crosstab_1)
+
+print('chi2 statistic for fs_electric_dist_2020 was' , round(c,4))
+print('p-value for fs_electric_dist_2020 was' , round(p,4))
+print('The contingency table was\n ')
+
+#convert expected value to dataframe
+expected_1 = pd.DataFrame(ex)
+expected_1 = expected_1.iloc[:-1 , :-1]
+expected_1.rename(columns={0:'0_expected',1:'1_expected'},inplace=True)
+
+# clean up observed dataframe
+crosstab_1 = crosstab_1.iloc[:-1 , :-1]
+crosstab_1.rename(columns={0:'0_observed',1:'1_observed'},inplace=True)  
+crosstab_1
+
+#concatonate observed and expected tables
+table_1 = pd.concat([crosstab_1,expected_1], axis=1)
+table_1 = table_1.reindex(sorted(table_1.columns), axis=1)
+table_1
+
+
+# In[90]:
+
+
+table_1 = pd.concat([crosstab_1,expected_1], axis=1)
+table_1 = table_1.reindex(sorted(table_1.columns), axis=1)
+table_1
+
+
+# In[91]:
+
+
+# plot data for first 
+plt.figure()
+table_1.plot.bar(color = ['blue','red','blue','red','blue','red','blue','red'],xticks=[] ,rot= 90)
+plt.title('Bar Chart on fs_electric_dist_2020 Variable\n ',fontsize= 50)
+plt.ylabel('Count',fontsize= 40)
+plt.xticks([0, 1], ['Built-up', 'Deprived'], fontsize= 30,rotation=450)
+plt.yticks(fontsize=30)
+plt.xlabel('\nArea Descriptions', fontsize=40)
+plt.grid(False)
+colors = ['blue','red']
+lines = [Line2D([0], [0], color=c, linewidth=4) for c in colors]
+labels = ['Expected','Observed']
+plt.legend(lines,labels,prop={'size': 30})
+plt.tight_layout()
+plt.show()
+
+
+# In[92]:
+
+
+# run chi square test on categorical variables
+crosstab_2 = pd.crosstab(df_cat["Label"], df_cat[" ph_hzd_index_2011"], margins= True)
+c,p,dof,ex = stats.chi2_contingency(crosstab_2)
+print('chi2 statistic for ph_hzd_index_2011 was' , round(c,4))
+print('The contingency table is\n ', ex)
+print('p-value for ph_hzd_index_2011 was' , round(p,4))
+
+#convert expected value to dataframe
+expected_2 = pd.DataFrame(ex)
+expected_2 = expected_2.iloc[:-1 , :-1]
+expected_2.rename(columns={0:'0_expected',1:'1_expected', 2: '2_expected',
+                          3: '3_expected', 4:'4_expected',5:'5_expected'},inplace=True)
+expected_2
+
+
+# In[93]:
+
+
+# clean up observed dataframe
+crosstab_2 = crosstab_2.iloc[:-1 , :-1]
+crosstab_2.rename(columns={0:'0_observed',1:'1_observed', 2: '2_observed',
+                          3: '3_observed', 4:'4_observed',5:'5_observed'},inplace=True) 
+crosstab_2
+
+#concatonate observed and expected tables
+table_2 = pd.concat([crosstab_2,expected_2], axis=1)
+table_2 = table_2.reindex(sorted(table_2.columns), axis=1)
+table_2
+
+
+# In[94]:
+
+
+# plot data for first 
+plt.figure()
+table_2.plot.bar(color = ['blue','red','blue','red','blue','red','blue','red',
+                         'blue','red','blue','red'],xticks=[] ,rot= 90)
+plt.title('Bar Chart on ph_hzd_index_2011 Variable\n ',fontsize= 50)
+plt.ylabel('Count',fontsize= 40)
+plt.xticks(rotation=90)
+plt.xticks([0, 1], ['Built-up', 'Deprived'], fontsize= 30)
+plt.yticks(fontsize=30)
+plt.xlabel('\nArea Descriptions', fontsize=40)
+plt.grid(False)
+colors = ['blue','red']
+lines = [Line2D([0], [0], color=c, linewidth=4) for c in colors]
+labels = ['Expected','Observed']
+plt.legend(lines,labels,prop={'size': 30})
+plt.tight_layout()
+plt.show()
+
+
+# In[95]:
+
+
+crosstab_3 = pd.crosstab(df_cat["Label"], df_cat[" ph_land_c1_2019"], margins= True)
+c,p,dof,ex = stats.chi2_contingency(crosstab_3)
+print('chi2 statistic for ph_land_c1_2019 was' , round(c,4))
+print('The contingency table is\n ', ex)
+print('p-value for ph_land_c1_2019 was' , round(p,4))
+crosstab_3
+
+
+# In[96]:
+
+
+crosstab_3 = crosstab_3.iloc[:-1 , :-1]
+crosstab_3.rename(columns= {20:'20_observed',30:'30_observed',40:'40_observed',
+                           50:'50_observed',60:'60_observed',80:'80_observed',
+                           90:'90_observed',112:'112_observed',116:'116_observed',
+                           126:'126_observed',200:'200_observed'},inplace=True)
+crosstab_3
+
+
+# In[97]:
+
+
+#convert expected value to dataframe
+expected_3 = pd.DataFrame(ex)
+expected_3 = expected_3.iloc[:-1 , :-1]
+expected_3.rename(columns= {0:'20_expected',1:'30_expected',2:'40_expected',
+                           3:'50_expected',4:'60_expected',5:'80_expected',
+                           6:'90_expected',7:'112_expected',8:'116_expected',
+                           9:'126_expected',10:'200_expected'},inplace=True)
+expected_3
+
+
+# In[98]:
+
+
+#concatonate observed and expected tables
+table_3 = pd.concat([crosstab_3,expected_3], axis=1)
+#table_3 = table_3.reindex(sorted(table_3.columns), axis=1)
+table_3 = table_3[['20_expected','20_observed', '30_expected','30_observed','40_expected','40_observed',
+                  '50_expected','50_observed','60_expected','60_observed','80_expected','80_observed',
+                  '90_expected','90_observed','112_expected','112_observed','116_expected','116_observed',
+                  '126_expected','126_observed','200_expected','200_observed']]
+table_3
+
+
+# In[99]:
+
+
+# plot data for first 
+plt.figure()
+table_3.plot.bar(color = ['blue','red','blue','red','blue','red','blue','red',
+                         'blue','red','blue','red','blue','red','blue','red','blue','red','blue','red',
+                         'blue','red'],xticks=[] ,rot= 90)
+plt.title('Bar Chart on ph_land_c1_2019 Variable\n ',fontsize= 50)
+plt.ylabel('Count',fontsize= 40)
+plt.xticks([0, 1], ['Built-up', 'Deprived'], fontsize= 30)
+plt.yticks(fontsize=30)
+plt.xlabel('\nArea Descriptions', fontsize=40)
+plt.grid(False)
+colors = ['blue','red']
+lines = [Line2D([0], [0], color=c, linewidth=4) for c in colors]
+labels = ['Expected','Observed']
+plt.legend(lines,labels,prop={'size': 30})
+plt.tight_layout()
+plt.show()
+
+
+# In[100]:
+
+
+crosstab_4 = pd.crosstab(df_cat["Label"], df_cat[" ph_land_c2_2020"], margins= True)
+c,p,dof,ex = stats.chi2_contingency(crosstab_4)
+print('chi2 statistic for ph_land_c2_2020 was' , round(c,4))
+print('The contingency table is\n ', ex)
+print('p-value for ph_land_c2_2020 was' , round(p,4))
+crosstab_4
+
+
+# In[101]:
+
+
+crosstab_4 = crosstab_4.iloc[:-1 , :-1]
+crosstab_4.rename(columns= {10:'10_observed',20:'20_observed',30:'30_observed',
+                           40:'40_observed',50:'50_observed',60:'60_observed',
+                           80:'80_observed',255.0:'255_observed'},inplace=True)
+crosstab_4
+
+
+# In[102]:
+
+
+#convert expected value to dataframe
+expected_4 = pd.DataFrame(ex)
+expected_4 = expected_4.iloc[:-1 , :-1]
+expected_4.rename(columns= {0:'10_expected',1:'20_expected',2:'30_expected',
+                           3:'40_expected',4:'50_expected',5:'60_expected',
+                           6:'80_expected',7:'255_expected'},inplace=True)
+expected_4
+
+
+# In[103]:
+
+
+#concatonate observed and expected tables
+table_4 = pd.concat([crosstab_4,expected_4], axis=1)
+
+table_4 = table_4[['10_expected','10_observed', '20_expected','20_observed','30_expected','30_observed',
+                  '40_expected','40_observed','50_expected','50_observed','60_expected','60_observed',
+                  '80_expected','80_observed','255_expected','255_observed']]
+table_4
+
+
+# In[104]:
+
+
+# plot data for first 
+plt.figure()
+table_4.plot.bar(color = ['blue','red','blue','red','blue','red','blue','red',
+                         'blue','red','blue','red','blue','red','blue','red'],xticks=[] ,rot= 90)
+plt.title('Bar Chart on ph_land_c2_2020 Variable\n ',fontsize= 50)
+plt.ylabel('Count',fontsize= 40)
+plt.xticks([0, 1], ['Built-up', 'Deprived'], fontsize= 30)
+plt.yticks(fontsize=30)
+plt.xlabel('\nArea Descriptions', fontsize=40)
+plt.grid(False)
+colors = ['blue','red']
+lines = [Line2D([0], [0], color=c, linewidth=4) for c in colors]
+labels = ['Expected','Observed']
+plt.legend(lines,labels,prop={'size': 30})
+plt.tight_layout()
+plt.show()
+
+
+# In[105]:
+
+
+crosstab_5 = pd.crosstab(df_cat["Label"], df_cat[" sh_pol_relev_ethnic_gr_2019"], margins= True)
+c,p,dof,ex = stats.chi2_contingency(crosstab_5)
+print('chi2 statistic for sh_pol_relev_ethnic_gr_2019 was' , round(c,4))
+print('The contingency table is\n ', ex)
+print('p-value for sh_pol_relev_ethnic_gr_2019 was' , round(p,4))
+crosstab_5
+
+
+# In[106]:
+
+
+crosstab_5 = crosstab_5.iloc[:-1 , :-1]
+crosstab_5.rename(columns= {0:'0_observed',1:'1_observed'},inplace=True)
+crosstab_5
+
+
+# In[107]:
+
+
+#convert expected value to dataframe
+expected_5 = pd.DataFrame(ex)
+expected_5 = expected_5.iloc[:-1 , :-1]
+expected_5.rename(columns= {0:'0_expected',1:'1_expected'},inplace=True)
+expected_5
+
+
+# In[108]:
+
+
+#concatonate observed and expected tables
+table_5 = pd.concat([crosstab_5,expected_5], axis=1)
+
+table_5 = table_5[['0_expected','0_observed','1_expected','1_observed']]
+table_5
+
+
+# In[109]:
+
+
+# plot data for first 
+plt.figure()
+table_5.plot.bar(color = ['blue','red','blue','red','blue','red'],xticks=[] ,rot= 90)
+plt.title('Bar Chart on sh_pol_relev_ethnic_gr_2019 Variable\n ',fontsize= 50)
+plt.ylabel('Count',fontsize= 40)
+plt.xticks([0, 1], ['Built-up', 'Deprived'], fontsize= 30)
+plt.yticks(fontsize=30)
+plt.xlabel('\nArea Descriptions', fontsize=40)
+plt.grid(False)
+colors = ['blue','red']
+lines = [Line2D([0], [0], color=c, linewidth=4) for c in colors]
+labels = ['Expected','Observed']
+plt.legend(lines,labels,prop={'size': 30})
+plt.tight_layout()
+plt.show()
 
 
 # In[110]:
 
 
-best[0:10]
+crosstab_6 = pd.crosstab(df_cat["Label"], df_cat[" uu_urb_bldg_2018"], margins= True)
+c,p,dof,ex = stats.chi2_contingency(crosstab_6)
+print('chi2 statistic for uu_urb_bldg_2018 was' , round(c,4))
+print('The contingency table is\n ', ex)
+print('p-value for uu_urb_bldg_2018 was' , round(p,4))
+crosstab_6
+
+
+# In[111]:
+
+
+crosstab_6 = crosstab_6.iloc[:-1 , :-1]
+crosstab_6.rename(columns= {-1:'-1_observed',0:'0_observed',1:'1_observed'},inplace=True)
+crosstab_6
+
+
+# In[112]:
+
+
+#convert expected value to dataframe
+expected_6 = pd.DataFrame(ex)
+expected_6 = expected_6.iloc[:-1 , :-1]
+expected_6.rename(columns= {0:'-1_expected',1:'0_expected',2:'1_expected'},inplace=True)
+expected_6
+
+
+# In[113]:
+
+
+#concatonate observed and expected tables
+table_6 = pd.concat([crosstab_6,expected_6], axis=1)
+
+table_6 = table_6[['-1_expected','1_observed', '0_expected','0_observed','1_expected','1_observed']]
+table_6
+
+
+# In[118]:
+
+
+# plot data for first 
+plt.figure()
+table_6.plot.bar(color = ['blue','red','blue','red','blue','red'], xticks=[] ,rot= 90)
+plt.title('Bar Chart on uu_urb_bldg_2018 Variable\n ',fontsize= 50)
+plt.ylabel('Count',fontsize= 40)
+plt.xticks([0, 1], ['Built-up', 'Deprived'], fontsize= 30)
+plt.yticks(fontsize=30)
+plt.xlabel('\nArea Descriptions', fontsize=40)
+plt.grid(False)
+colors = ['blue','red']
+lines = [Line2D([0], [0], color=c, linewidth=4) for c in colors]
+labels = ['Expected','Observed']
+plt.legend(lines,labels,prop={'size': 30})
+plt.tight_layout()
+plt.show()
+
+
+# In[119]:
+
+
+df_cat.columns
+print(df_cat[' sh_pol_relev_ethnic_gr_2019'].value_counts())
+print(df_cat[' uu_urb_bldg_2018'].value_counts())
+df_cat[[' sh_pol_relev_ethnic_gr_2019',' uu_urb_bldg_2018']][300:310]
+
+
+# #  Kolmogorov–Smirnov - Test for Independence on Class 0 and 1 
+
+# used the Kolmogorov–Smirnov test to see if distribution of Covariate features follows normal distribution
+
+# In[120]:
+
+
+# independence test on continuous data
+df_continuous = df.loc[:, ~df.columns.isin([' fs_electric_dist_2020',' ph_hzd_index_2011',' ph_land_c1_2019',
+                  ' ph_land_c2_2020', ' sh_pol_relev_ethnic_gr_2019',' uu_urb_bldg_2018'])]
+df_continuous.head()
+
+
+# In[121]:
+
+
+deprived = df_continuous[df_continuous['Label']==1]
+deprived = deprived.drop('Label',axis=1)
+built_up = df_continuous[df_continuous['Label']==0]
+built_up = built_up.drop('Label',axis=1)
+
+
+# In[125]:
+
+
+# Check Normality of Covariate features for deprived area
+Norm= []
+Norm_col = []
+for col in deprived.columns: 
+    Norm_col.append(col)
+    Norm.append(kstest(deprived[col],'norm'))
+norm = pd.DataFrame (Norm, columns = ['Statistics','p-value'])
+norm_col= pd.DataFrame (Norm_col, columns = ['Covariate_features'])
+normal_check_deprived = norm_col.merge(norm, left_index=True, right_index=True)
+normal_check_deprived['p-value']= round(normal_check_deprived['p-value'],4)
+normal_check_deprived.head()
+
+
+# In[126]:
+
+
+# Check Normality of Built-up variable
+Norm= []
+Norm_col = []
+for col in built_up.columns: 
+    Norm_col.append(col)
+    Norm.append(kstest(built_up[col],'norm'))
+norm = pd.DataFrame (Norm, columns = ['Statistics','p-value'])
+norm_col= pd.DataFrame (Norm_col, columns = ['Covariate_features'])
+normal_check_built_up = norm_col.merge(norm, left_index=True, right_index=True)
+normal_check_built_up['p-value']= round(normal_check_built_up['p-value'],4)
+normal_check_built_up.head()
+
+
+# # Levene Test - Equal Variance Test for Class 0 and 1
+
+# Conducted levene test for equality of variance amongst the Covariate features to confirm assumption that there is a difference in variance between the deprived and built up areas
+
+# In[127]:
+
+
+# checking equality of variance 
+levene = []
+f_value = []
+p_value = []
+for col in df_continuous.columns[1:]:   
+    den = df_continuous[['Label',col]]
+    den_0 = den[den['Label']==0]
+    den_1 = den[den['Label']==1]
+    den_full = [den_0,den_1]
+    fvalue, pvalue = stats.levene(den_0[col], den_1[col])
+    levene.append(col)
+    f_value.append(fvalue)
+    p_value.append(pvalue)
+df_levene = pd.DataFrame({'Covariate_features': levene, 
+                   'fvalue': f_value,
+                    'p_value': p_value})
+df_levene['p_value'] = round(df_levene['p_value'],4)
+
+# compare ranks for levene score
+df_levene = df_levene.merge(best[['Covariate_features','rank']], on = 'Covariate_features')
+df_levene.p_value = round(df_levene.p_value,4)
+df_levene = df_levene.sort_values('rank').reset_index(drop=True)
+df_levene.head(60)
+
+
+# # Kruskal-Wallis H-Test 
+
+# In[128]:
+
+
+# create dataframe that runs Kruskal-Wallis H test test for each covariate feature on each value
+b = []
+f_value = []
+p_value = []
+for col in df_continuous.columns[1:]:   
+    den = df_continuous[['Label',col]]
+    den_0 = den[den['Label']==0]
+    den_1 = den[den['Label']==1]
+    den_full = [den_0,den_1]
+    fvalue, pvalue = stats.kruskal(den_0[col], den_1[col])
+    b.append(col)
+    f_value.append(fvalue)
+    p_value.append(pvalue)
+fd = pd.DataFrame({'Covariate_features': b, 
+                   'fvalue': f_value,
+                    'p_value': p_value})
+
+
+# In[129]:
+
+
+fd.p_value = round(fd.p_value,4)
+fd = fd.sort_values('p_value').reset_index(drop=True)
+fd.head(60)
+
+
+# In[130]:
+
+
+FD = fd.merge(best[['Covariate_features','rank']], on = 'Covariate_features')
+FD.p_value = round(FD.p_value,4)
+FD = FD.sort_values('rank').reset_index(drop=True)
+FD.head(60)
+
+
+# In[131]:
+
+
+#Create a figure
+fig = plt.figure(figsize=(15, 10))
+
+# Implement me
+# The bar plot of the top 5 feature importance
+plt.bar(FD['Covariate_features'], FD['p_value'], color='grey')
+
+# Set x-axis
+plt.title('Kruskal-Wallis p_value on Covariate Data for Classes 0 and 1', fontsize=30)
+plt.xlabel('Features',fontsize=20)
+plt.xticks(rotation=90)
+
+# Set y-axis
+plt.ylabel('p_value',fontsize=20)
+
+# Save and show the figure
+plt.tight_layout()
+plt.show()
+
+
+# In[132]:
+
+
+#FD['group'] = FD['1'].iloc
+FD.reset_index(inplace=True,drop=True)
+ex_1 = ['group_1']*27
+ex_2 = ['group_2']*28
+ex = ex_1 + ex_2
+
+ex = pd.DataFrame(ex,columns=['groups'])
+
+
+# In[133]:
+
+
+FD = FD.merge(ex, left_index= True, right_index= True)
+FD.head()
+
+
+# # Boxplot
+
+# In[134]:
+
+
+# created boxplots in this section for deprived and built up for selected covariate features
+
+
+# In[135]:
+
+
+def boxplot_graph(data, feature = ''):
+    den = data[['Label',feature]]
+    den_0 = den[den['Label']==0]
+    den_0.reset_index(inplace=True,drop=True)
+    den_1 = den[den['Label']==1]
+    den_1.reset_index(inplace=True,drop=True)
+    den_full = [den_0[feature],
+                den_1[feature]]
+
+    # stats f_oneway functions takes the groups as input and returns ANOVA F and p value
+    fvalue, pvalue = stats.kruskal(den_0[feature], den_1[feature])
+    print('the Kruskal-wallis test statistic is', round(fvalue,4), 'with a p-value of',round(pvalue,4))
+
+    plt.figure()
+    plt.boxplot(den_full)
+    plt.title('Box Plot on' +feature+ ' Variable\n ',fontsize= 60)
+    plt.ylabel('Count of Building Density',fontsize= 40)
+    plt.xticks([1, 2], ['Built-up', 'Deprived'], fontsize= 30)
+    plt.yticks(fontsize=30)
+    plt.xlabel('Area Descriptions', fontsize=40)
+    plt.grid(False)
+    plt.tight_layout()
+    plt.show()
+
+
+# In[136]:
+
+
+boxplot_graph(df,feature= ' ses_odef_2018')
+
+
+# In[137]:
+
+
+boxplot_graph(df,feature= ' uu_bld_den_2020')
+
+
+# In[138]:
+
+
+boxplot_graph(df,feature= ' ses_odef_2018')
+
+
+# In[139]:
+
+
+boxplot_graph(df,feature= ' ses_impr_water_src_2016')
+
+
+# In[140]:
+
+
+boxplot_graph(df,feature= ' ph_dist_aq_veg_2015')
+
+
+# In[141]:
+
+
+boxplot_graph(df,feature= ' ses_measles_2018')
+
+
+# In[142]:
+
+
+boxplot_graph(df,feature= ' uu_bld_count_2020')
+
+
+# In[143]:
+
+
+boxplot_graph(df,feature= ' fs_dist_well_2018')
 
 
 # In[ ]:

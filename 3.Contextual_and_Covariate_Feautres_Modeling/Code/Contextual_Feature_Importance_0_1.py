@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 # Data Manuiplation dependencies
@@ -14,6 +14,7 @@ import pandas as pd
 # https://matplotlib.org/
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.lines import Line2D 
 #https://seaborn.pydata.org/
 import seaborn as sns
 #-------------------------------------
@@ -35,6 +36,13 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import f_classif
 from sklearn.feature_selection import mutual_info_classif
+from scipy.stats import kstest
+import scipy.stats as stats
+
+#-----------------------------------------------------------------------
+# pathing
+from project_root import get_project_root
+root = get_project_root()
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
@@ -135,7 +143,10 @@ def count_values_in_column(data,feature):
 
 
 # import data and clean it
-df = pd.read_csv(r'1.Data/Contextual_Features.csv')
+
+df = pd.read_csv(root / '1.Data' / 'Contextual_Features_final.csv')
+
+
 #df = pd.read_csv('Contextual_Features.csv')
 df.drop(['long','lat','Point'],axis=1,inplace=True)
 print('there are ', df.shape[0],'values in the original dataframe')
@@ -323,7 +334,7 @@ X_train_scaled.head()
 
 # # Mutual Information Feature Selection
 
-# In[75]:
+# In[20]:
 
 
 #run select k best
@@ -344,7 +355,13 @@ m_info_0_1.head()
 # In[21]:
 
 
-m_info_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_minfo_features_0_1.csv',index=False)
+
+filename = 'Contextual_minfo_features_0_1.csv'
+m_info_0_1.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual'/ f'{filename}', index=False)
+
+
+
+#m_info_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_minfo_features_0_1.csv',index=False)
 
 
 
@@ -372,12 +389,6 @@ plt.grid(False)
 # Save and show the figure
 plt.tight_layout()
 plt.show()
-
-
-# In[ ]:
-
-
-
 
 
 # # Random Forest Model with Test Data
@@ -556,7 +567,12 @@ df_fi_rfc_0_1 = df_fi_rfc_0_1.sort_values(ascending=False, by='Importance').rese
 df_fi_rfc_0_1.head()
 
 #save results as csv
-df_fi_rfc_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_random_forest_features_0_1.csv',index=False)
+
+filename = 'Contextual_best_random_forest_features_0_1.csv'
+df_fi_rfc_0_1.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual'/ f'{filename}', index=False)
+
+
+#df_fi_rfc_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_random_forest_features_0_1.csv',index=False)
 
 
 # In[33]:
@@ -779,7 +795,12 @@ plt.show()
 
 
 #save best logistic features in csv file
-best_log.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_logistic_features_0_1.csv',index=False)
+
+filename = 'Contextual_best_logistic_features_0_1.csv'
+best_log.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual'/ f'{filename}', index=False)
+
+
+#best_log.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_logistic_features_0_1.csv',index=False)
 
 
 # # Gradient Boosting with Testing Data
@@ -959,7 +980,13 @@ df_fi_gb_0_1 = df_fi_gb_0_1.sort_values(ascending=False, by='Importance').reset_
 df_fi_gb_0_1.head()
 
 #save results as csv
-df_fi_gb_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_gradient_boosting_features_0_1.csv',index=False)
+
+filename = 'Contextual_best_gradient_boosting_features_0_1.csv'
+df_fi_gb_0_1.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual'/ f'{filename}', index=False)
+
+
+
+#df_fi_gb_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_gradient_boosting_features_0_1.csv',index=False)
 
 
 # In[55]:
@@ -1153,7 +1180,13 @@ df_fi_ad_0_1 = df_fi_ad_0_1.sort_values(ascending=False, by='Importance').reset_
 df_fi_ad_0_1.head()
 
 #save results as csv
-df_fi_ad_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_ada_boosting_features_0_1.csv',index=False)
+
+filename = 'Contextual_best_ada_boosting_features_0_1.csv'
+df_fi_ad_0_1.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual'/ f'{filename}', index=False)
+
+
+
+#df_fi_ad_0_1.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_best_ada_boosting_features_0_1.csv',index=False)
 
 
 # In[66]:
@@ -1240,20 +1273,25 @@ best['combined_rank'] = best['top_logistic_0_1'] + best['top_Random_Forest_0_1']
 best = best.sort_values(by= ['combined_rank'], ascending =True).reset_index(drop=True)
 best['rank']= range(1,len(best)+1)
 del best['values']
-best.tail(20)
+best.head(60)
 
 
 # In[73]:
 
 
 # save rank file
-best.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_Features_Ranking.csv',index=False)
+
+filename = 'Contextual_Features_Ranking.csv'
+best.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual'/ f'{filename}', index=False)
+
+
+#best.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_Features_Ranking.csv',index=False)
 
 
 # In[74]:
 
 
-best.head()
+best
 
 
 # In[ ]:

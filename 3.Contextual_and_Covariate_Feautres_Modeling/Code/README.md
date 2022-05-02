@@ -1,12 +1,4 @@
-# Contextual Feature Folder
-
-## Pipeline for Contextual Feature Importance
-<img width="628" alt="Contextual_diagram" src="https://user-images.githubusercontent.com/60163434/165119981-01fb84d6-42ea-40fc-b147-c45991ae2185.png">
-
-## Pipeline for Covariate Feature Importance
-<img width="625" alt="Covariate_diagram" src="https://user-images.githubusercontent.com/60163434/165120931-8a15a858-6812-43e5-9eb5-3d12d6ef5442.png">
-
-
+# Contextual and Covariate Feature Folder
 
 Description of each file:
   1. Contextual_Feature_Importance_0_1.jpynb
@@ -43,3 +35,13 @@ Description of each file:
      
 9.  project_root:
      * This python file contains the code to path throughout the project for all users, regardless of system used to operate the code.
+
+
+## Pipeline for Contextual Feature Importance
+<img width="628" alt="Contextual_diagram" src="https://user-images.githubusercontent.com/60163434/165119981-01fb84d6-42ea-40fc-b147-c45991ae2185.png">
+
+## Pipeline for Covariate Feature Importance
+<img width="625" alt="Covariate_diagram" src="https://user-images.githubusercontent.com/60163434/165120931-8a15a858-6812-43e5-9eb5-3d12d6ef5442.png">
+
+
+
