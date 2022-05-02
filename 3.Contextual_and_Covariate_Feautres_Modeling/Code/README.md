@@ -20,10 +20,11 @@ Description of each file:
 
       * Ensembles desired models for the contextual features dataset testing.
       * Stores model in Saved_Models directory 
+     * Run before 'Run_Model.py' to include in results output table.
     
   6. Run_Models.py
    
-      * Runs the file Models.py1. Covariate_Features_Importance_0_1.jpynb
+      * Runs the file Models.py1
      
   7. Covariate_Feature_Importance_0_1.py
      

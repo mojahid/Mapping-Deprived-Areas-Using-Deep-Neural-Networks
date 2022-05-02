@@ -17,7 +17,7 @@ features = ['All_Features', 'ADA_Features', 'Random_Forest_Features', 'Gradient_
 classes = ['all_classes', 'classes_0&1']
 
 # desired model parameter combinations
-datasets = ['contextual', 'covariate']
+datasets = ['covariate']
 models = ['MLP', 'Gradient_Boosting', 'Logistic_Regression', 'Random_Forest']
 features = ['All_Features', 'ADA_Features', 'Random_Forest_Features', 'Gradient_Boosting_Features', 'Logistic_Features', 'Minfo_Features']
 classes = ['all_classes', 'classes_0&1']
