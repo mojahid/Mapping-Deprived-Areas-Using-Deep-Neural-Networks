@@ -144,7 +144,7 @@ def count_values_in_column(data,feature):
 
 # import data and clean it
 
-df = pd.read_csv(root / '1.Data' / 'Contextual_Features_final.csv')
+df = pd.read_csv(root / '1.Data' / 'Contextual_Features.csv')
 
 
 #df = pd.read_csv('Contextual_Features.csv')
