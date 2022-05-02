@@ -3,7 +3,7 @@
 Description of each file:
   1. Contextual_Feature_Importance_0_1.jpynb
       
-      * This is a jupyter notebook that details each of EDA and feature importance analysis for Contextual Features
+      * This is a jupyter notebook that details EDA and feature importance analysis for Contextual Features
 
   2. Contextual_Feature_Importance_0_1.py
       * this is the .py version of the jupyter notebook file (Contextual_Feature_Importance_0_1.jpynb)
