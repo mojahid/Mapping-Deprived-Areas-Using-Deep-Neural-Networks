@@ -19,7 +19,7 @@ root = get_project_root()
 
 # The following code can generate 100 points from a given point
 # "data" dataframe contains the coordinates from the training data
-data = pd.read_csv(root / '1.Data' / 'coordinates.csv.csv')
+data = pd.read_csv(root / '1.Data' / 'coordinates.csv')
 
 
 # create a column and put coordinates in tuple, Shift center of the label to the top left coordinates.
