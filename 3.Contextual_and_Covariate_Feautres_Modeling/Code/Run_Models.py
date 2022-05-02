@@ -40,7 +40,7 @@ for dataset in datasets:
             elif feat == 'All_Features' and dataset == 'covariate':
                 feature_count = 60
             else:
-                feature_count = 2
+                feature_count = 50
             for class_count in classes:
                 stored_model_info = run_model(dataset=dataset,
                                               model=model,
