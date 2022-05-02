@@ -31,7 +31,7 @@ else:
 
 
 # data
-df = pd.read_csv(root / '1.Data' / 'Contextual_data.csv')
+df = pd.read_csv(root / '1.Data' / 'Contextual_Features.csv')
 df = df.drop(columns=['long', 'lat', 'Point'])
 cols_to_move = ['Label']
 df = df[cols_to_move + [col for col in df.columns if col not in cols_to_move]]
