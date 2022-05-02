@@ -8,7 +8,7 @@ from stat import S_ISDIR as isdir
 #define your parameters
 host_name='44.202.128.187'
 user_name='ubuntu'
-key_filename='/Users/dool/.ssh/World_Bank.pem'
+key_filename='/Users/mojahid/.ssh/World_Bank.pem'
 
 #change to correct folder if needed
 # for accra data change to this '/home/ubuntu/accra'
