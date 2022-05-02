@@ -17,10 +17,10 @@ features = ['All_Features', 'ADA_Features', 'Random_Forest_Features', 'Gradient_
 classes = ['all_classes', 'classes_0&1']
 
 # desired model parameter combinations
-datasets = ['contextual']
+datasets = ['contextual', 'covariate']
 models = ['MLP', 'Gradient_Boosting', 'Logistic_Regression', 'Random_Forest']
 features = ['All_Features', 'ADA_Features', 'Random_Forest_Features', 'Gradient_Boosting_Features', 'Logistic_Features', 'Minfo_Features']
-classes = ['all_classes']
+classes = ['all_classes', 'classes_0&1']
 
 dataset_list = []
 model_list = []
@@ -40,7 +40,7 @@ for dataset in datasets:
             elif feat == 'All_Features' and dataset == 'covariate':
                 feature_count = 60
             else:
-                feature_count = 50
+                feature_count = 2
             for class_count in classes:
                 stored_model_info = run_model(dataset=dataset,
                                               model=model,
