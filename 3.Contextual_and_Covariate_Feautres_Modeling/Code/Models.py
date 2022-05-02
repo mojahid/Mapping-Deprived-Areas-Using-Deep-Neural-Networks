@@ -62,12 +62,11 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'ADA_Features': # PCA feature selection
 
         if dataset == 'contextual':
-            # ada_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Contextual/Contextual_best_ada_boosting_features_0_1.csv')
-            ada_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Contextual\Contextual_best_ada_boosting_features_0_1.csv')
+            filename = 'Contextual_best_ada_boosting_features_0_1.csv'
+            ada_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling'/ 'feature_selection' / 'Contextual' / f'{filename}', index=False)
         else:
-            # ada_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Covariate/Covariate_best_ada_boosting_features_0_1.csv')
-            ada_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Covariate\Covariate_best_ada_boosting_features_0_1.csv')
-
+            filename = 'Covariate_best_ada_boosting_features_0_1.csv'
+            ada_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate' / f'{filename}',index=False)
 
         ada = ['Label']
         for row in range(feature_count):
@@ -80,11 +79,11 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'Random_Forest_Features':  # Random Forest feature selection
 
         if dataset == 'contextual':
-            # rf_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Contextual/Contextual_best_random_forest_features_0_1.csv')
-            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Contextual\Contextual_best_random_forest_features_0_1.csv')
+            filename = 'Contextual_best_random_forest_features_0_1.csv'
+            rf_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual' / f'{filename}',index=False)
         else:
-            # rf_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Covariate/Covariate_best_random_forest_features_0_1.csv')
-            rf_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Covariate\Covariate_best_random_forest_features_0_1.csv')
+            filename = 'Covariate_best_random_forest_features_0_1.csv'
+            rf_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate' / f'{filename}',index=False)
 
         rf = ['Label']
         for row in range(feature_count):
@@ -98,9 +97,11 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'Gradient_Boosting_Features':  # Random Forest feature selection
 
         if dataset == 'contextual':
-            gb_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Contextual\Contextual_best_gradient_boosting_features_0_1.csv')
+            filename = 'Contextual_best_gradient_boosting_features_0_1.csv'
+            gb_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual' / f'{filename}',index=False)
         else:
-            gb_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Covariate\Covariate_best_gradient_boosting_features_0_1.csv')
+            filename = 'Covariate_best_gradient_boosting_features_0_1.csv'
+            gb_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate' / f'{filename}',index=False)
 
         gb = ['Label']
         for row in range(feature_count):
@@ -114,11 +115,11 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'Logistic_Features':  # Random Forest feature selection
 
         if dataset == 'contextual':
-            # log_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Contextual/Contextual_best_gradient_boosting_features_0_1.csv')
-            log_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Contextual\Contextual_best_logistic_features_0_1.csv')
+            filename = 'Contextual_best_logistic_features_features_0_1.csv'
+            log_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual' / f'{filename}',index=False)
         else:
-            # log_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Covariate/Covariate_best_gradient_boosting_features_0_1.csv')
-            log_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Covariate\Covariate_best_logistic_features_0_1.csv')
+            filename = 'Covariate_best_logistic_features_features_0_1.csv'
+            log_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate' / f'{filename}',index=False)
 
         log = ['Label']
         for row in range(feature_count):
@@ -132,11 +133,11 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
     elif features == 'Minfo_Features':  # Random Forest feature selection
 
         if dataset == 'contextual':
-            # minfo_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Contextual/Contextual_minfo_features_0_1.csv')
-            minfo_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Contextual\Contextual_minfo_features_0_1.csv')
+            filename = 'Contextual_best_minfo_features_features_0_1.csv'
+            minfo_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Contextual' / f'{filename}',index=False)
         else:
-            # minfo_features = pd.read_csv(r'3.Contextual_and_Covariate_Feautres_Modeling/feature_selection/Covariate/Covariate_minfo_features_0_1.csv')
-            minfo_features = pd.read_csv(r'C:\Users\brear\OneDrive\Desktop\Grad School\Mapping-Deprived-Areas-Using-Deep-Neural-Networks\3.Contextual_and_Covariate_Feautres_Modeling\feature_selection\Covariate\Covariate_minfo_features_0_1.csv')
+            filename = 'Covariate_best_minfo_features_features_0_1.csv'
+            minfo_features = pd.read_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_selection' / 'Covariate' / f'{filename}',index=False)
 
         minfo = ['Label']
         for row in range(feature_count):
