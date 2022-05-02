@@ -15,12 +15,13 @@ models = ['MLP', 'Gradient_Boosting', 'Logistic_Regression', 'Random_Forest']
 features = ['All_Features', 'ADA_Features', 'Random_Forest_Features', 'Gradient_Boosting_Features', 'Logistic_Features', 'Minfo_Features']
 # feature_count = 2 #Any integer. Not required if using full feature set(use '' to remove count from titles)
 classes = ['all_classes', 'classes_0&1']
-
+'''
 # desired model parameter combinations
 datasets = ['covariate']
 models = ['MLP', 'Gradient_Boosting', 'Logistic_Regression', 'Random_Forest']
 features = ['All_Features', 'ADA_Features', 'Random_Forest_Features', 'Gradient_Boosting_Features', 'Logistic_Features', 'Minfo_Features']
 classes = ['all_classes', 'classes_0&1']
+'''
 
 dataset_list = []
 model_list = []
