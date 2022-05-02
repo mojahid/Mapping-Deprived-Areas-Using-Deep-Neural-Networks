@@ -154,6 +154,8 @@ def count_values_in_column(data,feature):
 # import data and clean it
 df = pd.read_csv(root / '1.Data' / 'Covariate_Features.csv')
 # df = pd.read_csv('Covariate_Features.csv')
+print(df.head())
+print(df.columns)
 df.drop(['long','lat','Coordinates','Transformed_Long','Transformed_Lat','new_long','new_lat','Raster Value'],axis=1,inplace=True)
 print('there are', df.shape[1], 'columns in the original dataframe')
 print('there are', df.shape[0],'values in the original dataframe')
