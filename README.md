@@ -35,13 +35,13 @@ The project is divided in several sub-streams where each is focused on certain a
         *  run Contextual_Feature_Extraction.py
         * Then run Contextual_Feature_Merging.py
             * This code extracts the contextual features that match with the labeled coordinates and merges them all into one csv file 
-    * In folder ‘3.Contextual_and_Covariate_Features_Modeling/Code/
+    * In folder ‘3.Contextual_and_Covariate_Features_Modeling/Code'
         * Run Contextual_Feature_Importance_0_1.py
             * This will run feature importance methods for the contextual features and store results in ‘3.Contextual_and_Covariate_Features_Modeling/feature_selection/Contextual’
   3. For Covariate Features
       * In folder ‘2.Data_processing/Covariate_Features_Processing’ run covariate_extraction.py
         * This code will process the covariate data into a csv
-      * In folder ‘3.Contextual_and_Covariate_Features_Modeling.py’  run Covariate_Feature_Importance_0_1.py
+      * In folder ‘3.Contextual_and_Covariate_Features_Modeling/Code'  run Covariate_Feature_Importance_0_1.py
         * This will run feature importance methods for the covariate features and store results in ‘3.Contextual_and_Covariate_Features_Modeling/feature_selection/Covariate’
   4. Run Contextual_Ensemble_Model.py
       * This file will run ensemble modeling for the contextual features
