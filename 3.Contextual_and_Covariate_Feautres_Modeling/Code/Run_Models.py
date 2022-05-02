@@ -35,8 +35,10 @@ macro_list = []
 for dataset in datasets:
     for model in models:
         for feat in features:
-            if feat == 'All_Features':
+            if feat == 'All_Features' and dataset == 'contextual':
                 feature_count = 144
+            elif feat == 'All_Features' and dataset == 'covariate':
+                feature_count = 60
             else:
                 feature_count = 50
             for class_count in classes:
