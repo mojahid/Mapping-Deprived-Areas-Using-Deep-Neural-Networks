@@ -48,7 +48,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
-from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.metrics import roc_auc_score,confusion_matrix, classification_report
@@ -153,8 +152,10 @@ def count_values_in_column(data,feature):
 
 
 # import data and clean it
-#df = pd.read_csv(root / '1.Data' / 'Covariate_Features.csv')
-df = pd.read_csv('Covariate_Features.csv')
+df = pd.read_csv(root / '1.Data' / 'Covariate_Features.csv')
+# df = pd.read_csv('Covariate_Features.csv')
+print(df.head())
+print(df.columns)
 df.drop(['long','lat','Coordinates','Transformed_Long','Transformed_Lat','new_long','new_lat','Raster Value'],axis=1,inplace=True)
 print('there are', df.shape[1], 'columns in the original dataframe')
 print('there are', df.shape[0],'values in the original dataframe')
@@ -228,7 +229,7 @@ df.rename(columns= {'Band_1': ' fs_dist_fs_2020',
 df.reset_index(inplace=True)
 del df['index']
 df.head()
-#df.to_csv('Covariates_w_names.csv',index=False)
+#df.to_csv('Covariate_Features.csv',index=False)
 
 
 # In[6]:
