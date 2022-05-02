@@ -3,6 +3,9 @@ import os
 import warnings
 warnings.filterwarnings('ignore')
 
+from project_root import get_project_root
+root = get_project_root()
+
 ######################################### CONTEXTUAL FEATURES MERGING############################################
 
 
@@ -10,7 +13,7 @@ warnings.filterwarnings('ignore')
 
 
 # Read training file
-training_df= pd.read_csv("coordinates.csv")
+training_df = pd.read_csv(root / '1.Data' / 'coordinates.csv')
 
 # Change Label column to "Label"
 training_df= training_df.rename({"Data":"Label"}, axis=1)
@@ -53,7 +56,7 @@ for file in os.listdir(directory):
         context_df['Raster Value'] = context_df['Raster Value'].str.strip('[]').astype(float)
         # Adds point number column
         context_df["Point"]= num_lst2
-        # Calculate Avergae for each point ( 100 contextual feature datapoints)
+        # Calculate Average for each point ( 100 contextual feature datapoints)
         context_df[filename]= context_df.groupby("Point")["Raster Value"].transform("mean")
         # Drop Duplicates since the avergae values is computed ( leaving dataframe row number equals to traininf_df)
         context_df= context_df.drop_duplicates("Point")
@@ -69,5 +72,7 @@ for file in os.listdir(directory):
 
 print(training_df)
 
-training_df.to_csv('Contextual_Features.csv' , index=False)
 
+# write dataframe to csv
+filename = 'Contextual_Features.csv'
+training_df.to_csv(root / '1.Data' / f'{filename}', index=False)

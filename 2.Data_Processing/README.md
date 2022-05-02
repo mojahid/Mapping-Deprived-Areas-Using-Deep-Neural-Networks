@@ -1,13 +1,13 @@
 
 # The data
 All data was collected with joint efforts led by [Idea Maps Network](https://ideamapsnetwork.org/lagos-aos/).  
-IdeaMaps network mapped 100x100 m2 areas to against the following three labels (across multiple major cities in Africa):  
+IdeaMaps network mapped 100x100 m2 areas to the following three labels (across multiple major cities in Africa):  
 1- Built-up areas with label 0  
 2- Deprived area with label 1  
 3 - Non-built-up area with label 2 
 
 
-For the raw image handing, the give data was two geoTiff files:  
+For the raw image handing, the given data was two geoTiff files:  
 1- Map image extracted from Google earth engine using [this branch of the project](https://github.com/arathinair11/Satellite-Imagery)  
 2- Labeled image that is mapping three labels:  
     2.1 - Built-up areas with label 0  
