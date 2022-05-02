@@ -46,5 +46,5 @@ The project is divided in several sub-streams where each is focused on certain a
   4. Run Contextual_Ensemble_Model.py
       * This file will run ensemble modeling for the contextual features
   5. RunModels.py
-      * This file will run modeling for both Contextual and Covariate Features
+      * This file will run modeling for both contextual and covariate features
 
