@@ -10,7 +10,7 @@ Description of each file:
 
   3. Contextual_Features_modeling_update.py
     
-      * This is additional analysis for contextual features
+      * This is additional analysis for contextual features that was not used in the final report
     
   4. Models.py
     
