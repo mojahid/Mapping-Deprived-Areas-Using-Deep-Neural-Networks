@@ -8,7 +8,8 @@ import os
 os.system("sudo pip install keras-tuner")
 from kerastuner import RandomSearch
 
-
+from project_root import get_project_root
+root = get_project_root()
 
 #os.system("sudo unzip Raw_Images.zip")
 #os.system("sudo unzip Google_Images.zip")
