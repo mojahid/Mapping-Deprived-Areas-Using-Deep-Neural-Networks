@@ -1,3 +1,3 @@
-# Contextual and Covariate Techincal report 
+# Technical Reports
 
-This folder contains the techinical report for the contextual and covariate feature importance and modeling
+This folder contains the techinical report for each subgroup.
