@@ -14,8 +14,8 @@ from kerastuner import RandomSearch
 #os.system("sudo unzip Google_Images.zip")
 
 
-#ata_dir = r"/home/ubuntu/cnn_2/Raw_Images/Train/png/"
-data_dir = r"/home/ubuntu/cnn_2/google/Google_Images/Train/png/"
+#data_dir = r"1.Data /cloud_images/png/train"
+data_dir = r"1.Data /raw_images/png/train"
 
 
 epochs = 100

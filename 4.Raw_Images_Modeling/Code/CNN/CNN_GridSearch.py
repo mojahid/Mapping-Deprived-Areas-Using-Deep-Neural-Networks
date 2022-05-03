@@ -106,7 +106,7 @@ def images(images_paths):
 
 #print(os.getcwd() )
 
-path=r"1.Data /raw_images/train/png/0/"
+path="1.Data /raw_images/png/train/0/"
 builtup_images_path_lst= image_path(path)
 #print(builtup_images_path_lst)
 builtup_input= images(builtup_images_path_lst)
@@ -116,7 +116,7 @@ builtup_label=np.zeros((len(builtup_input,)))
 #print(builtup_input.shape)
 #print(builtup_label.shape)
 
-path_2=r"1.Data /raw_images/train/png/1/"
+path_2="1.Data /raw_images/png/train/1/"
 deprived_images_path_lst= image_path(path_2)
 #print(deprived_images_path_lst)
 deprived_input= images(deprived_images_path_lst)
@@ -270,13 +270,13 @@ grid_search_results.best_estimator_.model.save("CNN_GridSearch_BESTMODEL.hdf5")
 #)
 ##################################################### MODEL TESTING####################################################################
 
-test_path=r"1.Data /raw_images/test/png/0/"
+test_path="1.Data /raw_images/png/test/0/"
 test_builtup_images_path_lst= image_path(test_path)
 #print(builtup_images_path_lst)
 test_builtup_input= images(test_builtup_images_path_lst)
 test_builtup_label=np.zeros((len(test_builtup_input,)))
 
-test_path_2=r"1.Data /raw_images/test/png/0/"
+test_path_2="1.Data /raw_images/png/test/1/"
 test_deprived_images_path_lst= image_path(test_path_2)
 #print(deprived_images_path_lst)
 test_deprived_input= images(test_deprived_images_path_lst)
