@@ -25,13 +25,14 @@ from sklearn.metrics import roc_auc_score,confusion_matrix, classification_repor
 
 import seaborn as sns
 
-
+from project_root import get_project_root
+root = get_project_root()
 
 
 
 #os.system("sudo unzip mixed.zip")
-os.system("sudo unzip OB.zip")
-os.system("sudo unzip raw.zip")
+#os.system("sudo unzip OB.zip")
+#os.system("sudo unzip raw.zip")
 
 #os.system("sudo unzip Train42_png.zip")
 
@@ -107,14 +108,14 @@ MODEL_SERIAL= "OB_dual"
 
 #print(os.getcwd() )
 
-data_dir = r"/home/ubuntu/model/"
+
 
 ############################################## MLP INPUT & VALIDATION DATA & TEST DATA #######################################################
 
 # MLP Training data
 
 # Read open building csv file
-open_building_train_data= pd.read_csv(data_dir + "OB_Coordinates_training.csv")
+open_building_train_data= pd.read_csv(root / '1.Data' /"Mixed_data"/ "OB_Coordinates_training.csv")
 
 # create dataframe for features
 features_df= open_building_train_data[["Mean_Area","Median_Area","Building_Count","Max_Area","Min_Area"]]
@@ -143,7 +144,7 @@ print("Shape of training label", y_train.shape)
 # MLP Validation data
 
 # Read open building csv file
-open_building_val_data= pd.read_csv(data_dir + "OB_Coordinates_validation.csv")
+open_building_val_data= pd.read_csv(root / '1.Data' /"Mixed_data"/ "OB_Coordinates_validation.csv")
 
 # create dataframe for features
 features_val_df= open_building_val_data[["Mean_Area","Median_Area","Building_Count","Max_Area","Min_Area"]]
@@ -171,7 +172,7 @@ print("Shape of Validation label", y_val.shape)
 
 # Testing data
 
-open_building_test_data= pd.read_csv(data_dir + "OB_Coordinates_test.csv")
+open_building_test_data= pd.read_csv(root / '1.Data' /"Mixed_data"/ "OB_Coordinates_test.csv")
 
 # create dataframe for features
 features_test_df= open_building_test_data[["Mean_Area","Median_Area","Building_Count","Max_Area","Min_Area"]]
@@ -199,7 +200,7 @@ print("Shape of testing label", y_test.shape)
 
 # Training images
 
-raw_path_train="/home/ubuntu/model/raw_train/"
+raw_path_train="1.Data/Mixed_data/raw_images/train"
 
 # Generate images path list
 raw_train_images_path_lst= image_path(raw_path_train)
@@ -216,7 +217,7 @@ print("Shape of Raw Images CNN Input data ", x_train_raw.shape)
 #------------------------------------------------------------------------------------------------------------------------
 # Validation images
 
-raw_path_val="/home/ubuntu/model/raw_validation/"
+raw_path_val="1.Data/Mixed_data/raw_images/validation"
 
 # Generate images path list
 raw_val_images_path_lst= image_path(raw_path_val)
@@ -235,7 +236,7 @@ print("Shape of Raw Images CNN Validation data ", x_val_raw.shape)
 # Testing images
 
 
-raw_path_test="/home/ubuntu/model/raw_images/test/"
+raw_path_test="1.Data/Mixed_data/raw_images/test"
 
 # Generate images path list
 raw_test_images_path_lst= image_path(raw_path_test)
@@ -253,7 +254,7 @@ print("Shape of Raw Images CNN test data ", x_test_raw.shape)
 
 # Training images
 
-OB_path_train="/home/ubuntu/model/ob_train/"
+OB_path_train="1.Data/Mixed_data/ob_images/train"
 
 # Generate images path list
 OB_train_images_path_lst= image_path(OB_path_train)
@@ -272,7 +273,7 @@ print("Shape of OB Images CNN Input data ", x_train_OB.shape)
 
 # Validation images
 
-OB_path_val="/home/ubuntu/model/ob_validation/"
+OB_path_val="1.Data/Mixed_data/ob_images/validation"
 
 # Generate images path list
 OB_val_images_path_lst= image_path(OB_path_val)
@@ -293,7 +294,7 @@ print("Shape of OB Images CNN Validation data ", x_val_OB.shape)
 # Testing images
 
 
-OB_path_test="/home/ubuntu/model/ordered_images/test/"
+OB_path_test="1.Data/Mixed_data/ob_images/test"
 
 # Generate images path list
 OB_test_images_path_lst= image_path(OB_path_test)

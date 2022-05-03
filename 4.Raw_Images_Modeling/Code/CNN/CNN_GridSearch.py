@@ -23,6 +23,8 @@ from sklearn.metrics import roc_auc_score,confusion_matrix, classification_repor
 
 import seaborn as sns
 
+from project_root import get_project_root
+root = get_project_root()
 
 
 
@@ -31,8 +33,7 @@ import seaborn as sns
 #os.system("sudo unzip Train42_png.zip")
 
 
-#ata_dir = r"/home/ubuntu/cnn_2/Raw_Images/Train/png/"N
-data_dir = r"/home/ubuntu/CNN_MODEL/png/"
+
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
@@ -104,7 +105,7 @@ def images(images_paths):
 
 #print(os.getcwd() )
 
-path="/home/ubuntu/CNN_MODEL/png/0/"
+path="1.Data /raw_images/png/train/0/"
 builtup_images_path_lst= image_path(path)
 #print(builtup_images_path_lst)
 builtup_input= images(builtup_images_path_lst)
@@ -114,7 +115,7 @@ builtup_label=np.zeros((len(builtup_input,)))
 #print(builtup_input.shape)
 #print(builtup_label.shape)
 
-path_2=r"/home/ubuntu/CNN_MODEL/png/1/"
+path_2="1.Data /raw_images/png/train/1/"
 deprived_images_path_lst= image_path(path_2)
 #print(deprived_images_path_lst)
 deprived_input= images(deprived_images_path_lst)
@@ -266,15 +267,15 @@ grid_search_results.best_estimator_.model.save("CNN_GridSearch_BESTMODEL.hdf5")
    # epochs = 100,
     #callbacks = [early_stop, check_point]
 #)
+##################################################### MODEL TESTING####################################################################
 
-
-test_path="/home/ubuntu/CNN_MODEL/testing/png/0/"
+test_path="1.Data /raw_images/png/test/0/"
 test_builtup_images_path_lst= image_path(test_path)
 #print(builtup_images_path_lst)
 test_builtup_input= images(test_builtup_images_path_lst)
 test_builtup_label=np.zeros((len(test_builtup_input,)))
 
-test_path_2=r"/home/ubuntu/CNN_MODEL/testing/png/1/"
+test_path_2="1.Data /raw_images/png/test/1/"
 test_deprived_images_path_lst= image_path(test_path_2)
 #print(deprived_images_path_lst)
 test_deprived_input= images(test_deprived_images_path_lst)
