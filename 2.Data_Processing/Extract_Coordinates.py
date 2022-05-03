@@ -15,7 +15,7 @@ from sklearn.model_selection import train_test_split
 BASE_PATH = r"1.Data"
 
 # update for lagos for default pathing------------------------------------------------------------------------------------
-LABEL_PATH = BASE_PATH + r'\training_data\acc_training_2021.tif'
+LABEL_PATH = BASE_PATH + r'\training_data\training_2021.tif'
 
 # Basic exploration and meta data
 mapData = rasterio.open(LABEL_PATH)
@@ -48,5 +48,5 @@ res = pd.read_csv(BASE_PATH + r"\coordinates.csv")
 # Split the data and reserve 20% as test that will never be used in the model training or validation
 # use stratify to main the distribution
 train, test = train_test_split(res, test_size = 0.2, stratify=res.Label, random_state=42)
-train.to_csv(BASE_PATH + r"\train_ac42.csv")
-test.to_csv(BASE_PATH + r"\test_ac42.csv")
+train.to_csv(BASE_PATH + r"\train_42.csv")
+test.to_csv(BASE_PATH + r"\test_42.csv")
