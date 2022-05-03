@@ -101,6 +101,10 @@ def run_model(dataset ='', model='', features='', feature_count=50, classes = ''
                            'Band_61': ' uu_urb_bldg_2018'}, inplace=True)
         df.reset_index(inplace=True)
         del df['index']
+
+        # removed Band 28 as there were nan values
+        df.drop([' ph_gdmhz_2005'], axis=1, inplace=True)
+
         cols_to_move = ['Label']
         df = df[cols_to_move + [col for col in df.columns if col not in cols_to_move]]
 
