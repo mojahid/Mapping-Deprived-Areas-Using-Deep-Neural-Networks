@@ -33,8 +33,7 @@ root = get_project_root()
 #os.system("sudo unzip Train42_png.zip")
 
 
-#ata_dir = r"/home/ubuntu/cnn_2/Raw_Images/Train/png/"N
-#data_dir = r"/home/ubuntu/CNN_MODEL/png/"
+
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
