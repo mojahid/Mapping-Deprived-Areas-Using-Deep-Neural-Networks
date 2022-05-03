@@ -74,25 +74,25 @@ data_2.to_csv(f'{save_path}/{filename}', index=False)
 raster_lst = data_2["Raster Value"].tolist()
 
 # Remove "[" characters and convert all values to float
-new_lst = []
-for z in raster_lst:
+#new_lst = []
+#for z in raster_lst:
 
-    new_str = ""
+    #new_str = ""
 
-    for i in range(len(z)):
-        if i != 0:
-            if i != (len(z) - 1):
-                new_str = new_str + z[i]
+    #for i in range(len(z)):
+        #if i != 0:
+            #if i != (len(z) - 1):
+                #new_str = new_str + z[i]
 
-    new_str = [float(i) for i in new_str.split()]
-    new_lst.append(new_str)
+    #new_str = [float(i) for i in new_str.split()]
+    #new_lst.append(new_str)
 
 # Extract each band value for all coordinates  and create a new column in dataframe
 # There are 61 bands
 x=0
 band_lst=[]
 for z in range(61):
-    for i in new_lst:
+    for i in raster_lst:
         band_lst.append(i[x])
     data_2["Band_{}".format(x+1)]=band_lst
     x +=1
