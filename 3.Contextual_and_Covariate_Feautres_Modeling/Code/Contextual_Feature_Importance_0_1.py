@@ -1288,13 +1288,7 @@ best.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_sel
 #best.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_Features_Ranking.csv',index=False)
 
 
-# In[74]:
 
-
-best
-
-
-# In[ ]:
 
 
 
