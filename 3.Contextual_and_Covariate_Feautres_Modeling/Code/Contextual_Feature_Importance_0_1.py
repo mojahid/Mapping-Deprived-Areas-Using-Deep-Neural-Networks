@@ -48,7 +48,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
-from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.metrics import roc_auc_score,confusion_matrix, classification_report
