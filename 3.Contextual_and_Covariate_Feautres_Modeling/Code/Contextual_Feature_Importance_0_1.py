@@ -48,7 +48,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
-from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.metrics import roc_auc_score,confusion_matrix, classification_report
@@ -1288,13 +1287,7 @@ best.to_csv(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'feature_sel
 #best.to_csv(path_or_buf='feature_selection/Contextual/' + 'Contextual_Features_Ranking.csv',index=False)
 
 
-# In[74]:
 
-
-best
-
-
-# In[ ]:
 
 
 
