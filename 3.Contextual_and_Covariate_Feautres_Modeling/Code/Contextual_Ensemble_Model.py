@@ -17,6 +17,11 @@ warnings.filterwarnings("ignore")
 from project_root import get_project_root
 root = get_project_root()
 
+pd.set_option('display.max_columns', 90) # display all column of dataframe
+pd.set_option('display.max_row', 100)
+pd.set_option('display.max_colwidth', -1)
+
+
 # parameters for file storage name
 dataset = 'contextual'
 model = 'Ensemble'
@@ -32,10 +37,10 @@ else:
 
 # data
 df = pd.read_csv(root / '1.Data' / 'Contextual_Features.csv')
-df = df.drop(columns=['long', 'lat', 'Point'])
+df = df.drop(columns=['long', 'lat', 'Point',])
 cols_to_move = ['Label']
 df = df[cols_to_move + [col for col in df.columns if col not in cols_to_move]]
-# df = df[df['Label'].isin([0, 1])]
+df = df[df['Label'].isin([0, 1])]
 
 # Move Target to first column
 target = 'Label'
@@ -51,13 +56,20 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.25,
                                                   random_state=42)  # 0.25 x 0.8 = 0.2
 
+
+'''
+df_new = df.drop('Label', axis=1)
+df_val = pd.DataFrame(X_val, columns=df_new.columns)
+df_val['Label'] = y_val
+print(df_val.columns)
+'''
+
 # Feature Scaling
 sc = StandardScaler()
 sc.fit(X_train)
 X_train = sc.transform(X_train)
 X_test = sc.transform(X_test)
 X_val = sc.transform(X_val)
-
 
 
 # models for ensembling
@@ -133,4 +145,55 @@ f1_macro = f1_score(y_val, val_pred, average='macro')
 
 # Save model
 filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
-pickle.dump(eclf1, open(root / '1.Data' / filename, 'wb'))
+pickle.dump(eclf1, open(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'Saved_Models' / filename, 'wb'))
+
+
+
+print('----------------X_val length--------------')
+print(len(X_val))
+'''
+# Load Model
+filename = f'{dataset}_{model}_model_{feature_count}{features}_{classes}.sav'
+loaded_model = pickle.load(open(root / '3.Contextual_and_Covariate_Feautres_Modeling' / 'Saved_Models' / f'{filename}', 'rb'))
+val_pred = loaded_model.predict(X_val)
+'''
+# export csv with prediction feature
+df = pd.read_csv(root / '1.Data' / 'Contextual_Features.csv')
+df = df[df['Label'].isin([0, 1])]
+# Move Target to first column
+target = 'Label'
+first_col = df.pop(target)
+df.insert(0, target, first_col)
+
+# set features and target
+X = df.values[:, 1:]
+y = df.values[:, 0]
+# train test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.25,
+                                                  random_state=42)  # 0.25 x 0.8 = 0.2
+
+print('----------------val_pred length--------------')
+print(len(val_pred))
+print('----------------X_val length--------------')
+print(len(X_val))
+
+
+df_new = pd.DataFrame(X_val, columns=df.columns[1:])
+print('---------------------------------val_pred-----------------------------')
+print(val_pred)
+data = {'Prediction': [val_pred]}
+df_pred = pd.DataFrame(data)
+df_pred.rename(columns={0:'Prediction'}, inplace=True)
+print('---------------------------------df_pred-----------------------------')
+print(df_pred['Prediction'])
+df_new['Prediction'] = val_pred
+print('---------------------------------df_final-----------------------------')
+print(df_new['Prediction'])
+df_final1 = pd.merge(df_new, df, how='left', on=['Point'], suffixes=('', '_y'))
+
+df_final2 = df_final1.iloc[:, :149]
+
+
+filename = 'Contextual_Ensemble_Predictions.csv'
+df_final2.to_csv(root / '1.Data' / f'{filename}', index=False)
