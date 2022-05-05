@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier, VotingClassifier, GradientBoostingClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
@@ -193,7 +194,11 @@ print(df_new['Prediction'])
 df_final1 = pd.merge(df_new, df, how='left', on=['Point'], suffixes=('', '_y'))
 
 df_final2 = df_final1.iloc[:, :149]
-
+df_final2 = df_final2[['long','lat','Prediction','Label']]
+df_final2['Prediction']= df_final2['Prediction'].astype(np.int64)
+df_final2['value'] = df_final2['Prediction'] == df_final2['Label']
+df_final2['value_check'] = df_final2['value'].astype(int)
+del df_final2['value']
 
 filename = 'Contextual_Ensemble_Predictions.csv'
 df_final2.to_csv(root / '1.Data' / f'{filename}', index=False)
