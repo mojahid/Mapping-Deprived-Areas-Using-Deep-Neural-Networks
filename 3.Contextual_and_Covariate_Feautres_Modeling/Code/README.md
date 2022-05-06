@@ -20,7 +20,8 @@ Description of each file:
 
       * Ensembles desired models for the contextual features dataset testing.
       * Stores model in Saved_Models directory 
-     * Run before 'Run_Model.py' to include in results output table.
+      * Run before 'Run_Model.py' to include in results output table.
+      * creates 'Contextual_Ensemble_Predictions.csv' which has the coordiantes for model predictions to be inputted into QGIS
     
   6. Run_Models.py
    
