@@ -11,31 +11,36 @@ Description of each file:
   3. Contextual_Features_modeling_update.py
     
       * This is additional analysis for contextual features that was not used in the final report
-    
-  4. Models.py
+  4. Covariate_Data_Plot.jpynb 
+      * creates a file 'Covariate_Predictions.csv' that is stored in the 1.Data folder of the coordinates for the MLP predictions on the Covariate data
+  
+  5. Covariate_Data_Plot.py
+      * Same thing as Covariate_Data_Plot.jpynb just in .py format
+
+  6. Models.py
     
       * Contains all models to be run for analyzing the Contextual Features
     
-  5. Contextual_Ensemble_Model.py
+  7. Contextual_Ensemble_Model.py
 
       * Ensembles desired models for the contextual features dataset testing.
       * Stores model in Saved_Models directory 
       * Run before 'Run_Model.py' to include in results output table.
       * creates 'Contextual_Ensemble_Predictions.csv' which has the coordiantes for model predictions to be inputted into QGIS
     
-  6. Run_Models.py
+  8. Run_Models.py
    
       * Runs the file Models.py1
      
-  7. Covariate_Feature_Importance_0_1.py
+  9. Covariate_Feature_Importance_0_1.py
      
      * .py version of jupyter notebook file
 
-  8. Covariate_Features_Importance_0_1.jpynb
+  10. Covariate_Features_Importance_0_1.jpynb
      
-     * jupyter notebook of feature importance methodology on covariate features
+    * jupyter notebook of feature importance methodology on covariate features
      
-9.  project_root:
+  11.  project_root:
      * This python file contains the code to path throughout the project for all users, regardless of system used to operate the code.
 
 
